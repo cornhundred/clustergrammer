@@ -22,7 +22,6 @@ const vectorizeText = require('vectorize-text')
 var zoom_rules = {};
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
-// zoom_rules['col-labels'] = require('./zoom_rules_general');
 
 d3 = require('d3');
 _ = require('underscore')
@@ -229,11 +228,10 @@ function run_viz(regl, assets){
   viz_dim.mat.y.max = viz_dim.canvas.height/2 + viz_dim.mat.height/2;
 
   // update zoom_data
-  zoom_rules_high_mat(regl, zoom_restrict_mat, zoom_data, 'mat', viz_dim);
+  zoom_rules_high_mat(regl, zoom_restrict_mat, zoom_data, viz_dim);
 
   var zoom_infos = {};
   zoom_infos['row-labels'] = zoom_rules['row-labels'](regl, zoom_restrict, 'row-labels');
-  // zoom_infos['col-labels'] = zoom_rules['col-labels'](regl, zoom_restrict, 'col-labels');
 
   var draw_labels = {};
   draw_labels['row'] = require('./draw_mat_labels')(regl, num_row, 'row');
@@ -258,24 +256,23 @@ function run_viz(regl, assets){
       yrange: [-ini_scale, ini_scale]
     },
     zoom_data,
-    'verbose'
+    'matrix'
   );
 
-  camera['row-labels'] = require('./camera_2d_general')(
-  // camera['row-labels'] = require('./camera_2d_mat')(
+  // camera['row-labels'] = require('./camera_2d_general')(
+  camera['row-labels'] = require('./camera_2d_mat')(
     regl,
     {
       xrange: [-ini_scale, ini_scale],
       yrange: [-ini_scale, ini_scale]
     },
-    zoom_infos['row-labels']
-    // zoom_data
+    zoom_data,
+    'row-labels'
   );
 
 
   window.addEventListener('resize', camera['mat'].resize);
   window.addEventListener('resize', camera['row-labels'].resize);
-  // window.addEventListener('resize', camera['col-labels'].resize);
 
   camera_type = 'mat'
   function draw_commands(){

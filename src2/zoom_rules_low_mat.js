@@ -1,9 +1,6 @@
 
-module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data, viz_dim_mat, viz_component, axis){
-
-  // if (axis === 'x'){
-  //   tick = tick + 1
-  // }
+module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
+                                             viz_dim_mat, axis){
 
   // make a copy of zoom_data for later use (not a reference)
   var zoom_data_copy = _.clone(zoom_data);
@@ -143,13 +140,7 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data, viz_dim_m
 
   var double_restrict = false;
   if (potential_total_pan_min > zero_threshold && potential_total_pan_max > zero_threshold ) {
-    // console.log('\n')
-    // console.log("********* ")
-    // console.log("********* ")
-    // console.log('both', tick)
-    // console.log("********* ")
-    // console.log("********* ")
-    // console.log('\n')
+
     double_restrict = true;
 
     has_been_both = true
@@ -167,10 +158,6 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data, viz_dim_m
   }
 
   if (potential_total_pan_min > zero_threshold) {
-
-    // if (axis ==='x'){
-    //   console.log('\nmin restrict', tick, fully_zoomed_out)
-    // }
 
     // push over by total_pan (negative value) times total zoom applied
     // need to push more when matrix has been effectively increased in size
@@ -203,10 +190,6 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data, viz_dim_m
   }
 
   if (potential_total_pan_max > zero_threshold) {
-
-    // if (axis === 'x'){
-    //   console.log('\nmax restrict', tick, fully_zoomed_out)
-    // }
 
     // zoom_data.pan_by_zoom = - inst_eff_zoom * zoom_data.cursor_position;
     // steps: 1) pin to max matrix, and 2) push left (negative) by total remaining pan
@@ -250,18 +233,12 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data, viz_dim_m
     // no need to push it to the edge since it was previously pushed to the edge
     if (zoom_data_copy.prev_restrict === 'min') {
 
-      // console.log('\n######################')
-      // console.log('### PINNING LEFT ####', tick)
-      // console.log('######################\n')
-
       zoom_data.pan_by_zoom = -inst_eff_zoom * viz_dim_mat.min;
+
     } else if (zoom_data_copy.prev_restrict === 'max'){
 
-      // console.log('\n######################')
-      // console.log('### PINNING RIGHT ####', tick)
-      // console.log('######################\n')
+      zoom_data.pan_by_zoom = -inst_eff_zoom * viz_dim_mat.max;
 
-      zoom_data.pan_by_zoom = -inst_eff_zoom * viz_dim_mat.max;zoom_data.total_zoom;
     }
 
   }
