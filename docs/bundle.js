@@ -841,6 +841,8 @@ module.exports = {
   1. resizing causes errors with tracking zooming/panning
   2. resizing does not immediately redraw figure
 
+
+
  */
 
 const regl = require('regl')({extensions: ['angle_instanced_arrays']})
@@ -882,7 +884,7 @@ require('resl')({
 
 // max ~200 min ~20
 var font_detail = 200;
-text_vect = vectorizeText('25K Rows', {
+text_vect = vectorizeText('Something', {
   textAlign: 'center',
   textBaseline: 'middle',
   triangles:true,
