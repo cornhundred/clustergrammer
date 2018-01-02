@@ -23,6 +23,8 @@ module.exports = function(regl, network, mat_data){
     usage: 'dynamic'
   })
 
+
+
   // flat_mat_data = _.each(flat_mat_data, function(d){
   //   return d/abs_max_val;
   // })
@@ -128,7 +130,7 @@ module.exports = function(regl, network, mat_data){
 
     // These three are instanced attributes.
     attribute vec3 color_att;
-    attribute vec2 inst_pos;
+    attribute vec2 pos_att;
     attribute float opacity_att;
     uniform mat4 zoom;
 
@@ -138,8 +140,8 @@ module.exports = function(regl, network, mat_data){
     void main() {
 
       gl_Position = zoom *
-                    vec4( position.x + inst_pos.x,
-                          position.y + inst_pos.y,
+                    vec4( position.x + pos_att.x,
+                          position.y + pos_att.y,
                           0,
                           1
                         );
@@ -174,8 +176,8 @@ module.exports = function(regl, network, mat_data){
     vert: vert_string,
     frag: frag_string,
     attributes: {
-      position: top_half,
-      inst_pos: {
+      position: '',
+      pos_att: {
         buffer: regl.buffer(pos_xy_array),
         divisor: 1
       },

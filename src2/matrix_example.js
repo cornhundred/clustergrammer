@@ -12,8 +12,6 @@
   1. resizing causes errors with tracking zooming/panning
   2. resizing does not immediately redraw figure
 
-
-
  */
 
 const regl = require('regl')({extensions: ['angle_instanced_arrays']})
@@ -270,7 +268,6 @@ function run_viz(regl, assets){
   camera['title'] = require('./camera_2d_mat')(
     regl, zoom_range, zoom_data, 'title'
   );
-
 
   window.addEventListener('resize', camera['mat'].resize);
   window.addEventListener('resize', camera['row-labels'].resize);
