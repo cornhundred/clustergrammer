@@ -16,13 +16,6 @@ module.exports = function(regl, network, mat_data){
     return context.view;
   }
 
-  // This buffer stores the opacities
-  const opacity_buffer = regl.buffer({
-    length: num_row * num_col * 2 ,
-    type: 'float',
-    usage: 'dynamic'
-  })
-
 
 
   // flat_mat_data = _.each(flat_mat_data, function(d){
@@ -42,6 +35,14 @@ module.exports = function(regl, network, mat_data){
   flat_mat_data = flat_mat_data.map(function(x) {
     return opacity_scale(x)
   });
+
+
+  // This buffer stores the opacities
+  const opacity_buffer = regl.buffer({
+    length: num_row * num_col * 2 ,
+    type: 'float',
+    usage: 'dynamic'
+  })
 
   // initialize buffer
   // can use mat_data or flat_mat_data
@@ -108,6 +109,11 @@ module.exports = function(regl, network, mat_data){
   pos_xy_array = Array(num_row * num_col)
             .fill()
             .map(pos_xy_function);
+
+
+  const position_buffer = regl.buffer(pos_xy_array);
+
+
 
   // bottom half
   var bottom_half = [
@@ -178,7 +184,7 @@ module.exports = function(regl, network, mat_data){
     attributes: {
       position: '',
       pos_att: {
-        buffer: regl.buffer(pos_xy_array),
+        buffer: position_buffer,
         divisor: 1
       },
       opacity_att: {
