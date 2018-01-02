@@ -47,16 +47,8 @@ module.exports = function zoom_rules_high_mat(regl, zoom_restrict, zoom_data, vi
       zoom_data.y.cursor_position = ev.y0;
 
       /*
-      There is a problem toggling X-zoom when zooming quickly
-      */
-
-      // var inst_zoom_ratio =
-
-
-      /*
       Zoom Switch only working for tall matrices not wide matrices
       */
-
 
       // set up two-stage zooming
       if (zoom_data.y.total_zoom < zoom_restrict.y.ratio){
@@ -76,35 +68,23 @@ module.exports = function zoom_rules_high_mat(regl, zoom_restrict, zoom_data, vi
 
           // console.log()
           // console.log('--------------------------')
+
+          // // checking total_zoom when
+          // console.log(
+          //   zoom_data.y.total_zoom,
+          //   zoom_data.x.total_zoom,
+          //   zoom_data.y.total_zoom / zoom_data.x.total_zoom
+          // )
+
         }
 
       }
 
-      // else {
+      zoom_data.x = zoom_rules_low_mat(zoom_restrict.x, zoom_data.x,
+        viz_dim.mat.x, viz_component, 'x');
 
-      //   // // checking total_zoom when
-      //   // console.log(
-      //   //   zoom_data.y.total_zoom,
-      //   //   zoom_data.x.total_zoom,
-      //   //   zoom_data.y.total_zoom / zoom_data.x.total_zoom
-      //   // )
-
-      //   // Fix for fast zoom_switching
-      //   //////////////////////////////////
-      //   /*
-      //   1. Check whether zoom ratio is off
-      //   2. adjust x.inst_zoom to fix ratio
-      //   3. adjust x.total_zoom to fix ratio
-      //   */
-
-      //   // if (zoom_data.y.total_zoom/)
-
-      // }
-
-
-
-      zoom_data.x = zoom_rules_low_mat(zoom_restrict.x, zoom_data.x, viz_dim.mat.x, viz_component, 'x');
-      zoom_data.y = zoom_rules_low_mat(zoom_restrict.y, zoom_data.y, viz_dim.mat.y, viz_component, 'y');
+      zoom_data.y = zoom_rules_low_mat(zoom_restrict.y, zoom_data.y,
+        viz_dim.mat.y, viz_component, 'y');
 
       if (still_interacting == false){
         still_interacting = true;

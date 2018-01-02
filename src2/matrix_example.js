@@ -228,6 +228,7 @@ function run_viz(regl, assets){
   viz_dim.mat.y.min = viz_dim.canvas.height/2 - viz_dim.mat.height/2;
   viz_dim.mat.y.max = viz_dim.canvas.height/2 + viz_dim.mat.height/2;
 
+  // update zoom_data
   zoom_rules_high_mat(regl, zoom_restrict_mat, zoom_data, 'mat', viz_dim);
 
   var zoom_infos = {};
@@ -270,7 +271,6 @@ function run_viz(regl, assets){
     zoom_infos['row-labels']
     // zoom_data
   );
-
 
 
   window.addEventListener('resize', camera['mat'].resize);
