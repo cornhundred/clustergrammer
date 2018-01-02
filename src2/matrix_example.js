@@ -12,6 +12,8 @@
   1. resizing causes errors with tracking zooming/panning
   2. resizing does not immediately redraw figure
 
+
+
  */
 
 const regl = require('regl')({extensions: ['angle_instanced_arrays']})

@@ -1,0 +1,3 @@
+budo matrix_example.js --open --live -- -t es2020
+
+browserify -r es2020 matrix_example.js > ../docs/bundle.js
