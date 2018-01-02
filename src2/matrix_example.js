@@ -249,34 +249,26 @@ function run_viz(regl, assets){
   var ini_scale = 1.0 ;
 
   const camera = {}
-  // requiring camera and
-  camera['mat'] = require('./camera_2d_mat')(regl,
-    {
+  var zoom_range = {
       xrange: [-ini_scale, ini_scale],
       yrange: [-ini_scale, ini_scale]
-    },
-    zoom_data,
-    'matrix'
+    };
+
+  // requiring camera and
+  camera['mat'] = require('./camera_2d_mat')(
+    regl, zoom_range, zoom_data, 'matrix'
   );
 
   camera['row-labels'] = require('./camera_2d_mat')(
-    regl,
-    {
-      xrange: [-ini_scale, ini_scale],
-      yrange: [-ini_scale, ini_scale]
-    },
-    zoom_data,
-    'row-labels'
+    regl, zoom_range, zoom_data, 'row-labels'
   );
 
   camera['col-labels'] = require('./camera_2d_mat')(
-    regl,
-    {
-      xrange: [-ini_scale, ini_scale],
-      yrange: [-ini_scale, ini_scale]
-    },
-    zoom_data,
-    'col-labels'
+    regl, zoom_range, zoom_data, 'col-labels'
+  );
+
+  camera['title'] = require('./camera_2d_mat')(
+    regl, zoom_range, zoom_data, 'title'
   );
 
 
@@ -290,8 +282,6 @@ function run_viz(regl, assets){
       regl.clear({ color: [0, 0, 0, 0] });
       draw_cells.top();
       draw_cells.bot();
-
-
     });
 
     camera['row-labels'].draw(() => {
@@ -302,6 +292,9 @@ function run_viz(regl, assets){
     camera['col-labels'].draw(() => {
       draw_labels['col']();
       draw_dendro['col']();
+    });
+
+    camera['title'].draw(() => {
       draw_text_triangles();
     });
 

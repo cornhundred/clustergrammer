@@ -105,7 +105,7 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
 
     if (ev.buttons || ['wheel', 'touch', 'pinch'].indexOf(ev.type) !== -1)  {
 
-      console.log('viz_component: ' + viz_component);
+      // console.log('viz_component: ' + viz_component);
 
       /*
       Sanitize zoom data components
@@ -126,6 +126,15 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
       }
 
       if (viz_component === 'col-labels'){
+        inst_y_zoom = 1;
+        inst_y_pan_by_drag = 0;
+        inst_y_pan_by_zoom = 0;
+      }
+
+      if (viz_component === 'title'){
+        inst_x_zoom = 1;
+        inst_x_pan_by_drag = 0;
+        inst_x_pan_by_zoom = 0;
         inst_y_zoom = 1;
         inst_y_pan_by_drag = 0;
         inst_y_pan_by_zoom = 0;
