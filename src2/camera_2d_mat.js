@@ -6,6 +6,7 @@ var extend = require('xtend/mutable');
 var mat4 = require('gl-mat4');
 var EventEmitter = require('event-emitter');
 var vec4 = require('gl-vec4');
+var $ = require('jquery')
 
 mat4.viewport = function viewport(out, x, y, w, h, n, f) {
   out[0] = w * 0.5;
@@ -29,7 +30,9 @@ mat4.viewport = function viewport(out, x, y, w, h, n, f) {
 
 module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
 
-  console.log('viz_component: ' + viz_component)
+  // var zoom_data = $.extend(true, {}, zoom_data_ini);
+  // var zoom_data = $.extend(true, {}, zoom_data_ini);
+
   opts = opts || {};
 
   var options = extend({
@@ -102,22 +105,48 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
 
     if (ev.buttons || ['wheel', 'touch', 'pinch'].indexOf(ev.type) !== -1)  {
 
+      console.log('viz_component: ' + viz_component);
+
+      /*
+      Sanitize zoom data components
+      */
+
+      var inst_x_zoom = zoom_data.x.inst_zoom;
+      var inst_x_pan_by_zoom = zoom_data.x.pan_by_zoom;
+      var inst_x_pan_by_drag = zoom_data.x.pan_by_drag;
+
+      var inst_y_zoom = zoom_data.y.inst_zoom;
+      var inst_y_pan_by_zoom = zoom_data.y.pan_by_zoom;
+      var inst_y_pan_by_drag = zoom_data.y.pan_by_drag;
+
+      if (viz_component === 'row-labels'){
+        inst_x_zoom = 1;
+        inst_x_pan_by_drag = 0;
+        inst_x_pan_by_zoom = 0;
+      }
+
+      if (viz_component === 'col-labels'){
+        inst_y_zoom = 1;
+        inst_y_pan_by_drag = 0;
+        inst_y_pan_by_zoom = 0;
+      }
+
       ev.preventDefault();
 
-      dViewport[0] = zoom_data.x.inst_zoom;
+      dViewport[0] = inst_x_zoom;
       dViewport[1] = 0;
       dViewport[2] = 0;
       dViewport[3] = 0;
       dViewport[4] = 0;
-      dViewport[5] = zoom_data.y.inst_zoom;
+      dViewport[5] = inst_y_zoom;
       dViewport[6] = 0;
       dViewport[7] = 0;
       dViewport[8] = 0;
       dViewport[9] = 0;
       dViewport[10] = 1;
       dViewport[11] = 0;
-      dViewport[12] = zoom_data.x.pan_by_zoom + zoom_data.x.pan_by_drag;
-      dViewport[13] = zoom_data.y.pan_by_zoom + zoom_data.y.pan_by_drag;
+      dViewport[12] = inst_x_pan_by_zoom + inst_x_pan_by_drag;
+      dViewport[13] = inst_y_pan_by_zoom + inst_y_pan_by_drag;
       dViewport[14] = 0;
       dViewport[15] = 1;
 

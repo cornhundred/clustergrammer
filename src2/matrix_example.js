@@ -259,7 +259,6 @@ function run_viz(regl, assets){
     'matrix'
   );
 
-  // camera['row-labels'] = require('./camera_2d_general')(
   camera['row-labels'] = require('./camera_2d_mat')(
     regl,
     {
@@ -268,6 +267,16 @@ function run_viz(regl, assets){
     },
     zoom_data,
     'row-labels'
+  );
+
+  camera['col-labels'] = require('./camera_2d_mat')(
+    regl,
+    {
+      xrange: [-ini_scale, ini_scale],
+      yrange: [-ini_scale, ini_scale]
+    },
+    zoom_data,
+    'col-labels'
   );
 
 
@@ -287,11 +296,12 @@ function run_viz(regl, assets){
 
     camera['row-labels'].draw(() => {
       draw_labels['row']();
-      draw_labels['col']();
-
       draw_dendro['row']();
-      draw_dendro['col']();
+    });
 
+    camera['col-labels'].draw(() => {
+      draw_labels['col']();
+      draw_dendro['col']();
       draw_text_triangles();
     });
 
