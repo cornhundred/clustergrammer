@@ -38,10 +38,10 @@ still_interacting = false;
 initialize_viz = true;
 
 // var filename = 'data/mult_view.json'
-var filename = 'data/mnist.json'
+// var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
 // var filename = 'data/cytof_10k.json'
-// var filename = 'data/cytof_25k.json'
+var filename = 'data/cytof_25k.json'
 // var filename = 'data/cytof_35k.json'
 
 require('resl')({
@@ -282,6 +282,7 @@ function run_viz(regl, assets){
 
   // generate position and opacity arrays from mat_data
   var arrs = make_draw_cells_arr(regl, mat_data)
+
   // transfer to buffers
   var buffers = make_draw_cells_buffers(arrs.position_arr,
                                         arrs.opacity_arr);
@@ -294,8 +295,26 @@ function run_viz(regl, assets){
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
 
-      // pass properties and call regl
-      // var draw_cells_props = make_draw_cells_props(regl, mat_data);
+      /* Array re-calculation plan */
+      /*
+      Only re-calculate the array if a certain amount of zooming/panning has
+      occurred so that this will not slow things down too much
+      */
+
+      // generating arrays from mat_data is very slow
+      /////////////////////////////////////////////////
+      // var arrs = make_draw_cells_arr(regl, mat_data)
+
+      // transfer to buffers is sort of slow
+      ////////////////////////////////////////////
+      // var buffers = make_draw_cells_buffers(arrs.position_arr,
+      //                                       arrs.opacity_arr);
+
+
+      // generate draw_cells_props using buffers is not slow
+      ////////////////////////////////////////////////////////
+      // var draw_cells_props = make_draw_cells_props(buffers);
+
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
 

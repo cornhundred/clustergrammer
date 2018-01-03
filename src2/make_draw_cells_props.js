@@ -100,17 +100,17 @@ module.exports = function make_draw_cells_props(buffers){
 
   // draw top and bottom of matrix cells
   //////////////////////////////////////
-  var draw_cells = {};
-  draw_cells.regl_props = {};
+  var draw_cells_props = {};
+  draw_cells_props.regl_props = {};
 
   top_props = $.extend(true, {}, regl_props);
   top_props.attributes.position = top_half_verts;
-  draw_cells.regl_props['top'] = top_props;
+  draw_cells_props.regl_props['top'] = top_props;
 
   bot_props = $.extend(true, {}, regl_props);
   bot_props.attributes.position = bottom_half_verts;
-  draw_cells.regl_props['bot'] = bot_props;
+  draw_cells_props.regl_props['bot'] = bot_props;
 
-  return draw_cells;
+  return draw_cells_props;
 
 };
