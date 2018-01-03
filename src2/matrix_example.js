@@ -14,13 +14,17 @@
 
  */
 
-const regl = require('regl')({extensions: ['angle_instanced_arrays']})
+// const
+regl = require('regl')({extensions: ['angle_instanced_arrays']})
 var extend = require('xtend/mutable');
 const vectorizeText = require('vectorize-text')
 var zoom_rules = {};
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
+var ini_draw_cells = require('./draw_cells');
 
+
+// global variables
 d3 = require('d3');
 _ = require('underscore')
 
@@ -242,7 +246,7 @@ function run_viz(regl, assets){
 
   flat_mat = [].concat.apply([], mat_data);
 
-  draw_cells = require('./draw_cells')(regl, network, mat_data);
+  draw_cells = ini_draw_cells(regl, network, mat_data);
 
   var ini_scale = 1.0 ;
 
@@ -280,8 +284,11 @@ function run_viz(regl, assets){
       // re-initialize draw_cells
       // draw_cells = require('./draw_cells')(regl, network, mat_data);
 
-      draw_cells.top();
-      draw_cells.bot();
+      // draw_cells.top();
+      // draw_cells.bot();
+
+      regl(draw_cells.top_props)();
+      regl(draw_cells.bot_props)();
 
       // regl(top_props)
       // regl(bot_props)

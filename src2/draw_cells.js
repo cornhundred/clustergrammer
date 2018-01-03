@@ -1,44 +1,25 @@
 var make_position_arr = require('./make_position_arr');
-blend_info = require('./blend_info')
+var make_opacity_arr = require('./make_opacity_arr')
+var blend_info = require('./blend_info')
+var $ = require('jquery')
 
 module.exports = function(regl, network, mat_data){
 
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
-  var zoom_function = function(context){
 
+  var zoom_function = function(context){
     return context.view;
   }
 
   num_row = mat_data.length;
   num_col = mat_data[0].length;
 
-  // Generate opacity array
-  //////////////////////////
-  opacity_arr = [].concat.apply([], mat_data)
-
-  abs_max_val = _.max(opacity_arr, function(d){
-    return Math.abs(d);
-  })
-
-  opacity_scale = d3.scale.linear();
-
-  opacity_domain = abs_max_val /1.5;
-  opacity_range = 0.80;
-
-  opacity_scale
-    .domain([-opacity_domain, opacity_domain])
-    .range([-opacity_range, opacity_range])
-    .clamp(true);
-
-  opacity_arr = opacity_arr.map(function(x) {
-    return opacity_scale(x)
-  });
-
-
+  // Make Arrays
+  var opacity_arr = make_opacity_arr(mat_data);
   var position_arr = make_position_arr(num_row, num_col)
 
-  // Generate Buffers
+  // Make Buffers
   ///////////////////////////
   position_buffer = regl.buffer(position_arr);
 
@@ -142,13 +123,15 @@ module.exports = function(regl, network, mat_data){
   //////////////////////////////////////
   var draw_cells = {};
 
-  bot_props = regl_props;
-  bot_props.attributes.position = bottom_half;
-  draw_cells.bot = regl(bot_props)
-
-  top_props = regl_props;
+  top_props = $.extend(true, {}, regl_props);
   top_props.attributes.position = top_half;
   draw_cells.top = regl(top_props);
+  draw_cells.top_props = top_props;
+
+  bot_props = $.extend(true, {}, regl_props);
+  bot_props.attributes.position = bottom_half;
+  draw_cells.bot = regl(bot_props);
+  draw_cells.bot_props = bot_props;
 
   return draw_cells;
 
