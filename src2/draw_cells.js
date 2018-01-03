@@ -6,8 +6,8 @@ module.exports = function(regl, network, mat_data){
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
-  // Generate opacity buffer
-
+  // Generate opacity array
+  //////////////////////////
   opacity_arr = [].concat.apply([], mat_data)
 
   abs_max_val = _.max(opacity_arr, function(d){
@@ -31,16 +31,6 @@ module.exports = function(regl, network, mat_data){
   opacity_arr = opacity_arr.map(function(x) {
     return opacity_scale(x)
   });
-
-  // This buffer stores the opacities
-  const opacity_buffer = regl.buffer({
-    length: num_row * num_col,
-    type: 'float',
-    usage: 'dynamic'
-  })
-
-  // initialize buffer
-  opacity_buffer(opacity_arr);
 
   var blend_info = {
       enable: true,
@@ -99,8 +89,23 @@ module.exports = function(regl, network, mat_data){
             .fill()
             .map(position_function);
 
+  // Generate Buffers
+  ///////////////////////////
 
-  const position_buffer = regl.buffer(position_arr);
+  num_instances = position_arr.length/5;
+  // // try slicing arrays
+  position_arr = position_arr.slice(0, num_instances);
+  opacity_arr = opacity_arr.slice(0, num_instances);
+
+  position_buffer = regl.buffer(position_arr);
+
+  const opacity_buffer = regl.buffer({
+    // length: opacity_arr.length,
+    type: 'float',
+    usage: 'dynamic'
+  });
+
+  opacity_buffer(opacity_arr);
 
   // bottom half
   var bottom_half = [
@@ -187,7 +192,7 @@ module.exports = function(regl, network, mat_data){
       zoom: zoom_function,
       inst_color: [0,0,1],
     },
-    instances: num_row * num_col,
+    instances: num_instances,
   };
 
   // draw top and bottom of matrix cells
