@@ -6,6 +6,8 @@ module.exports = function(regl, network, mat_data){
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
+  // Generate opacity buffer
+
   opacity_arr = [].concat.apply([], mat_data)
 
   abs_max_val = _.max(opacity_arr, function(d){
@@ -30,10 +32,9 @@ module.exports = function(regl, network, mat_data){
     return opacity_scale(x)
   });
 
-
   // This buffer stores the opacities
   const opacity_buffer = regl.buffer({
-    length: num_row * num_col * 2 ,
+    length: num_row * num_col,
     type: 'float',
     usage: 'dynamic'
   })
@@ -79,10 +80,7 @@ module.exports = function(regl, network, mat_data){
 
   // generate x and y positions
   ////////////////////////////////
-  function pos_xy_function(_, i){
-
-    // var x =  (i % num_col) / num_col - offset.y;
-    // var y =  offset.x - ( Math.floor(i  / num_col) + 1 ) / num_row ;
+  function position_function(_, i){
 
     // looking up x and y position
     var col_id = i % num_col;
@@ -90,8 +88,6 @@ module.exports = function(regl, network, mat_data){
 
     row_order_id = num_row - 1 - row_nodes[row_id].clust;
     col_order_id = num_col - 1 - col_nodes[col_id].clust;
-
-    // console.log(row_id)
 
     var x = x_arr[ col_order_id ];
     var y = y_arr[ row_order_id ];
@@ -101,7 +97,7 @@ module.exports = function(regl, network, mat_data){
 
   position_arr = Array(num_row * num_col)
             .fill()
-            .map(pos_xy_function);
+            .map(position_function);
 
 
   const position_buffer = regl.buffer(position_arr);
