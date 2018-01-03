@@ -1,4 +1,4 @@
-// var blend_info = require('./blend_info');
+var make_position_arr = require('./make_position_arr');
 
 module.exports = function(regl, network, mat_data){
 
@@ -48,70 +48,53 @@ module.exports = function(regl, network, mat_data){
       color: [0, 0, 0, 0]
     };
 
-  // draw matrix cells
-  /////////////////////////////////////////
-  // set up offset array for buffer
-  var offset = {};
-  offset.x = 0.5;
-  offset.y = 0.5;
+  // // draw matrix cells
+  // /////////////////////////////////////////
+  // // set up offset array for buffer
+  // var offset = {};
+  // offset.x = 0.5;
+  // offset.y = 0.5;
 
-  // generate x position array
-  x_arr = Array(num_col).fill()
-    .map(function(_, i){
-      return i/num_col - offset.x
-    });
+  // // generate x position array
+  // x_arr = Array(num_col).fill()
+  //   .map(function(_, i){
+  //     return i/num_col - offset.x
+  //   });
 
-  y_arr = Array(num_row).fill()
-    .map(function(_, i){
-      return -i/num_row + offset.y - 1/num_row
-    });
+  // y_arr = Array(num_row).fill()
+  //   .map(function(_, i){
+  //     return -i/num_row + offset.y - 1/num_row
+  //   });
 
-  // pass along row and col node information
-  row_nodes = network.row_nodes;
-  col_nodes = network.col_nodes;
+  // // pass along row and col node information
+  // row_nodes = network.row_nodes;
+  // col_nodes = network.col_nodes;
 
-  // generate x and y positions
-  ////////////////////////////////
-  function position_function(_, i){
+  // // generate x and y positions
+  // ////////////////////////////////
+  // function position_function(_, i){
 
-    // looking up x and y position
-    var col_id = i % num_col;
-    var row_id = Math.floor(i / num_col);
+  //   // looking up x and y position
+  //   var col_id = i % num_col;
+  //   var row_id = Math.floor(i / num_col);
 
-    row_order_id = num_row - 1 - row_nodes[row_id].clust;
-    col_order_id = num_col - 1 - col_nodes[col_id].clust;
+  //   row_order_id = num_row - 1 - row_nodes[row_id].clust;
+  //   col_order_id = num_col - 1 - col_nodes[col_id].clust;
 
-    var x = x_arr[ col_order_id ];
-    var y = y_arr[ row_order_id ];
+  //   var x = x_arr[ col_order_id ];
+  //   var y = y_arr[ row_order_id ];
 
-    return [x, y];
-  };
+  //   return [x, y];
+  // };
 
-  position_arr = Array(num_row * num_col)
-            .fill()
-            .map(position_function);
+  // position_arr = Array(num_row * num_col)
+  //           .fill()
+  //           .map(position_function);
 
-  // // Filter for visible vertices only
-  // ///////////////////////////////////
-  // pixel_to_webgl = d3.scale.linear()
-
-  // pixel_to_webgl
-  //   .domain([0, 500])
-  //   .range([-0.5, 0.5])
-  //   .clamp(true);
-
-  // for (i = 0; i < position_arr.length; i ++){
-  //   inst_pos = position_arr[i]
-  //   // console.log(inst_pos)
-  // }
+  var position_arr = make_position_arr(mat_data)
 
   // Generate Buffers
   ///////////////////////////
-  console.log('generate buffers')
-  num_instances = position_arr.length;
-  // try slicing arrays
-  position_arr = position_arr.slice(0, num_instances);
-  opacity_arr = opacity_arr.slice(0, num_instances);
 
   position_buffer = regl.buffer(position_arr);
 
@@ -182,6 +165,8 @@ module.exports = function(regl, network, mat_data){
       }
 
     }`;
+
+  var num_instances = position_arr.length;
 
   regl_props = {
     vert: vert_string,
