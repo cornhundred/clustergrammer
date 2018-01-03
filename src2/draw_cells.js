@@ -6,21 +6,15 @@ module.exports = function(regl, network, mat_data){
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
-  flat_mat_data = [].concat.apply([], mat_data)
+  opacity_arr = [].concat.apply([], mat_data)
 
-  abs_max_val = _.max(flat_mat_data, function(d){
+  abs_max_val = _.max(opacity_arr, function(d){
     return Math.abs(d);
   })
 
   var zoom_function = function(context){
     return context.view;
   }
-
-
-
-  // flat_mat_data = _.each(flat_mat_data, function(d){
-  //   return d/abs_max_val;
-  // })
 
   opacity_scale = d3.scale.linear()
 
@@ -32,7 +26,7 @@ module.exports = function(regl, network, mat_data){
     .range([-opacity_range, opacity_range])
     .clamp(true);
 
-  flat_mat_data = flat_mat_data.map(function(x) {
+  opacity_arr = opacity_arr.map(function(x) {
     return opacity_scale(x)
   });
 
@@ -45,8 +39,7 @@ module.exports = function(regl, network, mat_data){
   })
 
   // initialize buffer
-  // can use mat_data or flat_mat_data
-  opacity_buffer(flat_mat_data);
+  opacity_buffer(opacity_arr);
 
   var blend_info = {
       enable: true,
@@ -106,14 +99,12 @@ module.exports = function(regl, network, mat_data){
     return [x, y];
   };
 
-  pos_xy_array = Array(num_row * num_col)
+  position_arr = Array(num_row * num_col)
             .fill()
             .map(pos_xy_function);
 
 
-  const position_buffer = regl.buffer(pos_xy_array);
-
-
+  const position_buffer = regl.buffer(position_arr);
 
   // bottom half
   var bottom_half = [
@@ -135,7 +126,6 @@ module.exports = function(regl, network, mat_data){
     attribute vec2 position;
 
     // These three are instanced attributes.
-    attribute vec3 color_att;
     attribute vec2 pos_att;
     attribute float opacity_att;
     uniform mat4 zoom;
@@ -204,16 +194,16 @@ module.exports = function(regl, network, mat_data){
     instances: num_row * num_col,
   };
 
-  bot_props = regl_props;
-  bot_props.attributes.position = bottom_half;
-
+  // draw top and bottom of matrix cells
+  //////////////////////////////////////
   var draw_cells = {};
 
+  bot_props = regl_props;
+  bot_props.attributes.position = bottom_half;
   draw_cells.bot = regl(bot_props)
 
   top_props = regl_props;
   top_props.attributes.position = top_half;
-
   draw_cells.top = regl(top_props);
 
   return draw_cells;
