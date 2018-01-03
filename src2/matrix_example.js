@@ -31,10 +31,10 @@ has_been_both = false
 still_interacting = false;
 initialize_viz = true;
 
-var filename = 'data/mult_view.json'
+// var filename = 'data/mult_view.json'
 // var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
-// var filename = 'data/cytof_10k.json'
+var filename = 'data/cytof_10k.json'
 // var filename = 'data/cytof_25k.json'
 // var filename = 'data/cytof_35k.json'
 
@@ -242,7 +242,7 @@ function run_viz(regl, assets){
 
   flat_mat = [].concat.apply([], mat_data);
 
-  var draw_cells = require('./draw_cells')(regl, network, mat_data);
+  draw_cells = require('./draw_cells')(regl, network, mat_data);
 
   var ini_scale = 1.0 ;
 
@@ -277,8 +277,15 @@ function run_viz(regl, assets){
 
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
+      // re-initialize draw_cells
+      // draw_cells = require('./draw_cells')(regl, network, mat_data);
+
       draw_cells.top();
       draw_cells.bot();
+
+      // regl(top_props)
+      // regl(bot_props)
+
     });
 
     camera['row-labels'].draw(() => {

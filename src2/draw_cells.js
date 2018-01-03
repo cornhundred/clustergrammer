@@ -1,3 +1,5 @@
+// var blend_info = require('./blend_info');
+
 module.exports = function(regl, network, mat_data){
 
   num_row = mat_data.length;
@@ -18,7 +20,7 @@ module.exports = function(regl, network, mat_data){
     return context.view;
   }
 
-  opacity_scale = d3.scale.linear()
+  opacity_scale = d3.scale.linear();
 
   opacity_domain = abs_max_val /1.5;
   opacity_range = 0.80;
@@ -89,11 +91,25 @@ module.exports = function(regl, network, mat_data){
             .fill()
             .map(position_function);
 
+  // // Filter for visible vertices only
+  // ///////////////////////////////////
+  // pixel_to_webgl = d3.scale.linear()
+
+  // pixel_to_webgl
+  //   .domain([0, 500])
+  //   .range([-0.5, 0.5])
+  //   .clamp(true);
+
+  // for (i = 0; i < position_arr.length; i ++){
+  //   inst_pos = position_arr[i]
+  //   // console.log(inst_pos)
+  // }
+
   // Generate Buffers
   ///////////////////////////
-
+  console.log('generate buffers')
   num_instances = position_arr.length;
-  // // try slicing arrays
+  // try slicing arrays
   position_arr = position_arr.slice(0, num_instances);
   opacity_arr = opacity_arr.slice(0, num_instances);
 
@@ -166,8 +182,6 @@ module.exports = function(regl, network, mat_data){
       }
 
     }`;
-
-  var inst_half = bottom_half;
 
   regl_props = {
     vert: vert_string,
