@@ -23,7 +23,6 @@ var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
-var make_draw_cells_buffers = require('./make_draw_cells_buffers');
 
 
 // global variables
@@ -283,11 +282,11 @@ function run_viz(regl, assets){
   // generate position and opacity arrays from mat_data
   var arrs = make_draw_cells_arr(regl, mat_data)
 
-  // transfer to buffers
-  var buffers = make_draw_cells_buffers(arrs.position_arr,
-                                        arrs.opacity_arr);
+  // // transfer to buffers
+  // var buffers = make_draw_cells_buffers(arrs.position_arr,
+  //                                       arrs.opacity_arr);
   // generate draw_cells_props using buffers
-  var draw_cells_props = make_draw_cells_props(buffers);
+  var draw_cells_props = make_draw_cells_props(arrs);
 
   camera_type = 'mat'
   function draw_commands(){
@@ -301,19 +300,18 @@ function run_viz(regl, assets){
       occurred so that this will not slow things down too much
       */
 
-      // generating arrays from mat_data is very slow
-      /////////////////////////////////////////////////
+      // // generating arrays from mat_data is very slow
+      // ///////////////////////////////////////////////
       // var arrs = make_draw_cells_arr(regl, mat_data)
 
-      // transfer to buffers is sort of slow
-      ////////////////////////////////////////////
-      // var buffers = make_draw_cells_buffers(arrs.position_arr,
-      //                                       arrs.opacity_arr);
-
+      // // perform trivial slice of opacity array
+      // var num_keep = 100000;
+      // arrs.opacity_arr =   arrs.opacity_arr.slice(0, num_keep);
+      // arrs.position_arr = arrs.position_arr.slice(0, num_keep);
 
       // generate draw_cells_props using buffers is not slow
-      ////////////////////////////////////////////////////////
-      // var draw_cells_props = make_draw_cells_props(buffers);
+      //////////////////////////////////////////////////////
+      var draw_cells_props = make_draw_cells_props(arrs);
 
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();

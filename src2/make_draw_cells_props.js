@@ -1,7 +1,13 @@
+var make_draw_cells_buffers = require('./make_draw_cells_buffers');
 var blend_info = require('./blend_info')
 var $ = require('jquery')
 
-module.exports = function make_draw_cells_props(buffers){
+module.exports = function make_draw_cells_props(arrs){
+
+  // transfer to buffers is sort of slow
+  //////////////////////////////////////////
+  var buffers = make_draw_cells_buffers(arrs.position_arr,
+                                        arrs.opacity_arr);
 
   var opacity_buffer = buffers.opacity_buffer;
   var position_buffer = buffers.position_buffer;
@@ -66,7 +72,7 @@ module.exports = function make_draw_cells_props(buffers){
 
     }`;
 
-  var num_instances = position_arr.length;
+  var num_instances = arrs.position_arr.length;
 
   var zoom_function = function(context){
     return context.view;
