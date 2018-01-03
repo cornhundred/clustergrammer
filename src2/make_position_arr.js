@@ -1,9 +1,4 @@
-module.exports = function make_position_arr(mat_data){
-
-  console.log('make_position_arr')
-
-  num_row = mat_data.length;
-  num_col = mat_data[0].length;
+module.exports = function make_position_arr(num_row, num_col){
 
   // draw matrix cells
   /////////////////////////////////////////

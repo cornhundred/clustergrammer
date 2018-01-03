@@ -1,12 +1,17 @@
 var make_position_arr = require('./make_position_arr');
+blend_info = require('./blend_info')
 
 module.exports = function(regl, network, mat_data){
 
-  num_row = mat_data.length;
-  num_col = mat_data[0].length;
-
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
+  var zoom_function = function(context){
+
+    return context.view;
+  }
+
+  num_row = mat_data.length;
+  num_col = mat_data[0].length;
 
   // Generate opacity array
   //////////////////////////
@@ -15,10 +20,6 @@ module.exports = function(regl, network, mat_data){
   abs_max_val = _.max(opacity_arr, function(d){
     return Math.abs(d);
   })
-
-  var zoom_function = function(context){
-    return context.view;
-  }
 
   opacity_scale = d3.scale.linear();
 
@@ -34,68 +35,11 @@ module.exports = function(regl, network, mat_data){
     return opacity_scale(x)
   });
 
-  var blend_info = {
-      enable: true,
-      func: {
-        srcRGB: 'src alpha',
-        srcAlpha: 'src color',
-        dstRGB: 'one',
-        dstAlpha: 'one',
-        // src: 'one',
-        // dst: 'one'
-      },
-      equation: 'add',
-      color: [0, 0, 0, 0]
-    };
 
-  // // draw matrix cells
-  // /////////////////////////////////////////
-  // // set up offset array for buffer
-  // var offset = {};
-  // offset.x = 0.5;
-  // offset.y = 0.5;
-
-  // // generate x position array
-  // x_arr = Array(num_col).fill()
-  //   .map(function(_, i){
-  //     return i/num_col - offset.x
-  //   });
-
-  // y_arr = Array(num_row).fill()
-  //   .map(function(_, i){
-  //     return -i/num_row + offset.y - 1/num_row
-  //   });
-
-  // // pass along row and col node information
-  // row_nodes = network.row_nodes;
-  // col_nodes = network.col_nodes;
-
-  // // generate x and y positions
-  // ////////////////////////////////
-  // function position_function(_, i){
-
-  //   // looking up x and y position
-  //   var col_id = i % num_col;
-  //   var row_id = Math.floor(i / num_col);
-
-  //   row_order_id = num_row - 1 - row_nodes[row_id].clust;
-  //   col_order_id = num_col - 1 - col_nodes[col_id].clust;
-
-  //   var x = x_arr[ col_order_id ];
-  //   var y = y_arr[ row_order_id ];
-
-  //   return [x, y];
-  // };
-
-  // position_arr = Array(num_row * num_col)
-  //           .fill()
-  //           .map(position_function);
-
-  var position_arr = make_position_arr(mat_data)
+  var position_arr = make_position_arr(num_row, num_col)
 
   // Generate Buffers
   ///////////////////////////
-
   position_buffer = regl.buffer(position_arr);
 
   const opacity_buffer = regl.buffer({
