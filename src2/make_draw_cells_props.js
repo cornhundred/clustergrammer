@@ -3,14 +3,10 @@ var make_opacity_arr = require('./make_opacity_arr')
 var blend_info = require('./blend_info')
 var $ = require('jquery')
 
-module.exports = function(regl, network, mat_data){
+module.exports = function make_draw_cells_props(regl, mat_data){
 
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
-
-  var zoom_function = function(context){
-    return context.view;
-  }
 
   num_row = mat_data.length;
   num_col = mat_data[0].length;
@@ -32,14 +28,14 @@ module.exports = function(regl, network, mat_data){
   opacity_buffer(opacity_arr);
 
   // bottom half
-  var bottom_half = [
+  var bottom_half_verts = [
     [1/num_col, 0.0],
     [0.0,       0.0],
     [0.0,       1/num_row]
   ];
 
   // top half
-  var top_half = [
+  var top_half_verts = [
     [1/num_col, 0.0 ],
     [1/num_col, 1/num_row],
     [0.0,       1/num_row]
@@ -93,7 +89,11 @@ module.exports = function(regl, network, mat_data){
 
   var num_instances = position_arr.length;
 
-  regl_props = {
+  var zoom_function = function(context){
+    return context.view;
+  }
+
+  var regl_props = {
     vert: vert_string,
     frag: frag_string,
     attributes: {
@@ -122,16 +122,15 @@ module.exports = function(regl, network, mat_data){
   // draw top and bottom of matrix cells
   //////////////////////////////////////
   var draw_cells = {};
+  draw_cells.regl_props = {};
 
   top_props = $.extend(true, {}, regl_props);
-  top_props.attributes.position = top_half;
-  draw_cells.top = regl(top_props);
-  draw_cells.top_props = top_props;
+  top_props.attributes.position = top_half_verts;
+  draw_cells.regl_props['top'] = top_props;
 
   bot_props = $.extend(true, {}, regl_props);
-  bot_props.attributes.position = bottom_half;
-  draw_cells.bot = regl(bot_props);
-  draw_cells.bot_props = bot_props;
+  bot_props.attributes.position = bottom_half_verts;
+  draw_cells.regl_props['bot'] = bot_props;
 
   return draw_cells;
 

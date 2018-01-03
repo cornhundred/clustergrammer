@@ -21,7 +21,7 @@ const vectorizeText = require('vectorize-text')
 var zoom_rules = {};
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
-var ini_draw_cells = require('./draw_cells');
+var make_draw_cells_props = require('./make_draw_cells_props');
 
 
 // global variables
@@ -246,7 +246,7 @@ function run_viz(regl, assets){
 
   flat_mat = [].concat.apply([], mat_data);
 
-  draw_cells = ini_draw_cells(regl, network, mat_data);
+  var draw_cells_props = make_draw_cells_props(regl, mat_data);
 
   var ini_scale = 1.0 ;
 
@@ -281,17 +281,9 @@ function run_viz(regl, assets){
 
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
-      // re-initialize draw_cells
-      // draw_cells = require('./draw_cells')(regl, network, mat_data);
 
-      // draw_cells.top();
-      // draw_cells.bot();
-
-      regl(draw_cells.top_props)();
-      regl(draw_cells.bot_props)();
-
-      // regl(top_props)
-      // regl(bot_props)
+      regl(draw_cells_props.regl_props['top'])();
+      regl(draw_cells_props.regl_props['bot'])();
 
     });
 
