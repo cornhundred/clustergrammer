@@ -92,7 +92,7 @@ module.exports = function(regl, network, mat_data){
   // Generate Buffers
   ///////////////////////////
 
-  num_instances = position_arr.length/5;
+  num_instances = position_arr.length;
   // // try slicing arrays
   position_arr = position_arr.slice(0, num_instances);
   opacity_arr = opacity_arr.slice(0, num_instances);
