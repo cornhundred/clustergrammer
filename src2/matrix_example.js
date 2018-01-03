@@ -22,6 +22,8 @@ var zoom_rules = {};
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
+var make_draw_cells_arr = require('./make_draw_cells_arr');
+var make_draw_cells_buffers = require('./make_draw_cells_buffers');
 
 
 // global variables
@@ -35,8 +37,8 @@ has_been_both = false
 still_interacting = false;
 initialize_viz = true;
 
-var filename = 'data/mult_view.json'
-// var filename = 'data/mnist.json'
+// var filename = 'data/mult_view.json'
+var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
 // var filename = 'data/cytof_10k.json'
 // var filename = 'data/cytof_25k.json'
@@ -246,7 +248,9 @@ function run_viz(regl, assets){
 
   flat_mat = [].concat.apply([], mat_data);
 
-  var draw_cells_props = make_draw_cells_props(regl, mat_data);
+  console.log('num_row: ' + String(num_row))
+  console.log('num_col: ' + String(num_col))
+
 
   var ini_scale = 1.0 ;
 
@@ -276,12 +280,22 @@ function run_viz(regl, assets){
   window.addEventListener('resize', camera['mat'].resize);
   window.addEventListener('resize', camera['row-labels'].resize);
 
+  // generate position and opacity arrays from mat_data
+  var arrs = make_draw_cells_arr(regl, mat_data)
+  // transfer to buffers
+  var buffers = make_draw_cells_buffers(arrs.position_arr,
+                                        arrs.opacity_arr);
+  // generate draw_cells_props using buffers
+  var draw_cells_props = make_draw_cells_props(buffers);
+
   camera_type = 'mat'
   function draw_commands(){
 
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
 
+      // pass properties and call regl
+      // var draw_cells_props = make_draw_cells_props(regl, mat_data);
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
 

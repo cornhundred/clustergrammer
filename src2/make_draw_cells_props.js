@@ -1,31 +1,10 @@
-var make_position_arr = require('./make_position_arr');
-var make_opacity_arr = require('./make_opacity_arr')
 var blend_info = require('./blend_info')
 var $ = require('jquery')
 
-module.exports = function make_draw_cells_props(regl, mat_data){
+module.exports = function make_draw_cells_props(buffers){
 
-  console.log('num_row: ' + String(num_row))
-  console.log('num_col: ' + String(num_col))
-
-  num_row = mat_data.length;
-  num_col = mat_data[0].length;
-
-  // Make Arrays
-  var opacity_arr = make_opacity_arr(mat_data);
-  var position_arr = make_position_arr(num_row, num_col)
-
-  // Make Buffers
-  ///////////////////////////
-  position_buffer = regl.buffer(position_arr);
-
-  const opacity_buffer = regl.buffer({
-    // length: opacity_arr.length,
-    type: 'float',
-    usage: 'dynamic'
-  });
-
-  opacity_buffer(opacity_arr);
+  var opacity_buffer = buffers.opacity_buffer;
+  var position_buffer = buffers.position_buffer;
 
   // bottom half
   var bottom_half_verts = [
