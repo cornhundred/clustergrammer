@@ -6,7 +6,7 @@ var extend = require('xtend/mutable');
 var mat4 = require('gl-mat4');
 var EventEmitter = require('event-emitter');
 var vec4 = require('gl-vec4');
-var $ = require('jquery')
+var $ = require('jquery');
 
 mat4.viewport = function viewport(out, x, y, w, h, n, f) {
   out[0] = w * 0.5;
