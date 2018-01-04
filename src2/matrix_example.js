@@ -295,7 +295,7 @@ function run_viz(regl, assets){
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
 
-      arrs = filter_visible_mat(arrs);
+      arrs = filter_visible_mat(arrs, zoom_data);
 
       // generate draw_cells_props using buffers is not slow
       //////////////////////////////////////////////////////

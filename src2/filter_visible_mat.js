@@ -1,6 +1,27 @@
 var $ = require('jquery');
 
-module.exports = function filter_visible_mat(arrs){
+module.exports = function filter_visible_mat(arrs_orig, zoom_data){
+
+  var arrs = $.extend(true, {}, arrs_orig);
+
+
+  // make a d3.scale to transition from 0px - 500px to -1, 1 space
+  var pix_to_webgl = d3.scale.linear();
+
+  pix_to_webgl
+    .domain([0, 500])
+    .range([-1, 1])
+    .clamp(true);
+
+
+  // console.log()
+
+  // panning is defined as negative pixel values
+  total_pan_max = -zoom_data.x.total_pan_min;
+
+  pan_webgl = pix_to_webgl(total_pan_max)
+
+  console.log(pan_webgl)
 
   /* Array re-calculation plan */
   /*
@@ -19,21 +40,21 @@ module.exports = function filter_visible_mat(arrs){
 
 
   /*
-    need to keep track of opacity
+    visible area filtering is starting to work
   */
 
-  // // filtering based on position
-  // keep_opacity = [];
-  // arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
-  //   if (d[0] < 0.0){
-  //     console.log()
-  //     keep_opacity.push(arrs.opacity_arr[i])
-  //     return d;
-  //     }
-  // })
+  // filtering based on position
+  keep_opacity = [];
+  arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
+    if (d[0] > pan_webgl){
+      console.log()
+      keep_opacity.push(arrs.opacity_arr[i])
+      return d;
+      }
+  })
 
-  // // transfer keep_opacity
-  // arrs.opacity_arr = keep_opacity;
+  // transfer keep_opacity
+  arrs.opacity_arr = keep_opacity;
 
   return arrs;
 };
