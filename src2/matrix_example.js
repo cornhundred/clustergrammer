@@ -23,6 +23,7 @@ var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
+var filter_visible_mat = require('./filter_visible_mat');
 
 
 // global variables
@@ -294,33 +295,7 @@ function run_viz(regl, assets){
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
 
-      /* Array re-calculation plan */
-      /*
-      Only re-calculate the array if a certain amount of zooming/panning has
-      occurred so that this will not slow things down too much
-      */
-
-      // // generating arrays from mat_data is very slow
-      // ///////////////////////////////////////////////
-      // var arrs = make_draw_cells_arr(regl, mat_data)
-
-      // // perform trivial slice of opacity array
-      // var num_keep = 100000;
-      // arrs.opacity_arr =   arrs.opacity_arr.slice(0, num_keep);
-      // arrs.position_arr = arrs.position_arr.slice(0, num_keep);
-
-
-      /*
-        need to keep track of opacity also
-      */
-
-      //
-      arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
-        if (d[0] > 0.0){
-          console.log(arrs.opacity_arr[i])
-          return d;
-          }
-      })
+      arrs = filter_visible_mat(arrs);
 
       // generate draw_cells_props using buffers is not slow
       //////////////////////////////////////////////////////
