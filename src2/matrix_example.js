@@ -36,11 +36,11 @@ has_been_both = false
 still_interacting = false;
 initialize_viz = true;
 
-// var filename = 'data/mult_view.json'
+var filename = 'data/mult_view.json'
 // var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
 // var filename = 'data/cytof_10k.json'
-var filename = 'data/cytof_25k.json'
+// var filename = 'data/cytof_25k.json'
 // var filename = 'data/cytof_35k.json'
 
 require('resl')({
@@ -308,6 +308,19 @@ function run_viz(regl, assets){
       // var num_keep = 100000;
       // arrs.opacity_arr =   arrs.opacity_arr.slice(0, num_keep);
       // arrs.position_arr = arrs.position_arr.slice(0, num_keep);
+
+
+      /*
+        need to keep track of opacity also
+      */
+
+      //
+      arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
+        if (d[0] > 0.0){
+          console.log(arrs.opacity_arr[i])
+          return d;
+          }
+      })
 
       // generate draw_cells_props using buffers is not slow
       //////////////////////////////////////////////////////
