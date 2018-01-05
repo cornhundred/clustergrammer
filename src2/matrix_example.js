@@ -23,7 +23,6 @@ zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
-var draw_spillover_rects = require('./draw_spillover_rects');
 
 // global variables
 d3 = require('d3');
@@ -54,13 +53,15 @@ require('resl')({
   }
 })
 
-
 var zoom_function = function(context){
   return context.view;
 }
 
-const draw_text_triangles = require('./draw_text_triangles')(zoom_function);
+const draw_text_triangles = require('./draw_text_triangles')
+  (regl, zoom_function);
 
+var draw_spillover_rects = require('./draw_spillover_rects')
+  (regl, zoom_function);
 
 function run_viz(regl, assets){
 

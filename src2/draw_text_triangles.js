@@ -1,6 +1,6 @@
 const vectorizeText = require('vectorize-text')
 
-module.exports = function draw_text_triangles(zoom_function){
+module.exports = function draw_text_triangles(regl, zoom_function){
 
   // max ~200 min ~20
   var font_detail = 200;
