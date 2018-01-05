@@ -4,13 +4,12 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
 
   var arrs = $.extend(true, {}, arrs_orig);
 
-
   // make a d3.scale to transition from 0px - 500px to -1, 1 space
   var pix_to_webgl = d3.scale.linear();
 
   pix_to_webgl
     .domain([0, 500])
-    .range([-1, 1])
+    .range([-0.5, 0.5])
     .clamp(true);
 
 
