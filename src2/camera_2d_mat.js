@@ -131,7 +131,7 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
         inst_y_pan_by_zoom = 0;
       }
 
-      if (viz_component === 'title'){
+      if (viz_component === 'static'){
         inst_x_zoom = 1;
         inst_x_pan_by_drag = 0;
         inst_x_pan_by_zoom = 0;

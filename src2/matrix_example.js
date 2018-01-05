@@ -17,14 +17,13 @@
 // const
 regl = require('regl')({extensions: ['angle_instanced_arrays']})
 var extend = require('xtend/mutable');
-const vectorizeText = require('vectorize-text')
 var zoom_rules = {};
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
-
+var draw_spillover_rects = require('./draw_spillover_rects');
 
 // global variables
 d3 = require('d3');
@@ -32,7 +31,6 @@ _ = require('underscore')
 
 tick = 0
 has_been_both = false
-
 
 still_interacting = false;
 initialize_viz = true;
@@ -56,45 +54,13 @@ require('resl')({
   }
 })
 
-// max ~200 min ~20
-var font_detail = 200;
-text_vect = vectorizeText('Something', {
-  textAlign: 'center',
-  textBaseline: 'middle',
-  triangles:true,
-  size:font_detail,
-  font:'"Open Sans", verdana, arial, sans-serif'
-});
 
 var zoom_function = function(context){
   return context.view;
 }
 
-// draw command
-///////////////////
-const draw_text_triangles = regl({
-  vert: `
-    precision mediump float;
-    attribute vec2 position;
-    uniform mat4 zoom;
+const draw_text_triangles = require('./draw_text_triangles')(zoom_function);
 
-    void main () {
-      // reverse y position to get words to be upright
-      gl_Position = zoom * vec4( 0.25*position.x, -0.25 * position.y + 1.2, 0.0, 2.0);
-    }`,
-  frag: `
-    precision mediump float;
-    void main () {
-      gl_FragColor = vec4(1, 0, 0, 1.0);
-    }`,
-  attributes: {
-    position: text_vect.positions
-  },
-  elements: text_vect.cells,
-  uniforms: {
-    zoom: zoom_function
-  }
-})
 
 function run_viz(regl, assets){
 
@@ -275,8 +241,8 @@ function run_viz(regl, assets){
     regl, zoom_range, zoom_data, 'col-labels'
   );
 
-  camera['title'] = require('./camera_2d_mat')(
-    regl, zoom_range, zoom_data, 'title'
+  camera['static'] = require('./camera_2d_mat')(
+    regl, zoom_range, zoom_data, 'static'
   );
 
   window.addEventListener('resize', camera['mat'].resize);
@@ -294,14 +260,16 @@ function run_viz(regl, assets){
   camera_type = 'mat'
   function draw_commands(){
 
+    /* Matrix */
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
 
-      // do not overwrite the original arrs array
-      arrs_filt = filter_visible_mat(arrs, zoom_data);
+      // // Filter
+      // // do not overwrite the original arrs array
+      // arrs_filt = filter_visible_mat(arrs, zoom_data);
 
-      // // no filtering
-      // arrs_filt = arrs
+      // no filtering
+      arrs_filt = arrs;
 
       // generate draw_cells_props using buffers is not slow
       //////////////////////////////////////////////////////
@@ -312,18 +280,24 @@ function run_viz(regl, assets){
 
     });
 
+    /* Row labels and dendrogram */
     camera['row-labels'].draw(() => {
       draw_labels['row']();
       draw_dendro['row']();
     });
 
+    /* Column labels and dendrogram */
     camera['col-labels'].draw(() => {
       draw_labels['col']();
       draw_dendro['col']();
     });
 
-    camera['title'].draw(() => {
+
+
+    // Static components (later prevent from redrawing)
+    camera['static'].draw(() => {
       draw_text_triangles();
+      draw_spillover_rects();
     });
 
   }
