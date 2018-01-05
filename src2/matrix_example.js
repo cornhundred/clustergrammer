@@ -295,11 +295,12 @@ function run_viz(regl, assets){
     camera['mat'].draw(() => {
       regl.clear({ color: [0, 0, 0, 0] });
 
-      arrs = filter_visible_mat(arrs, zoom_data);
+      // do not overwrite the original arrs array
+      arrs_filt = filter_visible_mat(arrs, zoom_data);
 
       // generate draw_cells_props using buffers is not slow
       //////////////////////////////////////////////////////
-      var draw_cells_props = make_draw_cells_props(arrs);
+      var draw_cells_props = make_draw_cells_props(arrs_filt);
 
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();

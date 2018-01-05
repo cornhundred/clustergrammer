@@ -19,7 +19,7 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
   total_pan.x_min = -zoom_data.x.total_pan_min;
   total_pan.x_max = mat_width + zoom_data.x.total_pan_max;
 
-  buffer_width = 0.05;
+  buffer_width = 0.025;
 
   pan_webgl = {}
   pan_webgl.x_min = pix_to_webgl(total_pan.x_min) - buffer_width;
