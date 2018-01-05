@@ -170,6 +170,9 @@ function run_viz(regl, assets){
     inst_data.pan_by_drag = 0;
     inst_data.inst_zoom = 1;
 
+    // zoom at which previous filtering was done (ini at 1)
+    inst_data.filter_zoom = 1;
+
     // keep track of previous restrictions
     inst_data.prev_restrict = false;
 
@@ -251,7 +254,6 @@ function run_viz(regl, assets){
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
-
   var ini_scale = 1.0 ;
 
   const camera = {}
@@ -297,6 +299,9 @@ function run_viz(regl, assets){
 
       // do not overwrite the original arrs array
       arrs_filt = filter_visible_mat(arrs, zoom_data);
+
+      // // no filtering
+      // arrs_filt = arrs
 
       // generate draw_cells_props using buffers is not slow
       //////////////////////////////////////////////////////
