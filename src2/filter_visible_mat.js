@@ -7,19 +7,23 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
   // make a d3.scale to transition from 0px - 500px to -1, 1 space
   var pix_to_webgl = d3.scale.linear();
 
+  mat_width = 500;
+
   pix_to_webgl
-    .domain([0, 500])
+    .domain([0, mat_width])
     .range([-0.5, 0.5])
     .clamp(true);
 
   // panning is defined as negative pixel values
   total_pan = {}
   total_pan.x_min = -zoom_data.x.total_pan_min;
+  total_pan.x_max = mat_width + zoom_data.x.total_pan_max;
 
   buffer_width = 0.05;
 
   pan_webgl = {}
   pan_webgl.x_min = pix_to_webgl(total_pan.x_min) - buffer_width;
+  pan_webgl.x_max = pix_to_webgl(total_pan.x_max) + buffer_width;
 
   // console.log(pan_webgl)
 
@@ -46,7 +50,7 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
   // filtering based on position
   keep_opacity = [];
   arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
-    if (d[0] > pan_webgl.x_min){
+    if (d[0] > pan_webgl.x_min && d[0] < pan_webgl.x_max){
       console.log()
       keep_opacity.push(arrs.opacity_arr[i])
       return d;
