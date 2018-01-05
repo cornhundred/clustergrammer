@@ -12,15 +12,16 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
     .range([-0.5, 0.5])
     .clamp(true);
 
-
-  // console.log()
-
   // panning is defined as negative pixel values
-  total_pan_max = -zoom_data.x.total_pan_min;
+  total_pan = {}
+  total_pan.x_min = -zoom_data.x.total_pan_min;
 
-  pan_webgl = pix_to_webgl(total_pan_max)
+  buffer_width = 0.05;
 
-  console.log(pan_webgl)
+  pan_webgl = {}
+  pan_webgl.x_min = pix_to_webgl(total_pan.x_min) - buffer_width;
+
+  // console.log(pan_webgl)
 
   /* Array re-calculation plan */
   /*
@@ -45,7 +46,7 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
   // filtering based on position
   keep_opacity = [];
   arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
-    if (d[0] > pan_webgl){
+    if (d[0] > pan_webgl.x_min){
       console.log()
       keep_opacity.push(arrs.opacity_arr[i])
       return d;
