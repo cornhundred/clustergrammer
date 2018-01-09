@@ -258,6 +258,12 @@ function run_viz(regl, assets){
   // generate draw_cells_props using buffers
   var draw_cells_props = make_draw_cells_props(arrs);
 
+  spillover_tri_positions = [
+    // left spillover rect
+    {'pos': [[-1, 1], [-0.5, -1], [-1, -1]]},
+    {'pos': [[-1, 1], [-0.5, 1], [-0.5, -1]]}
+  ]
+
   camera_type = 'mat'
   function draw_commands(){
 
@@ -298,7 +304,7 @@ function run_viz(regl, assets){
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
       draw_text_triangles();
-      draw_spillover_rects();
+      draw_spillover_rects(spillover_tri_positions);
     });
 
   }
