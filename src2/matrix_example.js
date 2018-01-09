@@ -259,9 +259,13 @@ function run_viz(regl, assets){
   var draw_cells_props = make_draw_cells_props(arrs);
 
   spillover_tri_positions = [
-    // left spillover rect
+    // // left spillover rect
     {'pos': [[-1, 1], [-0.5, -1], [-1, -1]]},
-    {'pos': [[-1, 1], [-0.5, 1], [-0.5, -1]]}
+    {'pos': [[-1, 1], [-0.5, 1], [-0.5, -1]]},
+
+    // right spillover rect
+    {'pos': [[1, 1], [0.5, -1], [1, -1]]},
+    {'pos': [[1, 1], [0.5, 1], [0.5, -1]]}
   ]
 
   camera_type = 'mat'
