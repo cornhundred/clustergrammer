@@ -277,11 +277,11 @@ function run_viz(regl, assets){
   ]
 
   camera_type = 'mat'
-  function draw_commands(){
+  function draw_commands(tmp){
 
     /* Matrix */
     camera['mat'].draw(() => {
-      regl.clear({ color: [0, 0, 0, 0] });
+      // regl.clear({ color: [0, 0, 0, 0] });
 
       // // Filter
       // // do not overwrite the original arrs array
@@ -299,17 +299,20 @@ function run_viz(regl, assets){
 
     });
 
-    /* Row labels and dendrogram */
-    camera['row-labels'].draw(() => {
-      draw_labels['row']();
-      draw_dendro['row']();
-    });
+    // if (tmp < 100){
 
-    /* Column labels and dendrogram */
-    camera['col-labels'].draw(() => {
-      draw_labels['col']();
-      draw_dendro['col']();
-    });
+      /* Row labels and dendrogram */
+      camera['row-labels'].draw(() => {
+        draw_labels['row']();
+        draw_dendro['row']();
+      });
+
+      /* Column labels and dendrogram */
+      camera['col-labels'].draw(() => {
+        draw_labels['col']();
+        draw_dendro['col']();
+      });
+    // }
 
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
@@ -319,11 +322,15 @@ function run_viz(regl, assets){
 
   }
 
+  tmp = 0
+
   regl.frame(function () {
 
     if (still_interacting == true || initialize_viz == true){
+      // console.log('draw')
       initialize_viz = false;
-      draw_commands();
+      draw_commands(tmp);
+      // tmp = tmp + 1
     }
 
   })
