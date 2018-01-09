@@ -34,8 +34,8 @@ has_been_both = false
 still_interacting = false;
 initialize_viz = true;
 
-var filename = 'data/mult_view.json'
-// var filename = 'data/mnist.json'
+// var filename = 'data/mult_view.json'
+var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
 // var filename = 'data/cytof_10k.json'
 // var filename = 'data/cytof_25k.json'
@@ -277,7 +277,7 @@ function run_viz(regl, assets){
   ]
 
   camera_type = 'mat'
-  function draw_commands(tmp){
+  function draw_commands(){
 
     /* Matrix */
     camera['mat'].draw(() => {
@@ -299,20 +299,18 @@ function run_viz(regl, assets){
 
     });
 
-    // if (tmp < 100){
 
-      /* Row labels and dendrogram */
-      camera['row-labels'].draw(() => {
-        draw_labels['row']();
-        draw_dendro['row']();
-      });
+    /* Row labels and dendrogram */
+    camera['row-labels'].draw(() => {
+      draw_labels['row']();
+      draw_dendro['row']();
+    });
 
-      /* Column labels and dendrogram */
-      camera['col-labels'].draw(() => {
-        draw_labels['col']();
-        draw_dendro['col']();
-      });
-    // }
+    /* Column labels and dendrogram */
+    camera['col-labels'].draw(() => {
+      draw_labels['col']();
+      draw_dendro['col']();
+    });
 
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
@@ -322,15 +320,12 @@ function run_viz(regl, assets){
 
   }
 
-  tmp = 0
-
   regl.frame(function () {
 
     if (still_interacting == true || initialize_viz == true){
       // console.log('draw')
       initialize_viz = false;
-      draw_commands(tmp);
-      // tmp = tmp + 1
+      draw_commands();
     }
 
   })

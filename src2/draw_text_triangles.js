@@ -20,12 +20,12 @@ module.exports = function draw_text_triangles(regl, zoom_function){
 
       void main () {
         // reverse y position to get words to be upright
-        gl_Position = zoom * vec4( 0.25*position.x, -0.25 * position.y + 1.2, 0.0, 2.0);
+        gl_Position = zoom * vec4( 0.4*position.x, -0.6 * position.y + 1.2, 0.0, 2.0);
       }`,
     frag: `
       precision mediump float;
       void main () {
-        gl_FragColor = vec4(1, 0, 0, 1.0);
+        gl_FragColor = vec4(0, 0, 1, 1.0);
       }`,
     attributes: {
       position: text_vect.positions
