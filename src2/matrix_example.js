@@ -258,14 +258,22 @@ function run_viz(regl, assets){
   // generate draw_cells_props using buffers
   var draw_cells_props = make_draw_cells_props(arrs);
 
-  spillover_tri_positions = [
-    // // left spillover rect
-    {'pos': [[-1, 1], [-0.5, -1], [-1, -1]]},
-    {'pos': [[-1, 1], [-0.5, 1], [-0.5, -1]]},
+  var spillover_tri_positions = [
+    // left spillover rect
+    {'pos': [[-1, 1], [-0.5, -1], [-1.0, -1]]},
+    {'pos': [[-1, 1], [-0.5,  1], [-0.5, -1]]},
 
     // right spillover rect
-    {'pos': [[1, 1], [0.5, -1], [1, -1]]},
-    {'pos': [[1, 1], [0.5, 1], [0.5, -1]]}
+    {'pos': [[1, 1], [0.5, -1], [1.0, -1]]},
+    {'pos': [[1, 1], [0.5,  1], [0.5, -1]]},
+
+    // top spillover rect
+    {'pos': [[-0.5, 1], [-0.5, 0.373], [0.5, 1]]},
+    {'pos': [[ 0.5, 1], [0.5, 0.373], [-0.5, 0.373]]},
+
+    // bottom spillover rect
+    {'pos': [[-0.5, -1], [-0.5, -0.373], [0.5, -1]]},
+    {'pos': [[ 0.5, -1], [0.5, -0.373], [-0.5, -0.373]]},
   ]
 
   camera_type = 'mat'
@@ -302,8 +310,6 @@ function run_viz(regl, assets){
       draw_labels['col']();
       draw_dendro['col']();
     });
-
-
 
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
