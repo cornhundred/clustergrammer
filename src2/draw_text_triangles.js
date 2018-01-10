@@ -16,7 +16,7 @@ module.exports = function draw_text_triangles(regl, zoom_function){
     frag: `
       precision mediump float;
       void main () {
-        gl_FragColor = vec4(1, 0, 0, 1.0);
+        gl_FragColor = vec4(0.2, 0.2, 0.2, 1.0);
       }`,
     attributes: {
       // position: text_vect.positions
