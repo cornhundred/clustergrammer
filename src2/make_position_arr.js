@@ -22,7 +22,8 @@ module.exports = function make_position_arr(num_row, num_col){
   row_nodes = network.row_nodes;
   col_nodes = network.col_nodes;
 
-  inst_order = 'rank';
+  // inst_order = 'rank';
+  inst_order = 'clust';
 
   // generate x and y positions
   ////////////////////////////////
