@@ -72,7 +72,7 @@ draw_spillover_rects.corners = require('./draw_spillover_rects')
 // max ~200 min ~20
 var font_detail = 200;
 outside_text_vect = []
-tmp_text_vect = vectorizeText('Title', {
+tmp_text_vect = vectorizeText('Outside text', {
   textAlign: 'center',
   textBaseline: 'middle',
   triangles:true,

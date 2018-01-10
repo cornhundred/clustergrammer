@@ -2,15 +2,15 @@ const vectorizeText = require('vectorize-text')
 
 module.exports = function draw_text_triangles(regl, zoom_function){
 
-  // max ~200 min ~20
-  var font_detail = 200;
-  var text_vect = vectorizeText('Title', {
-    textAlign: 'center',
-    textBaseline: 'middle',
-    triangles:true,
-    size:font_detail,
-    font:'"Open Sans", verdana, arial, sans-serif'
-  });
+  // // max ~200 min ~20
+  // var font_detail = 200;
+  // var text_vect = vectorizeText('Title', {
+  //   textAlign: 'center',
+  //   textBaseline: 'middle',
+  //   triangles:true,
+  //   size:font_detail,
+  //   font:'"Open Sans", verdana, arial, sans-serif'
+  // });
 
   // var text_vect = regl.prop('text_vect');
   // console.log('here')
@@ -32,7 +32,8 @@ module.exports = function draw_text_triangles(regl, zoom_function){
         gl_FragColor = vec4(1, 0, 0, 1.0);
       }`,
     attributes: {
-      position: text_vect.positions
+      // position: text_vect.positions
+      position: regl.prop('positions')
     },
     // elements: text_vect.cells,
     elements: regl.prop('cells'),
