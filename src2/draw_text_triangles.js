@@ -2,29 +2,16 @@ const vectorizeText = require('vectorize-text')
 
 module.exports = function draw_text_triangles(regl, zoom_function){
 
-  // // max ~200 min ~20
-  // var font_detail = 200;
-  // var text_vect = vectorizeText('Title', {
-  //   textAlign: 'center',
-  //   textBaseline: 'middle',
-  //   triangles:true,
-  //   size:font_detail,
-  //   font:'"Open Sans", verdana, arial, sans-serif'
-  // });
-
-  // var text_vect = regl.prop('text_vect');
-  // console.log('here')
-  // console.log(regl.prop('text_vect'))
-
   var args = {
     vert: `
       precision mediump float;
       attribute vec2 position;
       uniform mat4 zoom;
+      uniform vec2 offset;
 
       void main () {
         // reverse y position to get words to be upright
-        gl_Position = zoom * vec4( 0.2*position.x, -0.2 * position.y + 1.2, 0.0, 2.0);
+        gl_Position = zoom * vec4( 0.2*position.x, -0.2 * position.y + offset[1], 0.0, 2.0);
       }`,
     frag: `
       precision mediump float;
@@ -38,11 +25,12 @@ module.exports = function draw_text_triangles(regl, zoom_function){
     // elements: text_vect.cells,
     elements: regl.prop('cells'),
     uniforms: {
-      zoom: zoom_function
+      zoom: zoom_function,
+      offset: regl.prop('offset')
     }
   }
 
- // // Spillover triangles
+ //  // Spillover triangles
  //  ///////////////////////////////
  //  var args = {
  //    // In a draw call, we can pass the shader source code to regl

@@ -82,6 +82,7 @@ tmp_text_vect = vectorizeText('Outside text', {
   font:'"Open Sans", verdana, arial, sans-serif'
 });
 
+tmp_text_vect.offset = [0, 0.5];
 outside_text_vect[0] = tmp_text_vect
 
 // make some text
@@ -92,6 +93,7 @@ tmp_text_vect = vectorizeText('something else', {
   size:font_detail,
   font:'"Open Sans", verdana, arial, sans-serif'
 });
+tmp_text_vect.offset = [0.0, -0.2];
 outside_text_vect[1] = tmp_text_vect
 
 function run_viz(regl, assets){
