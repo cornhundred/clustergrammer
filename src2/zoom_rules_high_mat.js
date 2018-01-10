@@ -1,4 +1,4 @@
-var interactionEvents = require('interaction-events');
+var interactionEvents = require('./interaction-events');
 var extend = require('xtend/mutable');
 var zoom_rules_low_mat = require('./zoom_rules_low_mat');
 

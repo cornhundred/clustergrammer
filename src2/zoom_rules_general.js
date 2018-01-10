@@ -1,4 +1,4 @@
-var interactionEvents = require('interaction-events');
+var interactionEvents = require('./interaction-events');
 var extend = require('xtend/mutable');
 
 module.exports = function(regl, zoom_restrict, viz_component){

@@ -19,7 +19,8 @@ module.exports = function draw_spillover_rects(regl, zoom_function){
     precision mediump float;
     attribute vec2 position;
     void main () {
-      gl_Position = vec4(position, 0, 1);
+      // positioned further up (matrix is lower at 0.)
+      gl_Position = vec4(position, 0.5, 1);
     }`,
 
     attributes: {
@@ -27,11 +28,18 @@ module.exports = function draw_spillover_rects(regl, zoom_function){
     },
 
     uniforms: {
-      color: [0, 0, 1, 0.5],
+      color: [1, 1, 1, 1],
       // offset: regl.prop('pos')
     },
 
     count: 3,
+    depth: {
+      enable: true,
+      mask: true,
+      func: 'less',
+      // func: 'greater',
+      range: [0, 1]
+    },
   }
 
   draw_function = regl(args)
