@@ -23,6 +23,7 @@ zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
+const vectorizeText = require('vectorize-text')
 
 // global variables
 d3 = require('d3');
@@ -67,6 +68,19 @@ draw_spillover_rects.mat = require('./draw_spillover_rects')
 
 draw_spillover_rects.corners = require('./draw_spillover_rects')
   (regl, zoom_function, 0.4);
+
+// max ~200 min ~20
+var font_detail = 200;
+input_text_vect = []
+tmp_text_vect = vectorizeText('Title', {
+  textAlign: 'center',
+  textBaseline: 'middle',
+  triangles:true,
+  size:font_detail,
+  font:'"Open Sans", verdana, arial, sans-serif'
+});
+
+input_text_vect[0] = tmp_text_vect
 
 function run_viz(regl, assets){
 
@@ -266,7 +280,7 @@ function run_viz(regl, assets){
   var height_to_width = viz_dim.canvas.height/viz_dim.canvas.width;
   var scaled_height = 0.5 / height_to_width;
 
-  var spillover_positions_mat = [
+  spillover_positions_mat = [
     // left spillover rect
     {'pos': [[-1, 1], [-0.5, -1], [-1.0, -1]]},
     {'pos': [[-1, 1], [-0.5,  1], [-0.5, -1]]},
@@ -342,7 +356,10 @@ function run_viz(regl, assets){
 
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
-      draw_text_triangles();
+
+      // draw_text_triangles(spillover_positions_mat);
+      draw_text_triangles(input_text_vect);
+
       draw_spillover_rects.mat(spillover_positions_mat);
       draw_spillover_rects.corners(spillover_positions_corners);
     });
