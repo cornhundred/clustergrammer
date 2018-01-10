@@ -4,7 +4,7 @@ module.exports = function draw_text_triangles(regl, zoom_function){
 
   // max ~200 min ~20
   var font_detail = 200;
-  var text_vect = vectorizeText('Something', {
+  var text_vect = vectorizeText('Title', {
     textAlign: 'center',
     textBaseline: 'middle',
     triangles:true,
@@ -20,12 +20,12 @@ module.exports = function draw_text_triangles(regl, zoom_function){
 
       void main () {
         // reverse y position to get words to be upright
-        gl_Position = zoom * vec4( 0.4*position.x, -0.6 * position.y + 1.2, 0.0, 2.0);
+        gl_Position = zoom * vec4( 0.2*position.x, -0.2 * position.y + 1.2, 0.0, 2.0);
       }`,
     frag: `
       precision mediump float;
       void main () {
-        gl_FragColor = vec4(0, 0, 1, 1.0);
+        gl_FragColor = vec4(1, 0, 0, 1.0);
       }`,
     attributes: {
       position: text_vect.positions
