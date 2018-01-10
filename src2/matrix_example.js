@@ -72,6 +72,8 @@ draw_spillover_rects.corners = require('./draw_spillover_rects')
 // max ~200 min ~20
 var font_detail = 200;
 outside_text_vect = []
+
+// make some text
 tmp_text_vect = vectorizeText('Outside text', {
   textAlign: 'center',
   textBaseline: 'middle',
@@ -81,6 +83,16 @@ tmp_text_vect = vectorizeText('Outside text', {
 });
 
 outside_text_vect[0] = tmp_text_vect
+
+// make some text
+tmp_text_vect = vectorizeText('something else', {
+  textAlign: 'center',
+  textBaseline: 'middle',
+  triangles:true,
+  size:font_detail,
+  font:'"Open Sans", verdana, arial, sans-serif'
+});
+outside_text_vect[1] = tmp_text_vect
 
 function run_viz(regl, assets){
 
