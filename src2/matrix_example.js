@@ -107,60 +107,52 @@ function run_viz(regl, assets){
   draw_dendro['row'] = require('./draw_dendro')(regl, num_row, 'row');
   draw_dendro['col'] = require('./draw_dendro')(regl, num_col, 'col');
 
-
-  flat_mat = [].concat.apply([], mat_data);
-
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
   var ini_scale = 1.0 ;
 
-  const camera = {}
+  const cameras = {}
   var zoom_range = {
       xrange: [-ini_scale, ini_scale],
       yrange: [-ini_scale, ini_scale]
     };
 
   // requiring camera and
-  camera['mat'] = require('./custom_camera_2d')(
+  cameras['mat'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'matrix'
   );
 
-  camera['row-labels'] = require('./custom_camera_2d')(
+  cameras['row-labels'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'row-labels'
   );
 
-  camera['row-label-text'] = require('./custom_camera_2d')(
+  cameras['row-label-text'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'row-label-text'
   );
 
-  camera['col-labels'] = require('./custom_camera_2d')(
+  cameras['col-labels'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'col-labels'
   );
 
-  camera['static'] = require('./custom_camera_2d')(
+  cameras['static'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'static'
   );
 
-  window.addEventListener('resize', camera['mat'].resize);
-  window.addEventListener('resize', camera['row-labels'].resize);
-
-  // generate position and opacity arrays from mat_data
-  var arrs = make_draw_cells_arr(regl, mat_data)
-
-  // // transfer to buffers
-  // var buffers = make_draw_cells_buffers(arrs.position_arr,
-  //                                       arrs.opacity_arr);
-  // generate draw_cells_props using buffers
-  var draw_cells_props = make_draw_cells_props(arrs);
+  window.addEventListener('resize', cameras['mat'].resize);
+  window.addEventListener('resize', cameras['row-labels'].resize);
 
   var spillover_positions = calc_spillover_positions(viz_dim);
 
-  camera_type = 'mat'
+  // generate position and opacity arrays from mat_data
+  var arrs = make_draw_cells_arr(regl, mat_data)
+  // generate draw_cells_props using buffers
+  var draw_cells_props = make_draw_cells_props(arrs);
+
   function draw_commands(){
 
     /* Matrix */
-    camera['mat'].draw(() => {
+    cameras['mat'].draw(() => {
       // regl.clear({ color: [0, 0, 0, 0] });
 
       // // Filter
@@ -182,23 +174,23 @@ function run_viz(regl, assets){
 
 
     /* Row labels and dendrogram */
-    camera['row-labels'].draw(() => {
+    cameras['row-labels'].draw(() => {
       draw_labels['row']();
       draw_dendro['row']();
     });
 
-    camera['row-label-text'].draw(() => {
+    cameras['row-label-text'].draw(() => {
       draw_text_triangles(text_triangles);
     });
 
     /* Column labels and dendrogram */
-    camera['col-labels'].draw(() => {
+    cameras['col-labels'].draw(() => {
       draw_labels['col']();
       draw_dendro['col']();
     });
 
     // Static components (later prevent from redrawing)
-    camera['static'].draw(() => {
+    cameras['static'].draw(() => {
 
       draw_spillover_rects.mat(spillover_positions['mat']);
       draw_spillover_rects.corners(spillover_positions['corners']);
