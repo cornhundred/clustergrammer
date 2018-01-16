@@ -65,8 +65,6 @@ var zoom_function = function(context){
   return context.view;
 }
 
-const draw_text_triangles = require('./draw_text_triangles')
-                                   (regl, zoom_function);
 
 var draw_spillover_rects = {};
 
@@ -104,13 +102,16 @@ function run_viz(regl, assets){
   var zoom_infos = {};
   zoom_infos['row-labels'] = zoom_rules['row-labels'](regl, zoom_restrict, 'row-labels');
 
-  var draw_labels = {};
-  draw_labels['row'] = require('./draw_mat_labels')(regl, num_row, 'row');
-  draw_labels['col'] = require('./draw_mat_labels')(regl, num_col, 'col');
+  params.draw_labels = {};
+  params.draw_labels['row'] = require('./draw_mat_labels')(regl, num_row, 'row');
+  params.draw_labels['col'] = require('./draw_mat_labels')(regl, num_col, 'col');
 
-  var draw_dendro = {};
-  draw_dendro['row'] = require('./draw_dendro')(regl, num_row, 'row');
-  draw_dendro['col'] = require('./draw_dendro')(regl, num_col, 'col');
+  params.draw_dendro = {};
+  params.draw_dendro['row'] = require('./draw_dendro')(regl, num_row, 'row');
+  params.draw_dendro['col'] = require('./draw_dendro')(regl, num_col, 'col');
+
+  params.draw_text_triangles = require('./draw_text_triangles')
+                                     (regl, zoom_function);
 
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
@@ -127,7 +128,7 @@ function run_viz(regl, assets){
   // generate position and opacity arrays from mat_data
   var arrs = make_draw_cells_arr(regl, mat_data)
   // generate draw_cells_props using buffers
-  var draw_cells_props = make_draw_cells_props(arrs);
+  params.draw_cells_props = make_draw_cells_props(arrs);
 
 
   regl.frame(function () {
@@ -157,26 +158,26 @@ function run_viz(regl, assets){
       // //////////////////////////////////////////////////////
       // var draw_cells_props = make_draw_cells_props(arrs_filt);
 
-      regl(draw_cells_props.regl_props['top'])();
-      regl(draw_cells_props.regl_props['bot'])();
+      regl(params.draw_cells_props.regl_props['top'])();
+      regl(params.draw_cells_props.regl_props['bot'])();
 
     });
 
 
     /* Row labels and dendrogram */
     params.cameras['row-labels'].draw(() => {
-      draw_labels['row']();
-      draw_dendro['row']();
+      params.draw_labels['row']();
+      params.draw_dendro['row']();
     });
 
     params.cameras['row-label-text'].draw(() => {
-      draw_text_triangles(text_triangles);
+      params.draw_text_triangles(text_triangles);
     });
 
     /* Column labels and dendrogram */
     params.cameras['col-labels'].draw(() => {
-      draw_labels['col']();
-      draw_dendro['col']();
+      params.draw_labels['col']();
+      params.draw_dendro['col']();
     });
 
     // Static components (later prevent from redrawing)
