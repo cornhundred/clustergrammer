@@ -63,15 +63,16 @@ var zoom_function = function(context){
 }
 
 const draw_text_triangles = require('./draw_text_triangles')
-  (regl, zoom_function);
+                                   (regl, zoom_function);
 
 var draw_spillover_rects = {};
+
 // inst_depth is passed to spillover rects
 draw_spillover_rects.mat = require('./draw_spillover_rects')
-  (regl, zoom_function, 0.5);
+                                  (regl, zoom_function, 0.5);
 
 draw_spillover_rects.corners = require('./draw_spillover_rects')
-  (regl, zoom_function, 0.4);
+                                      (regl, zoom_function, 0.4);
 
 
 function run_viz(regl, assets){
@@ -80,13 +81,13 @@ function run_viz(regl, assets){
 
   // use data from network
   //////////////////////////
-  mat_data = network.mat
+  var mat_data = network.mat
 
-  num_row = mat_data.length;
-  num_col = mat_data[0].length;
+  var num_row = mat_data.length;
+  var num_col = mat_data[0].length;
 
   // calculate the text_triangles for all rows
-  outside_text_vect = row_label_text(network.row_nodes);
+  var text_triangles = row_label_text(network.row_nodes);
 
   var zoom_data = ini_zoom_data();
   var zoom_restrict = ini_zoom_restrict(mat_data);
@@ -172,7 +173,7 @@ function run_viz(regl, assets){
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
 
-      draw_text_triangles(outside_text_vect);
+      draw_text_triangles(text_triangles);
 
     });
 
@@ -194,6 +195,7 @@ function run_viz(regl, assets){
 
       draw_spillover_rects.mat(spillover_positions['mat']);
       draw_spillover_rects.corners(spillover_positions['corners']);
+
     });
 
   }
