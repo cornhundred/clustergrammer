@@ -12,7 +12,14 @@ module.exports = function draw_text_triangles(regl, zoom_function){
       // last value is a sort-of zoom
       void main () {
         // reverse y position to get words to be upright
-        gl_Position = zoom * vec4( 0.2*position.x, -0.2 * position.y + offset[1], 0.50, 10);
+        gl_Position = zoom *
+                      vec4(
+                            position.x + offset[0],
+                           -position.y + offset[1],
+                           // depth
+                           0.50,
+                           // zoom
+                           30);
       }`,
     frag: `
       precision mediump float;
