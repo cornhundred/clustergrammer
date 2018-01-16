@@ -25,6 +25,7 @@ var filter_visible_mat = require('./filter_visible_mat');
 var row_label_text = require('./row_label_text');
 var calc_spillover_positions = require('./calc_spillover_positions');
 var calc_viz_dim = require('./calc_viz_dim');
+var ini_zoom_data = require('./ini_zoom_data');
 
 // global variables
 d3 = require('d3');
@@ -43,6 +44,7 @@ var filename = 'data/mult_view.json'
 // var filename = 'data/cytof_25k.json'
 // var filename = 'data/cytof_35k.json'
 
+// resource loader
 require('resl')({
   manifest:{
     'viz':{
@@ -74,26 +76,6 @@ draw_spillover_rects.corners = require('./draw_spillover_rects')
 function run_viz(regl, assets){
 
   network = JSON.parse(assets['viz'])
-
-  // // generate fake data
-  // //////////////////////////
-  // var num_row = 30;
-  // var num_col = 29;
-
-  // mat_data = []
-  // tmp = 1;
-  // total = num_row * num_col;
-  // for (var i=0; i < num_row; i++){
-  //   mat_data[i] = []
-  //   for (var j=0; j < num_col; j++){
-  //     mat_data[i][j] = 2*Math.random() - 1;
-  //     // mat_data[i][j] = 1/( i + j + 1) ;
-  //     // mat_data[i][j] = (tmp / total) + 0.2;
-  //     tmp = tmp + 1;
-  //   }
-  // }
-
-  // need to generate fake row/col ordering data
 
   // use data from network
   //////////////////////////
@@ -129,35 +111,8 @@ function run_viz(regl, assets){
     zoom_restrict.ratio_x = num_col/num_row;
   }
 
-  // organize zoom rules into x and y components
-  zoom_data = {};
-  _.each(['x', 'y'], function(inst_dim){
-    inst_data = {};
-    // total zooming (formerly tsx)
-    inst_data.total_zoom = 1;
-    // position of cursor (formerly x0)
-    inst_data.cursor_position = 0;
-    // total panning relative to the min
-    inst_data.total_pan_min = 0;
-    // total panning relative to the max
-    inst_data.total_pan_max = 0;
-    // pan_room (allowed negative panning)
-    inst_data.pan_room = 0;
-    // pan_by_zoom (formerly zdx)
-    inst_data.pan_by_zoom = 0;
-    inst_data.pan_by_drag = 0;
-    inst_data.inst_zoom = 1;
 
-    // zoom at which previous filtering was done (ini at 1)
-    inst_data.filter_zoom = 1;
-
-    // keep track of previous restrictions
-    inst_data.prev_restrict = false;
-
-    // add to zoom_data
-    zoom_data[inst_dim] = inst_data;
-  });
-
+  zoom_data = ini_zoom_data();
 
   // working on improved matrix zooming
   zoom_restrict_mat = {};
