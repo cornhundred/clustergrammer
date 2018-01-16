@@ -16,7 +16,6 @@
 
 // const
 regl = require('regl')({extensions: ['angle_instanced_arrays']})
-var extend = require('xtend/mutable');
 var zoom_rules = {};
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
@@ -25,6 +24,7 @@ var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
 var row_label_text = require('./row_label_text');
 var calc_spillover_positions = require('./calc_spillover_positions');
+var calc_viz_dim = require('./calc_viz_dim');
 
 // global variables
 d3 = require('d3');
@@ -181,36 +181,7 @@ function run_viz(regl, assets){
     zoom_restrict_mat.x.ratio = num_col/num_row;
   }
 
-  // Set up viz_dim
-  ///////////////////////
-  var opts = opts || {};
-  var options = extend({
-      element: opts.element || regl._gl.canvas,
-    }, opts || {});
-
-  var element = options.element;
-
-  var viz_dim = {};
-  viz_dim.canvas = {};
-  viz_dim.mat = {};
-
-  _.each(['width', 'height'], function(inst_dim){
-    viz_dim.canvas[inst_dim] = Number.parseFloat(d3.select(element)
-      .style(inst_dim).replace('px', ''));
-  });
-
-  // square matrix size set by width of canvas
-  viz_dim.mat.width = viz_dim.canvas.width/2;
-  viz_dim.mat.height = viz_dim.canvas.width/2;
-
-  // min and max position of matrix
-  viz_dim.mat.x = {};
-  viz_dim.mat.x.min = viz_dim.canvas.width/2 - viz_dim.mat.width/2;
-  viz_dim.mat.x.max = viz_dim.canvas.width/2 + viz_dim.mat.width/2;
-
-  viz_dim.mat.y = {};
-  viz_dim.mat.y.min = viz_dim.canvas.height/2 - viz_dim.mat.height/2;
-  viz_dim.mat.y.max = viz_dim.canvas.height/2 + viz_dim.mat.height/2;
+  var viz_dim = calc_viz_dim();
 
   // update zoom_data
   zoom_rules_high_mat(regl, zoom_restrict_mat, zoom_data, viz_dim);
