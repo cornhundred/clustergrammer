@@ -61,22 +61,25 @@ require('resl')({
   }
 })
 
-var zoom_function = function(context){
-  return context.view;
-}
-
-
-var draw_spillover_rects = {};
-
-// inst_depth is passed to spillover rects
-draw_spillover_rects.mat = require('./draw_spillover_rects')
-                                  (regl, zoom_function, 0.5);
-
-draw_spillover_rects.corners = require('./draw_spillover_rects')
-                                      (regl, zoom_function, 0.4);
 
 
 function run_viz(regl, assets){
+
+  var zoom_function = function(context){
+    return context.view;
+  }
+
+  console.log('****************')
+  console.log('** initialize **')
+  console.log('****************')
+  var draw_spillover_rects = {};
+
+  // inst_depth is passed to spillover rects
+  draw_spillover_rects.mat = require('./draw_spillover_rects')
+                                    (regl, zoom_function, 0.5);
+
+  draw_spillover_rects.corners = require('./draw_spillover_rects')
+                                        (regl, zoom_function, 0.4);
 
   network = JSON.parse(assets['viz'])
 
