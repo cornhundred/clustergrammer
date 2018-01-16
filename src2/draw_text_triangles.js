@@ -11,7 +11,7 @@ module.exports = function draw_text_triangles(regl, zoom_function){
 
       void main () {
         // reverse y position to get words to be upright
-        gl_Position = zoom * vec4( 0.2*position.x, -0.2 * position.y + offset[1], 0.0, 2.0);
+        gl_Position = zoom * vec4( 0.2*position.x, -0.2 * position.y + offset[1], 0.70, 1.0);
       }`,
     frag: `
       precision mediump float;
@@ -27,7 +27,14 @@ module.exports = function draw_text_triangles(regl, zoom_function){
     uniforms: {
       zoom: zoom_function,
       offset: regl.prop('offset')
-    }
+    },
+    depth: {
+      enable: true,
+      mask: true,
+      func: 'less',
+      // func: 'greater',
+      range: [0, 1]
+    },
   }
 
  //  // Spillover triangles

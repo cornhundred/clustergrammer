@@ -329,6 +329,8 @@ function run_viz(regl, assets){
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
 
+      draw_text_triangles(outside_text_vect);
+
     });
 
 
@@ -347,8 +349,7 @@ function run_viz(regl, assets){
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
 
-      // draw_text_triangles(spillover_positions_mat);
-      draw_text_triangles(outside_text_vect);
+      // draw_text_triangles(outside_text_vect);
 
       draw_spillover_rects.mat(spillover_positions_mat);
       draw_spillover_rects.corners(spillover_positions_corners);
