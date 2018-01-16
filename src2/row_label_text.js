@@ -1,6 +1,9 @@
 const vectorizeText = require('vectorize-text');
 
-module.exports = function row_label_text(){
+module.exports = function row_label_text(inst_nodes){
+
+  inst_nodes = inst_nodes.slice(0,5)
+  console.log(inst_nodes)
 
   console.log('working on row label text')
 

@@ -69,7 +69,6 @@ draw_spillover_rects.mat = require('./draw_spillover_rects')
 draw_spillover_rects.corners = require('./draw_spillover_rects')
   (regl, zoom_function, 0.4);
 
-outside_text_vect = row_label_text();
 
 
 function run_viz(regl, assets){
@@ -102,6 +101,8 @@ function run_viz(regl, assets){
 
   num_row = mat_data.length;
   num_col = mat_data[0].length;
+
+  outside_text_vect = row_label_text(network.row_nodes);
 
   zoom_restrict = {};
 
