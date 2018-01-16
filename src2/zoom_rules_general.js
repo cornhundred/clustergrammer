@@ -1,7 +1,7 @@
 var interactionEvents = require('./interaction-events');
 var extend = require('xtend/mutable');
 
-module.exports = function(regl, zoom_restrict, viz_component){
+module.exports = function zoom_rules_general(regl, zoom_restrict, viz_component){
 
   var opts = opts || {};
   var options = extend({

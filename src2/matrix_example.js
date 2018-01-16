@@ -27,6 +27,7 @@ var calc_spillover_positions = require('./calc_spillover_positions');
 var calc_viz_dim = require('./calc_viz_dim');
 var ini_zoom_data = require('./ini_zoom_data');
 var ini_zoom_restrict = require('./ini_zoom_restrict');
+var make_cameras = require('./make_cameras');
 
 // global variables
 d3 = require('d3');
@@ -110,34 +111,7 @@ function run_viz(regl, assets){
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
-  var ini_scale = 1.0 ;
-
-  const cameras = {}
-  var zoom_range = {
-      xrange: [-ini_scale, ini_scale],
-      yrange: [-ini_scale, ini_scale]
-    };
-
-  // requiring camera and
-  cameras['mat'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'matrix'
-  );
-
-  cameras['row-labels'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'row-labels'
-  );
-
-  cameras['row-label-text'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'row-label-text'
-  );
-
-  cameras['col-labels'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'col-labels'
-  );
-
-  cameras['static'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'static'
-  );
+  var cameras = make_cameras(zoom_data);
 
   window.addEventListener('resize', cameras['mat'].resize);
   window.addEventListener('resize', cameras['row-labels'].resize);
