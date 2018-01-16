@@ -29,6 +29,8 @@ var ini_zoom_data = require('./ini_zoom_data');
 var ini_zoom_restrict = require('./ini_zoom_restrict');
 var make_cameras = require('./make_cameras');
 
+external_draw_commands = require('./draw_commands')
+
 // global variables
 d3 = require('d3');
 _ = require('underscore')
@@ -97,6 +99,8 @@ function run_viz(regl, assets){
   // update zoom_data
   zoom_rules_high_mat(regl, zoom_restrict, zoom_data, viz_dim);
 
+  var params = {}
+
   var zoom_infos = {};
   zoom_infos['row-labels'] = zoom_rules['row-labels'](regl, zoom_restrict, 'row-labels');
 
@@ -113,6 +117,8 @@ function run_viz(regl, assets){
 
   var cameras = make_cameras(zoom_data);
 
+  params.cameras = cameras
+
   window.addEventListener('resize', cameras['mat'].resize);
   window.addEventListener('resize', cameras['row-labels'].resize);
 
@@ -123,10 +129,21 @@ function run_viz(regl, assets){
   // generate draw_cells_props using buffers
   var draw_cells_props = make_draw_cells_props(arrs);
 
-  function draw_commands(){
+
+  regl.frame(function () {
+
+    if (still_interacting == true || initialize_viz == true){
+      console.log('draw')
+      initialize_viz = false;
+      internal_draw_commands(regl, params);
+    }
+
+  })
+
+  function internal_draw_commands(regl, params){
 
     /* Matrix */
-    cameras['mat'].draw(() => {
+    params.cameras['mat'].draw(() => {
       // regl.clear({ color: [0, 0, 0, 0] });
 
       // // Filter
@@ -143,28 +160,27 @@ function run_viz(regl, assets){
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
 
-
     });
 
 
     /* Row labels and dendrogram */
-    cameras['row-labels'].draw(() => {
+    params.cameras['row-labels'].draw(() => {
       draw_labels['row']();
       draw_dendro['row']();
     });
 
-    cameras['row-label-text'].draw(() => {
+    params.cameras['row-label-text'].draw(() => {
       draw_text_triangles(text_triangles);
     });
 
     /* Column labels and dendrogram */
-    cameras['col-labels'].draw(() => {
+    params.cameras['col-labels'].draw(() => {
       draw_labels['col']();
       draw_dendro['col']();
     });
 
     // Static components (later prevent from redrawing)
-    cameras['static'].draw(() => {
+    params.cameras['static'].draw(() => {
 
       draw_spillover_rects.mat(spillover_positions['mat']);
       draw_spillover_rects.corners(spillover_positions['corners']);
@@ -172,16 +188,5 @@ function run_viz(regl, assets){
     });
 
   }
-
-  regl.frame(function () {
-
-    if (still_interacting == true || initialize_viz == true){
-      console.log('draw')
-      initialize_viz = false;
-      draw_commands();
-    }
-
-  })
-
 
 }
