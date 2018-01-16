@@ -24,6 +24,7 @@ var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
 var row_label_text = require('./row_label_text');
+var calc_spillover_positions = require('./calc_spillover_positions');
 
 // global variables
 d3 = require('d3');
@@ -35,8 +36,8 @@ has_been_both = false
 still_interacting = false;
 initialize_viz = true;
 
-// var filename = 'data/mult_view.json'
-var filename = 'data/mnist.json'
+var filename = 'data/mult_view.json'
+// var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
 // var filename = 'data/cytof_10k.json'
 // var filename = 'data/cytof_25k.json'
@@ -70,7 +71,6 @@ draw_spillover_rects.corners = require('./draw_spillover_rects')
   (regl, zoom_function, 0.4);
 
 
-
 function run_viz(regl, assets){
 
   network = JSON.parse(assets['viz'])
@@ -102,6 +102,7 @@ function run_viz(regl, assets){
   num_row = mat_data.length;
   num_col = mat_data[0].length;
 
+  // calculate the text_triangles for all rows
   outside_text_vect = row_label_text(network.row_nodes);
 
   zoom_restrict = {};
@@ -189,7 +190,7 @@ function run_viz(regl, assets){
 
   var element = options.element;
 
-  viz_dim = {};
+  var viz_dim = {};
   viz_dim.canvas = {};
   viz_dim.mat = {};
 
@@ -268,45 +269,7 @@ function run_viz(regl, assets){
   // generate draw_cells_props using buffers
   var draw_cells_props = make_draw_cells_props(arrs);
 
-  var height_to_width = viz_dim.canvas.height/viz_dim.canvas.width;
-  var scaled_height = 0.5 / height_to_width;
-
-  spillover_positions_mat = [
-    // left spillover rect
-    {'pos': [[-1, 1], [-0.5, -1], [-1.0, -1]]},
-    {'pos': [[-1, 1], [-0.5,  1], [-0.5, -1]]},
-
-    // right spillover rect
-    {'pos': [[1, 1], [0.5, -1], [1.0, -1]]},
-    {'pos': [[1, 1], [0.5,  1], [0.5, -1]]},
-
-    // top spillover rect
-    {'pos': [[-0.5, 1], [-0.5, scaled_height], [0.5, 1]]},
-    {'pos': [[ 0.5, 1], [0.5, scaled_height], [-0.5, scaled_height]]},
-
-    // bottom spillover rect
-    {'pos': [[-0.5, -1], [-0.5, -scaled_height], [0.5, -1]]},
-    {'pos': [[ 0.5, -1], [0.5, -scaled_height], [-0.5, -scaled_height]]},
-  ];
-
-  var spillover_positions_corners = [
-    // top-left spillover rect
-    {'pos': [[-1, 1], [-0.5, scaled_height], [-1.0, scaled_height]]},
-    {'pos': [[-1, 1], [-0.5,  1], [-0.5, scaled_height]]},
-
-    // bottom-left spillover rect
-    {'pos': [[-1, -1], [-0.5, -scaled_height], [-1.0, -scaled_height]]},
-    {'pos': [[-1, -1], [-0.5,  -1], [-0.5, -scaled_height]]},
-
-    // top-right spillover rect
-    {'pos': [[1, 1], [0.5, scaled_height], [1.0, scaled_height]]},
-    {'pos': [[1, 1], [0.5,  1], [0.5, scaled_height]]},
-
-    // bottom-right spillover rect
-    {'pos': [[1, -1], [0.5, -scaled_height], [1.0, -scaled_height]]},
-    {'pos': [[1, -1], [0.5,  -1], [0.5, -scaled_height]]},
-
-  ];
+  var spillover_positions = calc_spillover_positions(viz_dim);
 
   camera_type = 'mat'
   function draw_commands(){
@@ -323,9 +286,9 @@ function run_viz(regl, assets){
       // no filtering
       arrs_filt = arrs;
 
-      // generate draw_cells_props using buffers is not slow
-      //////////////////////////////////////////////////////
-      var draw_cells_props = make_draw_cells_props(arrs_filt);
+      // // generate draw_cells_props using buffers is not slow
+      // //////////////////////////////////////////////////////
+      // var draw_cells_props = make_draw_cells_props(arrs_filt);
 
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
@@ -350,10 +313,8 @@ function run_viz(regl, assets){
     // Static components (later prevent from redrawing)
     camera['static'].draw(() => {
 
-      // draw_text_triangles(outside_text_vect);
-
-      draw_spillover_rects.mat(spillover_positions_mat);
-      draw_spillover_rects.corners(spillover_positions_corners);
+      draw_spillover_rects.mat(spillover_positions['mat']);
+      draw_spillover_rects.corners(spillover_positions['corners']);
     });
 
   }
@@ -361,7 +322,7 @@ function run_viz(regl, assets){
   regl.frame(function () {
 
     if (still_interacting == true || initialize_viz == true){
-      // console.log('draw')
+      console.log('draw')
       initialize_viz = false;
       draw_commands();
     }

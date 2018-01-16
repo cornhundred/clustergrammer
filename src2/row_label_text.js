@@ -2,13 +2,13 @@ const vectorizeText = require('vectorize-text');
 
 module.exports = function row_label_text(inst_nodes){
 
-  inst_nodes = inst_nodes.slice(0,5)
-  console.log(inst_nodes)
+  inst_nodes = inst_nodes.slice(0, 10)
 
-  console.log('working on row label text')
+  console.log('calculating text-triangles')
 
   // detal: max ~200 min ~20
-  var font_detail = 200;
+  // usable range: 12-30
+  var font_detail = 25;
 
   vect_text_attrs = {
     textAlign: 'right',
@@ -21,18 +21,21 @@ module.exports = function row_label_text(inst_nodes){
   // working on loop
   outside_text_vect = [];
 
-  labels = ['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
-  num_labels = labels.length;
+  // labels = ['one', 'two', 'three', 'four', 'five', 'six', 'seven'];
+
+  num_labels = inst_nodes.length;
   offsets = _.range(num_labels);
 
-  _.each(labels, function(inst_label, i){
+  _.each(inst_nodes, function(inst_node, i){
+    inst_name = inst_node.name.split(': ')[1]
 
-    tmp_text_vect = vectorizeText(inst_label, vect_text_attrs);
+    tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
     tmp_text_vect.offset = [0, -offsets[i]/(2*num_labels)];
     outside_text_vect.push(tmp_text_vect);
 
   })
 
+  console.log('finished calculating text triangles')
   return outside_text_vect;
 
 
