@@ -23,7 +23,7 @@ zoom_rules['row-labels'] = require('./zoom_rules_general');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
-const vectorizeText = require('vectorize-text')
+var row_label_text = require('./row_label_text');
 
 // global variables
 d3 = require('d3');
@@ -69,32 +69,8 @@ draw_spillover_rects.mat = require('./draw_spillover_rects')
 draw_spillover_rects.corners = require('./draw_spillover_rects')
   (regl, zoom_function, 0.4);
 
-// max ~200 min ~20
-var font_detail = 200;
-outside_text_vect = []
+var outside_text_vect = row_label_text();
 
-// make some text
-tmp_text_vect = vectorizeText('Outside text', {
-  textAlign: 'center',
-  textBaseline: 'middle',
-  triangles:true,
-  size:font_detail,
-  font:'"Open Sans", verdana, arial, sans-serif'
-});
-
-tmp_text_vect.offset = [0, 0.5];
-outside_text_vect[0] = tmp_text_vect
-
-// make some text
-tmp_text_vect = vectorizeText('something else', {
-  textAlign: 'center',
-  textBaseline: 'middle',
-  triangles:true,
-  size:font_detail,
-  font:'"Open Sans", verdana, arial, sans-serif'
-});
-tmp_text_vect.offset = [0.0, -0.2];
-outside_text_vect[1] = tmp_text_vect
 
 function run_viz(regl, assets){
 
