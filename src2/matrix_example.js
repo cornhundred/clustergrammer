@@ -87,59 +87,40 @@ function run_viz(regl, assets){
   // calculate the text_triangles for all rows
   outside_text_vect = row_label_text(network.row_nodes);
 
-  zoom_restrict = {};
+  // zoom_restrict = {};
 
   // setting zoom high for CyTOF example
   max_zoom = 20;
-  zoom_restrict.max_x = max_zoom;
-  zoom_restrict.max_y = max_zoom;
-  zoom_restrict.min_x = 1.0;
-  zoom_restrict.min_y = 1.0;
-  zoom_restrict.ratio_x = 1;
-  zoom_restrict.ratio_y = 1;
-  zoom_restrict.zoom_ratio = num_row/num_col;
-
-  // run one fix of mat offset
-  fix_once = true
-
-  // increase max zoom in y or x direction
-  if (num_row > num_col){
-    zoom_restrict.max_y = zoom_restrict.max_y * ( num_row/num_col );
-    zoom_restrict.ratio_y = num_row/num_col;
-  } else if (num_col < num_row) {
-    zoom_restrict.max_x = zoom_restrict.max_x * ( num_col/num_row );
-    zoom_restrict.ratio_x = num_col/num_row;
-  }
 
 
   zoom_data = ini_zoom_data();
 
   // working on improved matrix zooming
-  zoom_restrict_mat = {};
+  zoom_restrict = {};
 
-  zoom_restrict_mat.x = {};
-  zoom_restrict_mat.x.max = max_zoom;
-  zoom_restrict_mat.x.min = 1.0;
-  zoom_restrict_mat.x.ratio = 1;
+  zoom_restrict.x = {};
+  zoom_restrict.x.max = max_zoom;
+  zoom_restrict.x.min = 1.0;
+  zoom_restrict.x.ratio = 1;
 
-  zoom_restrict_mat.y = {};
-  zoom_restrict_mat.y.max = max_zoom;
-  zoom_restrict_mat.y.min = 1.0;
-  zoom_restrict_mat.y.ratio = 1;
+  zoom_restrict.y = {};
+  zoom_restrict.y.max = max_zoom;
+  zoom_restrict.y.min = 1.0;
+  zoom_restrict.y.ratio = 1;
 
   // increase max zoom in y or x direction
   if (num_row > num_col){
-    zoom_restrict_mat.y.max = zoom_restrict_mat.y.max * ( num_row/num_col );
-    zoom_restrict_mat.y.ratio = num_row/num_col;
+    zoom_restrict.y.max = zoom_restrict.y.max * ( num_row/num_col );
+    zoom_restrict.y.ratio = num_row/num_col;
   } else if (num_col < num_row) {
-    zoom_restrict_mat.x.max = zoom_restrict_mat.x.max * ( num_col/num_row );
-    zoom_restrict_mat.x.ratio = num_col/num_row;
+    zoom_restrict.x.max = zoom_restrict.x.max * ( num_col/num_row );
+    zoom_restrict.x.ratio = num_col/num_row;
   }
 
   var viz_dim = calc_viz_dim();
 
   // update zoom_data
-  zoom_rules_high_mat(regl, zoom_restrict_mat, zoom_data, viz_dim);
+  zoom_rules_high_mat(regl, zoom_restrict, zoom_data, viz_dim);
 
   var zoom_infos = {};
   zoom_infos['row-labels'] = zoom_rules['row-labels'](regl, zoom_restrict, 'row-labels');
