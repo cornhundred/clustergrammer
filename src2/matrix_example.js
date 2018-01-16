@@ -29,7 +29,7 @@ var ini_zoom_data = require('./ini_zoom_data');
 var ini_zoom_restrict = require('./ini_zoom_restrict');
 var make_cameras = require('./make_cameras');
 
-external_draw_commands = require('./draw_commands')
+draw_commands = require('./draw_commands')
 
 // global variables
 d3 = require('d3');
@@ -87,8 +87,10 @@ function run_viz(regl, assets){
   var num_row = mat_data.length;
   var num_col = mat_data[0].length;
 
+  var params = {}
+
   // calculate the text_triangles for all rows
-  var text_triangles = row_label_text(network.row_nodes);
+  params.text_triangles = row_label_text(network.row_nodes);
 
   var zoom_data = ini_zoom_data();
   var zoom_restrict = ini_zoom_restrict(mat_data);
@@ -97,7 +99,6 @@ function run_viz(regl, assets){
   // update zoom_data
   zoom_rules_high_mat(regl, zoom_restrict, zoom_data, viz_dim);
 
-  var params = {}
 
   var zoom_infos = {};
   zoom_infos['row-labels'] = zoom_rules['row-labels'](regl, zoom_restrict, 'row-labels');
@@ -113,6 +114,8 @@ function run_viz(regl, assets){
   params.draw_text_triangles = require('./draw_text_triangles')
                                      (regl, zoom_function);
 
+  params.draw_spillover_rects = draw_spillover_rects;
+
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
 
@@ -123,7 +126,7 @@ function run_viz(regl, assets){
   window.addEventListener('resize', cameras['mat'].resize);
   window.addEventListener('resize', cameras['row-labels'].resize);
 
-  var spillover_positions = calc_spillover_positions(viz_dim);
+  params.spillover_positions = calc_spillover_positions(viz_dim);
 
   // generate position and opacity arrays from mat_data
   var arrs = make_draw_cells_arr(regl, mat_data)
@@ -136,58 +139,12 @@ function run_viz(regl, assets){
     if (still_interacting == true || initialize_viz == true){
       console.log('draw')
       initialize_viz = false;
-      internal_draw_commands(regl, params);
+
+      draw_commands(regl, params);
     }
 
   })
 
-  function internal_draw_commands(regl, params){
 
-    /* Matrix */
-    params.cameras['mat'].draw(() => {
-      // regl.clear({ color: [0, 0, 0, 0] });
-
-      // // Filter
-      // // do not overwrite the original arrs array
-      // arrs_filt = filter_visible_mat(arrs, zoom_data);
-
-      // no filtering
-      arrs_filt = arrs;
-
-      // // generate draw_cells_props using buffers is not slow
-      // //////////////////////////////////////////////////////
-      // var draw_cells_props = make_draw_cells_props(arrs_filt);
-
-      regl(params.draw_cells_props.regl_props['top'])();
-      regl(params.draw_cells_props.regl_props['bot'])();
-
-    });
-
-
-    /* Row labels and dendrogram */
-    params.cameras['row-labels'].draw(() => {
-      params.draw_labels['row']();
-      params.draw_dendro['row']();
-    });
-
-    params.cameras['row-label-text'].draw(() => {
-      params.draw_text_triangles(text_triangles);
-    });
-
-    /* Column labels and dendrogram */
-    params.cameras['col-labels'].draw(() => {
-      params.draw_labels['col']();
-      params.draw_dendro['col']();
-    });
-
-    // Static components (later prevent from redrawing)
-    params.cameras['static'].draw(() => {
-
-      draw_spillover_rects.mat(spillover_positions['mat']);
-      draw_spillover_rects.corners(spillover_positions['corners']);
-
-    });
-
-  }
 
 }
