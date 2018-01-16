@@ -26,6 +26,7 @@ var row_label_text = require('./row_label_text');
 var calc_spillover_positions = require('./calc_spillover_positions');
 var calc_viz_dim = require('./calc_viz_dim');
 var ini_zoom_data = require('./ini_zoom_data');
+var ini_zoom_restrict = require('./ini_zoom_restrict');
 
 // global variables
 d3 = require('d3');
@@ -87,36 +88,8 @@ function run_viz(regl, assets){
   // calculate the text_triangles for all rows
   outside_text_vect = row_label_text(network.row_nodes);
 
-  // zoom_restrict = {};
-
-  // setting zoom high for CyTOF example
-  max_zoom = 20;
-
-
-  zoom_data = ini_zoom_data();
-
-  // working on improved matrix zooming
-  zoom_restrict = {};
-
-  zoom_restrict.x = {};
-  zoom_restrict.x.max = max_zoom;
-  zoom_restrict.x.min = 1.0;
-  zoom_restrict.x.ratio = 1;
-
-  zoom_restrict.y = {};
-  zoom_restrict.y.max = max_zoom;
-  zoom_restrict.y.min = 1.0;
-  zoom_restrict.y.ratio = 1;
-
-  // increase max zoom in y or x direction
-  if (num_row > num_col){
-    zoom_restrict.y.max = zoom_restrict.y.max * ( num_row/num_col );
-    zoom_restrict.y.ratio = num_row/num_col;
-  } else if (num_col < num_row) {
-    zoom_restrict.x.max = zoom_restrict.x.max * ( num_col/num_row );
-    zoom_restrict.x.ratio = num_col/num_row;
-  }
-
+  var zoom_data = ini_zoom_data();
+  var zoom_restrict = ini_zoom_restrict(mat_data);
   var viz_dim = calc_viz_dim();
 
   // update zoom_data
@@ -180,7 +153,6 @@ function run_viz(regl, assets){
 
   camera_type = 'mat'
   function draw_commands(){
-
 
     /* Matrix */
     camera['mat'].draw(() => {
