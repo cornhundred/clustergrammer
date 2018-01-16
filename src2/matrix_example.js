@@ -69,7 +69,7 @@ draw_spillover_rects.mat = require('./draw_spillover_rects')
 draw_spillover_rects.corners = require('./draw_spillover_rects')
   (regl, zoom_function, 0.4);
 
-var outside_text_vect = row_label_text();
+outside_text_vect = row_label_text();
 
 
 function run_viz(regl, assets){

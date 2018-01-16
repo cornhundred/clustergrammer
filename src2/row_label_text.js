@@ -6,30 +6,47 @@ module.exports = function row_label_text(){
 
   // max ~200 min ~20
   var font_detail = 200;
-  outside_text_vect = []
 
-  // make some text
-  tmp_text_vect = vectorizeText('Outside text', {
+  vect_text_attrs = {
     textAlign: 'right',
     textBaseline: 'middle',
     triangles:true,
     size:font_detail,
     font:'"Open Sans", verdana, arial, sans-serif'
-  });
+  }
 
-  tmp_text_vect.offset = [0, 0.5];
-  outside_text_vect[0] = tmp_text_vect
+  var offsets = _.range(3)/10;
+  labels = ['one', 'two', 'three'];
 
-  // make some text
-  tmp_text_vect = vectorizeText('short', {
-    textAlign: 'right',
-    textBaseline: 'middle',
-    triangles:true,
-    size:font_detail,
-    font:'"Open Sans", verdana, arial, sans-serif'
-  });
+  _.each(labels, function(d, i){
+    console.log(d, i)
+
+    // make some text
+    tmp_text_vect = vectorizeText(d, vect_text_attrs);
+
+    tmp_text_vect.offset = [0, offsets[i]];
+
+    // outside_text_vect.push(tmp_text_vect);
+
+
+  })
+
+  // working on loop
+
+  outside_text_vect = [];
+  tmp_text_vect = vectorizeText(labels[0], vect_text_attrs);
+  tmp_text_vect.offset = [0, -0.1];
+  outside_text_vect.push(tmp_text_vect);
+
+  tmp_text_vect = vectorizeText(labels[1], vect_text_attrs);
   tmp_text_vect.offset = [0.0, -0.2];
-  outside_text_vect[1] = tmp_text_vect
+  outside_text_vect.push(tmp_text_vect);
+
+  tmp_text_vect = vectorizeText(labels[2], vect_text_attrs);
+  tmp_text_vect.offset = [0.0, -0.3];
+  outside_text_vect.push(tmp_text_vect);
 
   return outside_text_vect;
+
+
 };
