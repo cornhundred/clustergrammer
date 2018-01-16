@@ -122,19 +122,23 @@ function run_viz(regl, assets){
     };
 
   // requiring camera and
-  camera['mat'] = require('./camera_2d_mat')(
+  camera['mat'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'matrix'
   );
 
-  camera['row-labels'] = require('./camera_2d_mat')(
+  camera['row-labels'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'row-labels'
   );
 
-  camera['col-labels'] = require('./camera_2d_mat')(
+  camera['row-label-text'] = require('./custom_camera_2d')(
+    regl, zoom_range, zoom_data, 'row-label-text'
+  );
+
+  camera['col-labels'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'col-labels'
   );
 
-  camera['static'] = require('./camera_2d_mat')(
+  camera['static'] = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'static'
   );
 
@@ -173,7 +177,6 @@ function run_viz(regl, assets){
       regl(draw_cells_props.regl_props['top'])();
       regl(draw_cells_props.regl_props['bot'])();
 
-      draw_text_triangles(text_triangles);
 
     });
 
@@ -182,6 +185,10 @@ function run_viz(regl, assets){
     camera['row-labels'].draw(() => {
       draw_labels['row']();
       draw_dendro['row']();
+    });
+
+    camera['row-label-text'].draw(() => {
+      draw_text_triangles(text_triangles);
     });
 
     /* Column labels and dendrogram */

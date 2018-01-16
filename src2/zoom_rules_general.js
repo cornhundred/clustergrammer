@@ -278,6 +278,13 @@ module.exports = function(regl, zoom_restrict, viz_component){
       zoom_info.zdx = 0;
     }
 
+    if (viz_component == 'row-label-text'){
+      // do not allow zooming or panning along the x axis
+      // zoom_info.pan_by_drag_x = 0;
+      // zoom_info.dsx = 1.0;
+      // zoom_info.zdx = 0;
+    }
+
     // tmp disable y zooming
     ///////////////////////////
     zoom_info.pan_by_drag_y = 0;
