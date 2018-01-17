@@ -34,7 +34,8 @@ module.exports = function draw_commands(regl, params){
     params.cameras['row-label-text'].draw(() => {
 
       // quick attempt to keep text fixed size
-      params.text_zoom.row = params.text_zoom.row * ( 9 + params.zoom_data.y.inst_zoom)/10;
+      params.text_zoom.row_factor = ( 4 + params.zoom_data.y.inst_zoom)/5;
+      params.text_zoom.row = params.text_zoom.row * params.text_zoom.row_factor;
 
       // make the arguments for the draw command
       params.draw_text_triangles = draw_text_triangles(regl, params, params.zoom_function);

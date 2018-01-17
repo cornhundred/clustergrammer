@@ -45,14 +45,6 @@ module.exports = function initialize_params(regl, network){
   params.draw_dendro.row = draw_dendro(regl, params.num_row, 'row');
   params.draw_dendro.col = draw_dendro(regl, params.num_col, 'col');
 
-  params.text_zoom = {};
-
-  // this scaling factor can be set to the number of rows
-  params.text_zoom.row = params.num_row;
-
-  // calculate the text_triangles for all rows
-  params.row_label_text = row_label_text(params);
-  params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
 
   var spillover_commands = {};
 
@@ -69,6 +61,16 @@ module.exports = function initialize_params(regl, network){
   params.viz_dim = calc_viz_dim(regl);
 
   params.zoom_data = ini_zoom_data();
+
+  params.text_zoom = {};
+
+  // this scaling factor can be set to the number of rows
+  params.text_zoom.row = params.num_row;
+  params.text_zoom.row_factor = 1;
+
+  // calculate the text_triangles for all rows
+  params.row_label_text = row_label_text(params);
+  params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
 
   params.zoom_restrict = ini_zoom_restrict(params);
 
