@@ -1,7 +1,7 @@
 module.exports = function draw_spillover_rects(regl, zoom_function, inst_depth,
                                                inst_color=[1, 1, 1, 1]){
 
-  // Spillover triangles
+  // Spillover Arguments
   ///////////////////////////////
   var args = {
     // In a draw call, we can pass the shader source code to regl
@@ -40,8 +40,6 @@ module.exports = function draw_spillover_rects(regl, zoom_function, inst_depth,
     },
   };
 
-  var draw_function = regl(args);
-
-  return draw_function;
+  return args;
 
 };

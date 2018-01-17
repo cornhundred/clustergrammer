@@ -10,7 +10,7 @@ var make_draw_cells_props = require('./make_draw_cells_props');
 var draw_mat_labels = require('./draw_mat_labels');
 var draw_dendro = require('./draw_dendro');
 // var draw_text_triangles = require('./draw_text_triangles');
-var draw_spillover_rects = require('./draw_spillover_rects');
+var make_spillover_args = require('./make_spillover_args');
 
 module.exports = function initialize_params(regl, network){
 
@@ -45,18 +45,14 @@ module.exports = function initialize_params(regl, network){
   params.draw_dendro.row = draw_dendro(regl, params.num_row, 'row');
   params.draw_dendro.col = draw_dendro(regl, params.num_col, 'col');
 
-
-  var spillover_commands = {};
+  var spillover_args = {};
 
   // inst_depth is passed to spillover rects
-  spillover_commands.mat_sides = draw_spillover_rects(regl, zoom_function, 0.5);
+  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5);
+  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4);
+  spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0);
 
-  spillover_commands.mat_corners = draw_spillover_rects(regl, zoom_function, 0.4);
-
-  // only covering text at depth of 0??
-  spillover_commands.label_corners = draw_spillover_rects(regl, zoom_function, 0.0);
-
-  params.draw_spillover_rects = spillover_commands;
+  params.spillover_args = spillover_args;
 
   params.viz_dim = calc_viz_dim(regl);
 
