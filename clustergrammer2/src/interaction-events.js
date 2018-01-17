@@ -9,11 +9,12 @@ var eventOffset = require('mouse-event-offset');
 var eventEmitter = require('event-emitter');
 
 function Finger () {
-  this.position = [0, 0]
-  this.touch = null
+  this.position = [0, 0];
+  this.touch = null;
 }
 
-function interactionEvents (opts, callback) {
+// can pass in callback as second argument
+function interactionEvents (opts) {
   var options = extend({
     element: window,
     constrainZoom: false,
@@ -23,17 +24,19 @@ function interactionEvents (opts, callback) {
 
   var element = options.element;
   var enabled = false;
-  var mouseDown = false;
-  var wheelSpeed = 0.01;
+  // var mouseDown = false;
+  // var wheelSpeed = 0.01;
   var pPos = [null, null];
   var fingers = [null, null];
   var ended = false;
   var activeCount = 0;
-  var xprev, yprev, enabled = false;
+  var xprev;
+  var yprev;
 
   var ev = {};
 
-  var buttons = 0, mods = {};
+  var buttons = 0;
+  var mods = {};
   var changeListener = mouseChange(element, function(pbuttons, px, py, pmods) {
     buttons = pbuttons;
     mods = pmods;
@@ -46,7 +49,7 @@ function interactionEvents (opts, callback) {
   }
 
   function onWheel (event) {
-    var dx, dy, dz, x0, y0;
+    // var dx, dy, dz, x0, y0;
 
     ev.type = 'wheel';
     ev.buttons = buttons;
@@ -111,43 +114,46 @@ function interactionEvents (opts, callback) {
   }
 
   function indexOfTouch (touch) {
-    var id = touch.identifier
+    var id = touch.identifier;
     for (var i = 0; i < fingers.length; i++) {
       if (fingers[i] &&
         fingers[i].touch &&
         fingers[i].touch.identifier === id) {
-        return i
+        return i;
       }
     }
-    return -1
+    return -1;
   }
 
   function onTouchStart (event) {
     pPos = [null, null];
     for (var i = 0; i < event.changedTouches.length; i++) {
-      var newTouch = event.changedTouches[i]
-      var id = newTouch.identifier
-      var idx = indexOfTouch(id)
+      var newTouch = event.changedTouches[i];
+      var id = newTouch.identifier;
+      var idx = indexOfTouch(id);
 
       if (idx === -1 && activeCount < 2) {
-        var first = activeCount === 0
+        var first = activeCount === 0;
 
         // newest and previous finger (previous may be undefined)
-        var newIndex = fingers[0] ? 1 : 0
-        var oldIndex = fingers[0] ? 0 : 1
-        var newFinger = new Finger()
+        var newIndex = fingers[0] ? 1 : 0;
+        // var oldIndex = fingers[0] ? 0 : 1;
+        var newFinger = new Finger();
 
         // add to stack
-        fingers[newIndex] = newFinger
-        activeCount++
+        fingers[newIndex] = newFinger;
+
+        // activeCount++
+        activeCount = activeCount + 1;
 
         // update touch event & position
-        newFinger.touch = newTouch
-        eventOffset(newTouch, element, newFinger.position)
+        newFinger.touch = newTouch;
+        eventOffset(newTouch, element, newFinger.position);
 
-        var oldTouch = fingers[oldIndex] ? fingers[oldIndex].touch : undefined
+        // var oldTouch = fingers[oldIndex] ? fingers[oldIndex].touch : undefined;
+
         if (!first) {
-          ended = false
+          ended = false;
         }
       }
     }
@@ -171,13 +177,14 @@ function interactionEvents (opts, callback) {
     }
   }
 
-  var px0 = null;
-  var py0 = null;
+  // var px0 = null;
+  // var py0 = null;
+
   function onTouchMove (event) {
     var idx;
-    var changed = false
+    var changed = false;
     for (var i = 0; i < event.changedTouches.length; i++) {
-      var movedTouch = event.changedTouches[i]
+      var movedTouch = event.changedTouches[i];
       idx = indexOfTouch(movedTouch);
       if (idx !== -1) {
         changed = true;
@@ -260,8 +267,8 @@ function interactionEvents (opts, callback) {
 
           emitter.emit('interaction', forward(ev, event));
 
-          px0 = x0;
-          py0 = y0;
+          // var px0 = x0;
+          // var py0 = y0;
         }
       }
     }
