@@ -72,14 +72,8 @@ function run_viz(regl, assets){
   console.log('****************')
   console.log('** initialize **')
   console.log('****************')
-  var draw_spillover_rects = {};
 
-  // inst_depth is passed to spillover rects
-  draw_spillover_rects.mat = require('./draw_spillover_rects')
-                                    (regl, zoom_function, 0.5);
 
-  draw_spillover_rects.corners = require('./draw_spillover_rects')
-                                        (regl, zoom_function, 0.4);
 
   network = JSON.parse(assets['viz'])
 
@@ -91,7 +85,8 @@ function run_viz(regl, assets){
   var num_col = mat_data[0].length;
 
 
-  var params = initialize_params();
+  var params = initialize_params(mat_data);
+
 
   var zoom_data = ini_zoom_data();
   var zoom_restrict = ini_zoom_restrict(mat_data);
@@ -104,18 +99,7 @@ function run_viz(regl, assets){
   var zoom_infos = {};
   zoom_infos['row-labels'] = zoom_rules['row-labels'](regl, zoom_restrict, 'row-labels');
 
-  params.draw_labels = {};
-  params.draw_labels['row'] = require('./draw_mat_labels')(regl, num_row, 'row');
-  params.draw_labels['col'] = require('./draw_mat_labels')(regl, num_col, 'col');
 
-  params.draw_dendro = {};
-  params.draw_dendro['row'] = require('./draw_dendro')(regl, num_row, 'row');
-  params.draw_dendro['col'] = require('./draw_dendro')(regl, num_col, 'col');
-
-  params.draw_text_triangles = require('./draw_text_triangles')
-                                     (regl, zoom_function);
-
-  params.draw_spillover_rects = draw_spillover_rects;
 
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
