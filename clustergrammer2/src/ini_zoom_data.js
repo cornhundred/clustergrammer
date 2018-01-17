@@ -3,7 +3,7 @@ module.exports = function ini_zoom_data(){
   // organize zoom rules into x and y components
   var zoom_data = {};
   _.each(['x', 'y'], function(inst_dim){
-    inst_data = {};
+    var inst_data = {};
     // total zooming (formerly tsx)
     inst_data.total_zoom = 1;
     // position of cursor (formerly x0)
