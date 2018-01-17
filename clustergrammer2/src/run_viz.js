@@ -9,8 +9,8 @@ module.exports = function run_viz(regl, assets){
 
   var network = JSON.parse(assets.viz);
 
-  var tick = 0;
-  var has_been_both = false;
+  // var tick = 0;
+  // var has_been_both = false;
   var initialize_viz = true;
 
   var params = initialize_params(regl, network);
