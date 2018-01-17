@@ -1,13 +1,14 @@
+var m3 = require('./mat3_transform');
+
 module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
 
   var row_width = 0.025;
   var row_height = 1/num_rows;
 
-  var m3 = require('./mat3_transform');
 
   var zoom_function = function(context){
     return context.view;
-  }
+  };
 
   /////////////////////////////////
   // make buffer for row offsets
@@ -15,9 +16,9 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
 
   var x_offset = 0.5 ; // row_width;
 
-  y_offset_array = [];
+  var y_offset_array = [];
   for (var i = 0; i < num_rows; i++){
-    y_offset_array[i] = 0.5 - row_height/2 - i * row_height
+    y_offset_array[i] = 0.5 - row_height/2 - i * row_height;
   }
 
   const y_offset_buffer = regl.buffer({
@@ -28,7 +29,7 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
 
   y_offset_buffer(y_offset_array);
 
-  mat_scale = m3.scaling(1, 1);
+  var mat_scale = m3.scaling(1, 1);
 
   var rotation_radians;
   if (inst_rc === 'row'){
@@ -37,7 +38,7 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
     rotation_radians = Math.PI/2;
   }
 
-  mat_rotate = m3.rotation(rotation_radians);
+  var mat_rotate = m3.rotation(rotation_radians);
 
   // draw background
   const draw_rows = regl({
