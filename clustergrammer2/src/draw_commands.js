@@ -12,7 +12,7 @@ module.exports = function draw_commands(regl, params){
       // arrs_filt = filter_visible_mat(arrs, params.zoom_data);
 
       // no filtering
-      arrs_filt = arrs;
+      arrs_filt = params.arrs;
 
       // // generate draw_cells_props using buffers is not slow
       // //////////////////////////////////////////////////////

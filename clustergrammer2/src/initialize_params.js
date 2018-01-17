@@ -79,6 +79,8 @@ module.exports = function initialize_params(regl, network){
   // generate draw_cells_props using buffers
   params.draw_cells_props = make_draw_cells_props(regl, params, arrs);
 
+  params.arrs = arrs;
+
   return params;
 
 };

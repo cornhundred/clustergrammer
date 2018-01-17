@@ -2,7 +2,7 @@ module.exports = function make_cameras(regl, params){
 
   var zoom_data = params.zoom_data;
 
-  const cameras = {}
+  const cameras = {};
   var ini_scale = 1.0 ;
   var zoom_range = {
       xrange: [-ini_scale, ini_scale],
@@ -10,7 +10,7 @@ module.exports = function make_cameras(regl, params){
     };
 
   // requiring camera and
-  cameras['mat'] = require('./custom_camera_2d')(
+  cameras.mat = require('./custom_camera_2d')(
     regl, zoom_range, zoom_data, 'matrix'
   );
 

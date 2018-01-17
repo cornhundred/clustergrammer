@@ -81,7 +81,7 @@ module.exports = function make_draw_cells_props(regl, params, arrs){
 
   var zoom_function = function(context){
     return context.view;
-  }
+  };
 
   var regl_props = {
     vert: vert_string,
@@ -96,9 +96,6 @@ module.exports = function make_draw_cells_props(regl, params, arrs){
         buffer: opacity_buffer,
         divisor: 1
         }
-    },
-    depth: {
-      enable: false
     },
     blend: blend_info,
     count: 3,
@@ -121,13 +118,13 @@ module.exports = function make_draw_cells_props(regl, params, arrs){
   var draw_cells_props = {};
   draw_cells_props.regl_props = {};
 
-  top_props = $.extend(true, {}, regl_props);
+  var top_props = $.extend(true, {}, regl_props);
   top_props.attributes.position = top_half_verts;
-  draw_cells_props.regl_props['top'] = top_props;
+  draw_cells_props.regl_props.top = top_props;
 
-  bot_props = $.extend(true, {}, regl_props);
+  var bot_props = $.extend(true, {}, regl_props);
   bot_props.attributes.position = bottom_half_verts;
-  draw_cells_props.regl_props['bot'] = bot_props;
+  draw_cells_props.regl_props.bot = bot_props;
 
   return draw_cells_props;
 

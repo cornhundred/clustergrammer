@@ -3,7 +3,7 @@ module.exports = function make_draw_cells_buffers(regl, position_arr, opacity_ar
 
   // Make Buffers
   ///////////////////////////
-  position_buffer = regl.buffer(position_arr);
+  var position_buffer = regl.buffer(position_arr);
 
   const opacity_buffer = regl.buffer({
     // length: opacity_arr.length,
