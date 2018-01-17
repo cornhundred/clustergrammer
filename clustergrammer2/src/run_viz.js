@@ -13,7 +13,7 @@ module.exports = function run_viz(regl, assets){
   // var has_been_both = false;
   var initialize_viz = true;
 
-  var params = initialize_params(regl, network);
+  params = initialize_params(regl, network);
 
   // gparams = params;
 

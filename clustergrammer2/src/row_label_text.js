@@ -6,13 +6,13 @@ module.exports = function row_label_text(params){
 
   // inst_nodes = inst_nodes.slice(0, 10);
 
-  var num_rows = params.num_row;
+  var num_row = params.num_row;
 
-  // console.log(num_rows);
+  // console.log(num_row);
 
-  var row_height = 1/num_rows;
+  var row_height = 1/num_row;
   var y_offset_array = [];
-  for (var i = 0; i < num_rows; i++){
+  for (var i = 0; i < num_row; i++){
     y_offset_array[i] = 0.5 - row_height/2 - i * row_height;
   }
 
@@ -32,6 +32,22 @@ module.exports = function row_label_text(params){
     font:'"Open Sans", verdana, arial, sans-serif'
   };
 
+
+
+  // draw matrix cells
+  /////////////////////////////////////////
+  // set up offset array for buffer
+  var offset = {};
+  offset.x = 0.5;
+  offset.y = 0.5;
+
+  var y_arr = Array(num_row).fill()
+    .map(function(_, i){
+      // return -i/num_row + offset.y - 1/num_row;
+      return -i/num_row + offset.y - 0.5/num_row;
+    });
+
+
   // working on loop
   var outside_text_vect = [];
 
@@ -39,11 +55,23 @@ module.exports = function row_label_text(params){
 
   // console.log(offsets);
 
-  _.each(inst_nodes, function(inst_node, i){
+  var inst_order = 'clust'
+
+  _.each(inst_nodes, function(inst_node, row_id){
+
     var inst_name = inst_node.name.split(': ')[1];
 
     var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-    tmp_text_vect.offset = [-53.0, -y_offset_array[i]*3800/num_labels];
+
+    var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
+
+    var y = y_arr[ row_order_id ];
+
+    var tmp = -y_offset_array[row_id]*3800/num_labels;
+
+    // console.log(row_id, inst_name, row_order_id, tmp, y)
+
+    tmp_text_vect.offset = [-53.0, y*100];
     outside_text_vect.push(tmp_text_vect);
 
   });
