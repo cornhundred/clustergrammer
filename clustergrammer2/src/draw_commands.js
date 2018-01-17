@@ -1,29 +1,11 @@
 // var filter_visible_mat = require('./filter_visible_mat');
 // var make_draw_cells_props = require('./make_draw_cells_props');
 var draw_text_triangles = require('./draw_text_triangles');
+var draw_matrix = require('./draw_matrix');
 
 module.exports = function draw_commands(regl, params){
 
-    /* Matrix */
-    params.cameras.mat.draw(() => {
-      // regl.clear({ color: [0, 0, 0, 0] });
-
-      // // Filter
-      // // do not overwrite the original arrs array
-      // arrs_filt = filter_visible_mat(arrs, params.zoom_data);
-
-      // // no filtering
-      // var arrs_filt = params.arrs;
-
-      // // generate draw_cells_props using buffers is not slow
-      // //////////////////////////////////////////////////////
-      // var draw_cells_props = make_draw_cells_props(regl, arrs_filt);
-
-      regl(params.draw_cells_props.regl_props.top)();
-      regl(params.draw_cells_props.regl_props.bot)();
-
-    });
-
+    draw_matrix(regl, params);
 
     /* Row labels and dendrogram */
     params.cameras['row-labels'].draw(() => {
@@ -31,9 +13,10 @@ module.exports = function draw_commands(regl, params){
       params.draw_dendro.row();
     });
 
+    var allowable_zoom_factor = 3;
     var text_scale = d3.scale.linear()
       .domain([1, 10])
-      .range([1,3]);
+      .range([1, 10/allowable_zoom_factor]);
 
     params.cameras['row-label-text'].draw(() => {
 
