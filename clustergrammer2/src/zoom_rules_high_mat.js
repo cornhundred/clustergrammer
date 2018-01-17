@@ -81,8 +81,8 @@ module.exports = function zoom_rules_high_mat(regl, params){
       if (params.still_interacting == false){
         params.still_interacting = true;
         setTimeout(function(){
-          return params.still_interacting = false;
-        }, 1000)
+          params.still_interacting = false;
+        }, 1000);
       }
 
     }

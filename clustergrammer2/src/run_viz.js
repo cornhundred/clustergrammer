@@ -11,7 +11,7 @@ module.exports = function run_viz(regl, assets){
 
   tick = 0
   has_been_both = false
-  initialize_viz = true;
+  var initialize_viz = true;
 
   // use data from network
   //////////////////////////
