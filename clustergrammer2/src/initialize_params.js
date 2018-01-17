@@ -1,4 +1,5 @@
-var calc_row_label_triangles = require('./calc_row_label_triangles');
+var calc_row_text_triangles = require('./calc_row_text_triangles');
+var calc_col_text_triangles = require('./calc_col_text_triangles');
 var calc_viz_dim = require('./calc_viz_dim');
 var ini_zoom_data = require('./ini_zoom_data');
 var ini_zoom_restrict = require('./ini_zoom_restrict');
@@ -12,7 +13,6 @@ var make_spillover_args = require('./make_spillover_args');
 
 module.exports = function initialize_params(regl, network){
 
-  // console.log('** initialize_params');
   var params = {};
 
   // use data from network
@@ -24,16 +24,11 @@ module.exports = function initialize_params(regl, network){
   };
 
   params.zoom_function = zoom_function;
-
   params.still_interacting = false;
-
   params.mat_data = network.mat;
 
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
-
-  // console.log('num_row: ' + String(params.num_row));
-  // console.log('num_col: ' + String(params.num_col));
 
   params.label_args = {};
   params.label_args.row = make_label_args(regl, params.num_row, 'row');
@@ -58,14 +53,20 @@ module.exports = function initialize_params(regl, network){
 
   params.text_zoom = {};
 
-  // this scaling factor can be set to the number of rows
+  // text zooming info
   params.text_zoom.row = {};
   params.text_zoom.row.inst_factor = params.num_row;
   params.text_zoom.row.reference = params.text_zoom.row.inst_factor;
   params.text_zoom.row.factor = 1;
 
+  params.text_zoom.col = {};
+  params.text_zoom.col.inst_factor = params.num_col;
+  params.text_zoom.col.reference = params.text_zoom.col.inst_factor;
+  params.text_zoom.col.factor = 1;
+
   // calculate the text_triangles for all rows
-  params.row_label_triangles = calc_row_label_triangles(params);
+  params.row_text_triangles = calc_row_text_triangles(params);
+  params.col_text_triangles = calc_col_text_triangles(params);
 
   params.zoom_restrict = ini_zoom_restrict(params);
 
