@@ -1,7 +1,9 @@
-module.exports = function ini_zoom_restrict(mat_data){
+module.exports = function ini_zoom_restrict(params){
 
-  num_row = mat_data.length;
-  num_col = mat_data[0].length;
+  var mat_data = params.mat_data;
+
+  var num_row = params.num_row;
+  var num_col = params.num_col;
 
   // working on improved matrix zooming
   max_zoom = 20;

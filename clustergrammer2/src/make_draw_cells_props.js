@@ -1,8 +1,8 @@
 var make_draw_cells_buffers = require('./make_draw_cells_buffers');
-var blend_info = require('./blend_info')
-var $ = require('jquery')
+var blend_info = require('./blend_info');
+var $ = require('jquery');
 
-module.exports = function make_draw_cells_props(regl, arrs){
+module.exports = function make_draw_cells_props(regl, params, arrs){
 
   // transfer to buffers is sort of slow
   //////////////////////////////////////////
@@ -11,6 +11,9 @@ module.exports = function make_draw_cells_props(regl, arrs){
 
   var opacity_buffer = buffers.opacity_buffer;
   var position_buffer = buffers.position_buffer;
+
+  var num_row = params.num_row;
+  var num_col = params.num_col;
 
   // bottom half
   var bottom_half_verts = [

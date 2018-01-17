@@ -26,11 +26,8 @@ module.exports = function initialize_params(regl, network){
 
   params.mat_data = network.mat;
 
-  var num_row = params.mat_data.length;
-  var num_col = params.mat_data[0].length;
-
-  params.num_row  = num_row;
-  params.num_col  = num_col;
+  params.num_row = params.mat_data.length;
+  params.num_col = params.mat_data[0].length;
 
   console.log('num_row: ' + String(params.num_row))
   console.log('num_col: ' + String(params.num_col))
@@ -39,12 +36,12 @@ module.exports = function initialize_params(regl, network){
   params.text_triangles = row_label_text(network.row_nodes);
 
   params.draw_labels = {};
-  params.draw_labels['row'] = require('./draw_mat_labels')(regl, num_row, 'row');
-  params.draw_labels['col'] = require('./draw_mat_labels')(regl, num_col, 'col');
+  params.draw_labels['row'] = require('./draw_mat_labels')(regl, params.num_row, 'row');
+  params.draw_labels['col'] = require('./draw_mat_labels')(regl, params.num_col, 'col');
 
   params.draw_dendro = {};
-  params.draw_dendro['row'] = require('./draw_dendro')(regl, num_row, 'row');
-  params.draw_dendro['col'] = require('./draw_dendro')(regl, num_col, 'col');
+  params.draw_dendro['row'] = require('./draw_dendro')(regl, params.num_row, 'row');
+  params.draw_dendro['col'] = require('./draw_dendro')(regl, params.num_col, 'col');
 
   params.draw_text_triangles = require('./draw_text_triangles')
                                      (regl, zoom_function);
@@ -64,7 +61,7 @@ module.exports = function initialize_params(regl, network){
 
   params.zoom_data = ini_zoom_data();
 
-  params.zoom_restrict = ini_zoom_restrict(params.mat_data);
+  params.zoom_restrict = ini_zoom_restrict(params);
 
   // update zoom_data
   zoom_rules_high_mat(regl, params);
@@ -80,7 +77,7 @@ module.exports = function initialize_params(regl, network){
   var arrs = make_draw_cells_arr(regl, params)
 
   // generate draw_cells_props using buffers
-  params.draw_cells_props = make_draw_cells_props(regl, arrs);
+  params.draw_cells_props = make_draw_cells_props(regl, params, arrs);
 
   return params;
 

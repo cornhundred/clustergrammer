@@ -1,5 +1,5 @@
 var filter_visible_mat = require('./filter_visible_mat');
-var make_draw_cells_props = require('./make_draw_cells_props');
+// var make_draw_cells_props = require('./make_draw_cells_props');
 
 module.exports = function draw_commands(regl, params){
 
