@@ -66,6 +66,7 @@ module.exports = function initialize_params(regl, network){
 
   // this scaling factor can be set to the number of rows
   params.text_zoom.row = params.num_row;
+  params.text_zoom.row_reference = params.text_zoom.row;
   params.text_zoom.row_factor = 1;
 
   // calculate the text_triangles for all rows

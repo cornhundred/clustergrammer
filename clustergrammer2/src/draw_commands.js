@@ -31,11 +31,20 @@ module.exports = function draw_commands(regl, params){
       params.draw_dendro.row();
     });
 
+    var text_scale = d3.scale.linear()
+      .domain([1, 10])
+      .range([1,3]);
+
     params.cameras['row-label-text'].draw(() => {
 
       // quick attempt to keep text fixed size
-      params.text_zoom.row_factor = ( 4 + params.zoom_data.y.inst_zoom)/5;
-      params.text_zoom.row = params.text_zoom.row * params.text_zoom.row_factor;
+      // params.text_zoom.row_factor = ( 4 + params.zoom_data.y.inst_zoom)/5;
+      // params.text_zoom.row = params.text_zoom.row * params.text_zoom.row_factor;
+
+      params.text_zoom.row = params.text_zoom.row_reference *
+                             text_scale(params.zoom_data.y.total_zoom);
+
+      // console.log(params.zoom_data.y.total_zoom)
 
       // make the arguments for the draw command
       params.draw_text_triangles = draw_text_triangles(regl, params, params.zoom_function);
