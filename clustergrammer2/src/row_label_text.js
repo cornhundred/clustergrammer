@@ -2,9 +2,19 @@ const vectorizeText = require('vectorize-text');
 
 module.exports = function row_label_text(params){
 
-  var inst_nodes = params.network.row_nodes
+  var inst_nodes = params.network.row_nodes;
 
   inst_nodes = inst_nodes.slice(0, 10);
+
+  var num_rows = params.num_row;
+  console.log(num_rows)
+  var row_height = 1/num_rows;
+  var y_offset_array = [];
+  for (var i = 0; i < num_rows; i++){
+    y_offset_array[i] = 0.5 - row_height/2 - i * row_height;
+  }
+
+  console.log(y_offset_array)
 
   // console.log('calculating text-triangles');
 
@@ -26,11 +36,13 @@ module.exports = function row_label_text(params){
   var num_labels = inst_nodes.length;
   var offsets = _.range(num_labels);
 
+  console.log(offsets)
+
   _.each(inst_nodes, function(inst_node, i){
     var inst_name = inst_node.name.split(': ')[1];
 
     var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-    tmp_text_vect.offset = [-53.0, -offsets[i]/(num_labels/10)];
+    tmp_text_vect.offset = [-53.0, -y_offset_array[i]/(num_labels/100)];
     outside_text_vect.push(tmp_text_vect);
 
   });
