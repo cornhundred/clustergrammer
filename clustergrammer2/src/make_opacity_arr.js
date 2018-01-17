@@ -8,8 +8,8 @@ module.exports = function make_opacity_arr(mat_data){
 
   var opacity_scale = d3.scale.linear();
 
-  opacity_domain = abs_max_val /1.5;
-  opacity_range = 0.80;
+  var opacity_domain = abs_max_val /1.5;
+  var opacity_range = 0.80;
 
   opacity_scale
     .domain([-opacity_domain, opacity_domain])
@@ -17,7 +17,7 @@ module.exports = function make_opacity_arr(mat_data){
     .clamp(true);
 
   opacity_arr = opacity_arr.map(function(x) {
-    return opacity_scale(x)
+    return opacity_scale(x);
   });
 
   return opacity_arr;
