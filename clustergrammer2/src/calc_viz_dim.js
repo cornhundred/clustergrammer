@@ -35,4 +35,4 @@ module.exports = function calc_viz_dim(regl){
 
   return viz_dim;
 
-}
+};

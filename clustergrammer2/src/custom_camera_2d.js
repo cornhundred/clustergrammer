@@ -1,12 +1,12 @@
 // © 2016 Ricky Reusser. MIT License.
-'use strict';
+// 'use strict';
 
 var interactionEvents = require('./interaction-events');
 var extend = require('xtend/mutable');
 var mat4 = require('gl-mat4');
 var EventEmitter = require('event-emitter');
 var vec4 = require('gl-vec4');
-var $ = require('jquery');
+// var $ = require('jquery');
 
 mat4.viewport = function viewport(out, x, y, w, h, n, f) {
   out[0] = w * 0.5;
@@ -16,7 +16,7 @@ mat4.viewport = function viewport(out, x, y, w, h, n, f) {
   out[4] = 0;
   out[5] = h * 0.5;
   out[6] = 0;
-  out[7] = 0
+  out[7] = 0;
   out[8] = 0;
   out[9] = 0;
   out[10] = (f - n) * 0.5;
@@ -26,7 +26,7 @@ mat4.viewport = function viewport(out, x, y, w, h, n, f) {
   out[14] = (f + n) * 0.5;
   out[15] = 1;
   return out;
-}
+};
 
 module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
 
@@ -44,12 +44,20 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
   var dirty = true;
 
   var getWidth = element === window ?
-    function () { return element.innerWidth } :
-    function () { return element.offsetWidth }
+
+
+    // function () { return element.innerWidth } :
+    // function () { return element.offsetWidth }
+
+
+    function () { return element.innerWidth; } : function () { return element.offsetWidth; };
 
   var getHeight = element === window ?
-    function () { return element.innerHeight } :
-    function () { return element.offsetHeight }
+
+    // function () { return element.innerHeight } :
+    // function () { return element.offsetHeight }
+
+    function () { return element.innerHeight; } : function () { return element.offsetHeight; };
 
   var xrange = opts.xrange === undefined ? [-1, 1] : opts.xrange;
   var yrange = opts.yrange === undefined ? [-1, 1] : opts.yrange;
@@ -228,13 +236,14 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
     resize: function () {
       computeViewport();
 
-      console.log('resizing')
+      // console.log('resizing');
 
       // Reapply the aspect ratio:
-      mView[5] = mView[0] * aspectRatio * width / height
+      mView[5] = mView[0] * aspectRatio * width / height;
       dirty = true;
     }
   };
 
   return inst_camera;
-}
+
+};

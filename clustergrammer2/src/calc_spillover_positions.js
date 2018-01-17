@@ -5,8 +5,8 @@ module.exports = function calc_spillover_positions(params){
   var height_to_width = viz_dim.canvas.height/viz_dim.canvas.width;
   var scaled_height = 0.5 / height_to_width;
 
-  var spillover_positions = {}
-  spillover_positions['mat'] = [
+  var spillover_positions = {};
+  spillover_positions.mat = [
     // left spillover rect
     {'pos': [[-1, 1], [-0.5, -1], [-1.0, -1]]},
     {'pos': [[-1, 1], [-0.5,  1], [-0.5, -1]]},
@@ -24,7 +24,7 @@ module.exports = function calc_spillover_positions(params){
     {'pos': [[ 0.5, -1], [0.5, -scaled_height], [-0.5, -scaled_height]]},
   ];
 
-  spillover_positions['corners'] = [
+  spillover_positions.corners = [
     // top-left spillover rect
     {'pos': [[-1, 1], [-0.5, scaled_height], [-1.0, scaled_height]]},
     {'pos': [[-1, 1], [-0.5,  1], [-0.5, scaled_height]]},
@@ -44,4 +44,5 @@ module.exports = function calc_spillover_positions(params){
   ];
 
   return spillover_positions;
-}
+
+};
