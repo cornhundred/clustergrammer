@@ -82,6 +82,12 @@ module.exports = function initialize_params(regl, network){
   // generate cell_args using buffers
   params.cell_args = make_cell_args(regl, params);
 
+  params.allowable_zoom_factor = 3;
+
+  params.text_scale = d3.scale.linear()
+    .domain([1, 10])
+    .range([1, 10/params.allowable_zoom_factor]);
+
   return params;
 
 };
