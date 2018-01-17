@@ -2,7 +2,6 @@
 
 module.exports = function draw_spillover_rects(regl, zoom_function, inst_depth,
                                                inst_color=[1, 1, 1, 1]){
-  console.log('draw spillover_rects')
 
   // Spillover triangles
   ///////////////////////////////
