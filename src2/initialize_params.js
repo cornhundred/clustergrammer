@@ -1,4 +1,5 @@
 var row_label_text = require('./row_label_text');
+var calc_viz_dim = require('./calc_viz_dim');
 
 module.exports = function initialize_params(mat_data){
 
@@ -39,6 +40,7 @@ module.exports = function initialize_params(mat_data){
 
   params.draw_spillover_rects = draw_spillover_rects;
 
+  params.viz_dim = calc_viz_dim();
 
 
   return params;
