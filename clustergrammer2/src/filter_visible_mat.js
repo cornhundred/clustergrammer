@@ -18,14 +18,14 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
 
     // reset filter_zoom
     zoom_data.y.filter_zoom = zoom_data.y.total_zoom;
-    console.log('filter', zoom_data.y.filter_zoom)
+    // console.log('filter', zoom_data.y.filter_zoom);
 
     var arrs = $.extend(true, {}, arrs_orig);
 
     // make a d3.scale to transition from 0px - 500px to -1, 1 space
-    mat_width = 500;
+    var mat_width = 500;
 
-    pix_to_webgl = {};
+    var pix_to_webgl = {};
 
     pix_to_webgl.x = d3.scale.linear();
     pix_to_webgl.x
@@ -40,16 +40,16 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
       .clamp(true);
 
     // panning is defined as negative pixel values
-    total_pan = {}
+    var total_pan = {};
     total_pan.x_min = -zoom_data.x.total_pan_min;
     total_pan.x_max = mat_width + zoom_data.x.total_pan_max;
 
     total_pan.y_min = -zoom_data.y.total_pan_min;
     total_pan.y_max = mat_width + zoom_data.y.total_pan_max;
 
-    buffer_width = 0.025;
+    var buffer_width = 0.025;
 
-    pan_webgl = {}
+    var pan_webgl = {};
     pan_webgl.x_min = pix_to_webgl.x(total_pan.x_min) - buffer_width;
     pan_webgl.x_max = pix_to_webgl.x(total_pan.x_max) + buffer_width;
 
@@ -57,7 +57,7 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
     pan_webgl.y_max = pix_to_webgl.y(total_pan.y_max) - buffer_width;
 
     // filtering based on position
-    keep_opacity = [];
+    var keep_opacity = [];
     arrs.position_arr = _.filter(arrs.position_arr, function(d,i){
 
       var check_x_min = d[0] > pan_webgl.x_min;
@@ -68,10 +68,10 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
       var check_y_max = d[1] > pan_webgl.y_max;
 
       if ( check_x_min && check_x_max && check_y_min && check_y_max){
-        keep_opacity.push(arrs.opacity_arr[i])
+        keep_opacity.push(arrs.opacity_arr[i]);
         return d;
         }
-    })
+    });
 
     // transfer keep_opacity
     arrs.opacity_arr = keep_opacity;
@@ -79,13 +79,13 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
   } else {
 
 
-    console.log('no - filter', zoom_data.y.filter_zoom)
-    var arrs = arrs_orig;
+    // console.log('no - filter', zoom_data.y.filter_zoom);
+    arrs = arrs_orig;
   }
 
   // if zooming out reset the total_zoom
   if (check_zoom_in === false){
-    zoom_data.y.filter_zoom = 1 //  zoom_data.y.total_zoom;
+    zoom_data.y.filter_zoom = 1; //  zoom_data.y.total_zoom;
   }
 
 
