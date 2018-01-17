@@ -1,5 +1,5 @@
 
-module.exports = function make_draw_cells_buffers(position_arr, opacity_arr){
+module.exports = function make_draw_cells_buffers(regl, position_arr, opacity_arr){
 
   // Make Buffers
   ///////////////////////////

@@ -1,3 +1,6 @@
+var filter_visible_mat = require('./filter_visible_mat');
+var make_draw_cells_props = require('./make_draw_cells_props');
+
 module.exports = function draw_commands(regl, params){
 
     /* Matrix */
@@ -6,14 +9,14 @@ module.exports = function draw_commands(regl, params){
 
       // // Filter
       // // do not overwrite the original arrs array
-      // arrs_filt = filter_visible_mat(arrs, zoom_data);
+      // arrs_filt = filter_visible_mat(arrs, params.zoom_data);
 
       // no filtering
       arrs_filt = arrs;
 
       // // generate draw_cells_props using buffers is not slow
       // //////////////////////////////////////////////////////
-      // var draw_cells_props = make_draw_cells_props(arrs_filt);
+      // var draw_cells_props = make_draw_cells_props(regl, arrs_filt);
 
       regl(params.draw_cells_props.regl_props['top'])();
       regl(params.draw_cells_props.regl_props['bot'])();

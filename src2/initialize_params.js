@@ -9,7 +9,7 @@ var calc_spillover_positions = require('./calc_spillover_positions');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var make_draw_cells_props = require('./make_draw_cells_props');
 
-module.exports = function initialize_params(mat_data){
+module.exports = function initialize_params(regl, mat_data){
 
   console.log('** initialize_params')
   var params = {}
@@ -54,7 +54,7 @@ module.exports = function initialize_params(mat_data){
 
   params.draw_spillover_rects = draw_spillover_rects;
 
-  params.viz_dim = calc_viz_dim();
+  params.viz_dim = calc_viz_dim(regl);
 
   params.zoom_data = ini_zoom_data();
 
@@ -63,7 +63,7 @@ module.exports = function initialize_params(mat_data){
   // update zoom_data
   zoom_rules_high_mat(regl, params);
 
-  params.cameras = make_cameras(params);
+  params.cameras = make_cameras(regl, params);
 
   params.spillover_positions = calc_spillover_positions(params);
 
@@ -74,7 +74,7 @@ module.exports = function initialize_params(mat_data){
   var arrs = make_draw_cells_arr(regl, params.mat_data)
 
   // generate draw_cells_props using buffers
-  params.draw_cells_props = make_draw_cells_props(arrs);
+  params.draw_cells_props = make_draw_cells_props(regl, arrs);
 
   return params;
 

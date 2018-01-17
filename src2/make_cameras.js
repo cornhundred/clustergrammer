@@ -1,4 +1,4 @@
-module.exports = function make_cameras(params){
+module.exports = function make_cameras(regl, params){
 
   var zoom_data = params.zoom_data;
 

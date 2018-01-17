@@ -1,6 +1,6 @@
 var extend = require('xtend/mutable');
 
-module.exports = function calc_viz_dim(){
+module.exports = function calc_viz_dim(regl){
 
   // Set up viz_dim
   ///////////////////////

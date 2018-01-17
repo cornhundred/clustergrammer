@@ -15,23 +15,12 @@
  */
 
 // const
-regl = require('regl')({extensions: ['angle_instanced_arrays']})
-var zoom_rules = {};
-zoom_rules['row-labels'] = require('./zoom_rules_general');
-var filter_visible_mat = require('./filter_visible_mat');
-var initialize_params = require('./initialize_params');
-
-draw_commands = require('./draw_commands')
+var regl = require('regl')({extensions: ['angle_instanced_arrays']})
+var run_viz = require('./run_viz');
 
 // global variables
 d3 = require('d3');
 _ = require('underscore')
-
-tick = 0
-has_been_both = false
-
-still_interacting = false;
-initialize_viz = true;
 
 var filename = 'data/mult_view.json'
 // var filename = 'data/mnist.json'
@@ -52,34 +41,3 @@ require('resl')({
     run_viz(regl, assets);
   }
 })
-
-function run_viz(regl, assets){
-
-  var zoom_function = function(context){
-    return context.view;
-  }
-
-  console.log('****************')
-  console.log('** initialize **')
-  console.log('****************')
-
-  network = JSON.parse(assets['viz'])
-
-  // use data from network
-  //////////////////////////
-  var mat_data = network.mat
-
-  var params = initialize_params(mat_data);
-
-  regl.frame(function () {
-
-    if (still_interacting == true || initialize_viz == true){
-      console.log('draw')
-      initialize_viz = false;
-
-      draw_commands(regl, params);
-    }
-
-  })
-
-}
