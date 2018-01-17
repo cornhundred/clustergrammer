@@ -45,7 +45,10 @@ module.exports = function initialize_params(regl, network){
   params.draw_dendro.col = draw_dendro(regl, params.num_col, 'col');
 
   params.text_zoom = {};
-  params.text_zoom.row = 40;
+
+  // this scaling factor can be set to the number of rows
+  params.text_zoom.row = params.num_row;
+
   // calculate the text_triangles for all rows
   params.row_label_text = row_label_text(params);
   params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
