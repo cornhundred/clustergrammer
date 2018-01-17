@@ -31,7 +31,7 @@ module.exports = function draw_commands(regl, params){
     });
 
     params.cameras['row-label-text'].draw(() => {
-      params.draw_text_triangles(params.text_triangles);
+      params.draw_text_triangles(params.row_label_text);
     });
 
     /* Column labels and dendrogram */

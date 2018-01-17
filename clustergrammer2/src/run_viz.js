@@ -18,10 +18,12 @@ module.exports = function run_viz(regl, assets){
   regl.frame(function () {
 
     if (params.still_interacting == true || initialize_viz == true){
+
       // console.log('draw');
       initialize_viz = false;
 
       draw_commands(regl, params);
+
     }
 
   });

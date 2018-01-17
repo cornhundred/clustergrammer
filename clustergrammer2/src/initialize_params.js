@@ -37,7 +37,7 @@ module.exports = function initialize_params(regl, network){
   // console.log('num_col: ' + String(params.num_col));
 
   // calculate the text_triangles for all rows
-  params.text_triangles = row_label_text(network.row_nodes);
+  params.row_label_text = row_label_text(params);
 
   params.draw_labels = {};
   params.draw_labels.row = draw_mat_labels(regl, params.num_row, 'row');
