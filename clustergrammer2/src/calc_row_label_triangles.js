@@ -1,6 +1,6 @@
 const vectorizeText = require('vectorize-text');
 
-module.exports = function row_label_text(params){
+module.exports = function calc_row_label_triangles(params){
 
   var inst_nodes = params.network.row_nodes;
 

@@ -1,4 +1,4 @@
-var row_label_text = require('./row_label_text');
+var calc_row_label_triangles = require('./calc_row_label_triangles');
 var calc_viz_dim = require('./calc_viz_dim');
 var ini_zoom_data = require('./ini_zoom_data');
 var ini_zoom_restrict = require('./ini_zoom_restrict');
@@ -70,7 +70,7 @@ module.exports = function initialize_params(regl, network){
   params.text_zoom.row_factor = 1;
 
   // calculate the text_triangles for all rows
-  params.row_label_text = row_label_text(params);
+  params.row_label_triangles = calc_row_label_triangles(params);
 
   // do not need to calculate here since I'm re-calculating it each time
   // params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
