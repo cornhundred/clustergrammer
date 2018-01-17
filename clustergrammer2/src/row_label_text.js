@@ -42,7 +42,7 @@ module.exports = function row_label_text(params){
     var inst_name = inst_node.name.split(': ')[1];
 
     var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-    tmp_text_vect.offset = [-53.0, -y_offset_array[i]/(num_labels/100)];
+    tmp_text_vect.offset = [-53.0, -y_offset_array[i]*1000/num_labels];
     outside_text_vect.push(tmp_text_vect);
 
   });
