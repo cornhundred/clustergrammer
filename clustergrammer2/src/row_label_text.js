@@ -32,8 +32,6 @@ module.exports = function row_label_text(params){
     font:'"Open Sans", verdana, arial, sans-serif'
   };
 
-
-
   // draw matrix cells
   /////////////////////////////////////////
   // set up offset array for buffer
@@ -47,16 +45,8 @@ module.exports = function row_label_text(params){
       return -i/num_row + offset.y - 0.5/num_row;
     });
 
-  var scale_y = params.text_zoom.row;
-
   // working on loop
   var outside_text_vect = [];
-
-  // console.log(offsets);
-
-  var row_x_offset = d3.scale.linear()
-    .domain([50, 100])
-    .range([-26.5, -53]);
 
   var inst_order = 'clust';
 
@@ -75,14 +65,13 @@ module.exports = function row_label_text(params){
     // 100: 53
     // 90: 48
 
+    tmp_text_vect.offset = [  0, y];
 
-    tmp_text_vect.offset = [ row_x_offset(scale_y), y * scale_y];
     outside_text_vect.push(tmp_text_vect);
 
   });
 
   // console.log('finished calculating text triangles');
   return outside_text_vect;
-
 
 };

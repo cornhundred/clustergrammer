@@ -1,5 +1,13 @@
 module.exports = function draw_text_triangles(regl, params, zoom_function){
 
+  // console.log('draw_text_triangles');
+
+  var row_x_offset = d3.scale.linear()
+    .domain([50, 100])
+    .range([-26.5, -53]);
+
+  var x_offset = row_x_offset(params.text_zoom.row);
+
   var args = {
     vert: `
       precision mediump float;
@@ -7,14 +15,16 @@ module.exports = function draw_text_triangles(regl, params, zoom_function){
       uniform mat4 zoom;
       uniform vec2 offset;
       uniform float text_zoom;
+      uniform float x_offset;
+      uniform float scale_y;
 
       // last value is a sort-of zoom
       void main () {
         // reverse y position to get words to be upright
         gl_Position = zoom *
                       vec4(
-                            position.x + offset[0],
-                           -position.y + offset[1],
+                            position.x + x_offset,
+                           -position.y + (offset[1]) * scale_y,
                            // depth
                            0.50,
                            // zoom
@@ -34,7 +44,9 @@ module.exports = function draw_text_triangles(regl, params, zoom_function){
     uniforms: {
       zoom: zoom_function,
       offset: regl.prop('offset'),
-      text_zoom: params.text_zoom.row
+      text_zoom: params.text_zoom.row,
+      x_offset: x_offset,
+      scale_y: params.text_zoom.row
     },
     depth: {
       enable: true,

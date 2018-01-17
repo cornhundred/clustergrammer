@@ -32,7 +32,13 @@ module.exports = function draw_commands(regl, params){
     });
 
     params.cameras['row-label-text'].draw(() => {
+
+      // quick attempt to keep text fixed size
+      params.text_zoom.row = params.text_zoom.row * ( 9 + params.zoom_data.y.inst_zoom)/10;
+
+      // make the arguments for the draw command
       params.draw_text_triangles = draw_text_triangles(regl, params, params.zoom_function);
+
       // params.text_zoom.row = params.num_row;
       params.draw_text_triangles(params.row_label_text);
     });
