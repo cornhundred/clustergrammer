@@ -1,3 +1,5 @@
+var custom_camera_2d = require('./custom_camera_2d');
+
 module.exports = function make_cameras(regl, params){
 
   var zoom_data = params.zoom_data;
@@ -10,25 +12,16 @@ module.exports = function make_cameras(regl, params){
     };
 
   // requiring camera and
-  cameras.mat = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'matrix'
-  );
+  cameras.mat = custom_camera_2d(regl, zoom_range, zoom_data, 'matrix');
 
-  cameras['row-labels'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'row-labels'
-  );
+  cameras['row-labels'] = custom_camera_2d(regl, zoom_range, zoom_data, 'row-labels');
 
-  cameras['row-label-text'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'row-label-text'
-  );
+  cameras['row-label-text'] = custom_camera_2d(regl, zoom_range, zoom_data, 'row-label-text');
 
-  cameras['col-labels'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'col-labels'
-  );
+  cameras['col-labels'] = custom_camera_2d(regl, zoom_range, zoom_data, 'col-labels');
 
-  cameras['static'] = require('./custom_camera_2d')(
-    regl, zoom_range, zoom_data, 'static'
-  );
+  cameras.static = custom_camera_2d(regl, zoom_range, zoom_data, 'static');
 
   return cameras;
-}
+
+};

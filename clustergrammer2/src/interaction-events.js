@@ -1,4 +1,4 @@
-'use strict';
+// 'use strict';
 
 module.exports = interactionEvents;
 
@@ -178,18 +178,18 @@ function interactionEvents (opts, callback) {
     var changed = false
     for (var i = 0; i < event.changedTouches.length; i++) {
       var movedTouch = event.changedTouches[i]
-      idx = indexOfTouch(movedTouch)
+      idx = indexOfTouch(movedTouch);
       if (idx !== -1) {
-        changed = true
-        fingers[idx].touch = movedTouch // avoid caching touches
-        eventOffset(movedTouch, element, fingers[idx].position)
+        changed = true;
+        fingers[idx].touch = movedTouch; // avoid caching touches
+        eventOffset(movedTouch, element, fingers[idx].position);
       }
     }
 
     if (changed) {
       if (activeCount === 1) {
         for (idx = 0; idx < fingers.length; idx++) {
-          if (fingers[idx]) break;
+          if (fingers[idx]) {break;}
         }
 
         if (fingers[idx] && pPos[idx]) {
@@ -239,8 +239,8 @@ function interactionEvents (opts, callback) {
 
           var x0 = (pos0B[0] + pos0A[0]) * 0.5;
           var y0 = (pos0B[1] + pos0A[1]) * 0.5;
-          var dx = 0.5 * (pos1B[0] + pos1A[0] - pos0A[0] - pos0B[0]);
-          var dy = 0.5 * (pos1B[1] + pos1A[1] - pos0A[1] - pos0B[1]);
+          dx = 0.5 * (pos1B[0] + pos1A[0] - pos0A[0] - pos0B[0]);
+          dy = 0.5 * (pos1B[1] + pos1A[1] - pos0A[1] - pos0B[1]);
           var dr = r1 / r0;
           var dtheta = theta1 - theta0;
 
@@ -277,19 +277,22 @@ function interactionEvents (opts, callback) {
 
   function onTouchRemoved (event) {
     for (var i = 0; i < event.changedTouches.length; i++) {
-      var removed = event.changedTouches[i]
-      var idx = indexOfTouch(removed)
+      var removed = event.changedTouches[i];
+      var idx = indexOfTouch(removed);
 
       if (idx !== -1) {
-        fingers[idx] = null
-        activeCount--
-        var otherIdx = idx === 0 ? 1 : 0
-        var otherTouch = fingers[otherIdx] ? fingers[otherIdx].touch : undefined
+        fingers[idx] = null;
+
+        // activeCount--
+        activeCount = activeCount - 1;
+
+        // var otherIdx = idx === 0 ? 1 : 0;
+        // var otherTouch = fingers[otherIdx] ? fingers[otherIdx].touch : undefined;
       }
     }
 
     if (!ended && activeCount !== 2) {
-      ended = true
+      ended = true;
     }
 
     if (activeCount < 2) {
@@ -313,7 +316,7 @@ function interactionEvents (opts, callback) {
 
 
   function enable () {
-    if (enabled) return;
+    if (enabled) {return;}
     enabled = true;
     changeListener.enabled = true;
     element.addEventListener('wheel', onWheel, false);
@@ -322,12 +325,12 @@ function interactionEvents (opts, callback) {
 
     element.addEventListener('touchstart', onTouchStart, false);
     element.addEventListener('touchmove', onTouchMove, false);
-    element.addEventListener('touchend', onTouchRemoved, false)
-    element.addEventListener('touchcancel', onTouchRemoved, false)
+    element.addEventListener('touchend', onTouchRemoved, false);
+    element.addEventListener('touchcancel', onTouchRemoved, false);
   }
 
   function disable () {
-    if (!enabled) return;
+    if (!enabled) {return;}
     enabled = false;
     changeListener.enabled = false;
     element.removeEventListener('wheel', onWheel, false);
@@ -336,8 +339,8 @@ function interactionEvents (opts, callback) {
 
     element.removeEventListener('touchstart', onTouchStart, false);
     element.removeEventListener('touchmove', onTouchMove, false);
-    element.removeEventListener('touchend', onTouchRemoved, false)
-    element.removeEventListener('touchcancel', onTouchRemoved, false)
+    element.removeEventListener('touchend', onTouchRemoved, false);
+    element.removeEventListener('touchcancel', onTouchRemoved, false);
   }
 
   enable();
