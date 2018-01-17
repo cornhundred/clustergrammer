@@ -4,7 +4,7 @@ var ini_zoom_data = require('./ini_zoom_data');
 var ini_zoom_restrict = require('./ini_zoom_restrict');
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 var make_cameras = require('./make_cameras');
-var calc_spillover_positions = require('./calc_spillover_positions');
+var calc_spillover_triangles = require('./calc_spillover_triangles');
 
 var make_cell_args = require('./make_cell_args');
 var make_label_args = require('./make_label_args');
@@ -76,7 +76,7 @@ module.exports = function initialize_params(regl, network){
 
   params.cameras = make_cameras(regl, params);
 
-  params.spillover_positions = calc_spillover_positions(params);
+  params.spillover_triangles = calc_spillover_triangles(params);
 
   window.addEventListener('resize', params.cameras.mat.resize);
   window.addEventListener('resize', params.cameras['row-labels'].resize);
