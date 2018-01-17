@@ -1,4 +1,4 @@
-module.exports = function make_text_triangle_args(regl, params, zoom_function){
+module.exports = function make_row_text_triangle_args(regl, params, zoom_function){
 
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])

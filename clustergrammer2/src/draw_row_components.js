@@ -1,4 +1,4 @@
-var make_text_triangle_args = require('./make_text_triangle_args');
+var make_row_text_triangle_args = require('./make_row_text_triangle_args');
 
 module.exports = function draw_row_components(regl, params){
 
@@ -22,8 +22,7 @@ module.exports = function draw_row_components(regl, params){
                            text_scale(params.zoom_data.y.total_zoom);
 
     // make the arguments for the draw command
-    // params.draw_text_triangles = draw_text_triangles(regl, params, params.zoom_function);
-    var text_triangle_args = make_text_triangle_args(regl, params, params.zoom_function);
+    var text_triangle_args = make_row_text_triangle_args(regl, params, params.zoom_function);
 
     // draw using text_triangle_args and row_label_triangles
     regl(text_triangle_args)(params.row_label_triangles);
