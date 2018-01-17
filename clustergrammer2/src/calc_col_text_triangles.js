@@ -17,7 +17,7 @@ module.exports = function calc_col_text_triangles(params){
   var font_detail = 25;
 
   var vect_text_attrs = {
-    textAlign: 'right',
+    textAlign: 'left',
     textBaseline: 'middle',
     triangles:true,
     size:font_detail,
@@ -51,6 +51,8 @@ module.exports = function calc_col_text_triangles(params){
 
     var y = y_arr[ col_order_id ];
     tmp_text_vect.offset = [ 0, y];
+
+    console.log(tmp_text_vect.offset)
     col_text_triangles.push(tmp_text_vect);
 
   });

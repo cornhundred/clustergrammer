@@ -5,10 +5,7 @@ module.exports = function draw_row_components(regl, params){
   /* Row Components */
   params.cameras['row-labels'].draw(() => {
 
-    // params.label_args.row();
     regl(params.label_args.row)();
-
-    // params.draw_dendro.row();
     regl(params.dendro_args.row)();
 
     /* Row Text */
