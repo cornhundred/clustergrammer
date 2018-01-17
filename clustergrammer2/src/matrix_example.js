@@ -15,14 +15,14 @@
  */
 
 // const
-var regl = require('regl')({extensions: ['angle_instanced_arrays']})
+var regl = require('regl')({extensions: ['angle_instanced_arrays']});
 var run_viz = require('./run_viz');
 
 // global variables
 d3 = require('d3');
-_ = require('underscore')
+_ = require('underscore');
 
-var filename = 'data/mult_view.json'
+var filename = 'data/mult_view.json';
 // var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
 // var filename = 'data/cytof_10k.json'
@@ -40,4 +40,4 @@ require('resl')({
   onDone: (assets) => {
     run_viz(regl, assets);
   }
-})
+});

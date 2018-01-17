@@ -10,22 +10,22 @@ module.exports = function make_position_arr(params, num_row, num_col){
   offset.y = 0.5;
 
   // generate x position array
-  x_arr = Array(num_col).fill()
+  var x_arr = Array(num_col).fill()
     .map(function(_, i){
-      return i/num_col - offset.x
+      return i/num_col - offset.x;
     });
 
-  y_arr = Array(num_row).fill()
+  var y_arr = Array(num_row).fill()
     .map(function(_, i){
-      return -i/num_row + offset.y - 1/num_row
+      return -i/num_row + offset.y - 1/num_row;
     });
 
   // pass along row and col node information
-  row_nodes = network.row_nodes;
-  col_nodes = network.col_nodes;
+  var row_nodes = network.row_nodes;
+  var col_nodes = network.col_nodes;
 
   // inst_order = 'rank';
-  inst_order = 'clust';
+  var inst_order = 'clust';
 
   // generate x and y positions
   ////////////////////////////////
@@ -35,16 +35,16 @@ module.exports = function make_position_arr(params, num_row, num_col){
     var col_id = i % num_col;
     var row_id = Math.floor(i / num_col);
 
-    row_order_id = num_row - 1 - row_nodes[row_id][inst_order];
-    col_order_id = num_col - 1 - col_nodes[col_id][inst_order];
+    var row_order_id = num_row - 1 - row_nodes[row_id][inst_order];
+    var col_order_id = num_col - 1 - col_nodes[col_id][inst_order];
 
     var x = x_arr[ col_order_id ];
     var y = y_arr[ row_order_id ];
 
     return [x, y];
-  };
+  }
 
-  position_arr = Array(num_row * num_col)
+  var position_arr = Array(num_row * num_col)
             .fill()
             .map(position_function);
 
