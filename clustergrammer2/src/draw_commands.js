@@ -1,5 +1,6 @@
 // var filter_visible_mat = require('./filter_visible_mat');
 // var make_draw_cells_props = require('./make_draw_cells_props');
+var draw_text_triangles = require('./draw_text_triangles');
 
 module.exports = function draw_commands(regl, params){
 
@@ -31,6 +32,8 @@ module.exports = function draw_commands(regl, params){
     });
 
     params.cameras['row-label-text'].draw(() => {
+      params.draw_text_triangles = draw_text_triangles(regl, params, params.zoom_function);
+      // params.text_zoom.row = params.num_row;
       params.draw_text_triangles(params.row_label_text);
     });
 

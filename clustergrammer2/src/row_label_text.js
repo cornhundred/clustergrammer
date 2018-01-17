@@ -52,15 +52,13 @@ module.exports = function row_label_text(params){
   // working on loop
   var outside_text_vect = [];
 
-  var num_labels = inst_nodes.length;
-
   // console.log(offsets);
 
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])
     .range([-26.5, -53]);
 
-  var inst_order = 'clust'
+  var inst_order = 'clust';
 
   _.each(inst_nodes, function(inst_node, row_id){
 
@@ -71,8 +69,6 @@ module.exports = function row_label_text(params){
     var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
 
     var y = y_arr[ row_order_id ];
-
-    var tmp = -y_offset_array[row_id]*3800/num_labels;
 
     // console.log(row_id, inst_name, row_order_id, tmp, y)
 

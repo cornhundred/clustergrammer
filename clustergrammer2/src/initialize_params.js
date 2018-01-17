@@ -25,6 +25,8 @@ module.exports = function initialize_params(regl, network){
     return context.view;
   };
 
+  params.zoom_function = zoom_function;
+
   params.still_interacting = false;
 
   params.mat_data = network.mat;
@@ -34,7 +36,6 @@ module.exports = function initialize_params(regl, network){
 
   // console.log('num_row: ' + String(params.num_row));
   // console.log('num_col: ' + String(params.num_col));
-
 
   params.draw_labels = {};
   params.draw_labels.row = draw_mat_labels(regl, params.num_row, 'row');
@@ -53,7 +54,7 @@ module.exports = function initialize_params(regl, network){
   params.row_label_text = row_label_text(params);
   params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
 
-  spillover_commands = {};
+  var spillover_commands = {};
 
   // inst_depth is passed to spillover rects
   spillover_commands.mat_sides = draw_spillover_rects(regl, zoom_function, 0.5);
