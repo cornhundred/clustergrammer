@@ -17,13 +17,8 @@
 // const
 regl = require('regl')({extensions: ['angle_instanced_arrays']})
 var zoom_rules = {};
-var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 zoom_rules['row-labels'] = require('./zoom_rules_general');
-var make_draw_cells_props = require('./make_draw_cells_props');
-var make_draw_cells_arr = require('./make_draw_cells_arr');
 var filter_visible_mat = require('./filter_visible_mat');
-var calc_spillover_positions = require('./calc_spillover_positions');
-var make_cameras = require('./make_cameras');
 var initialize_params = require('./initialize_params');
 
 draw_commands = require('./draw_commands')
@@ -58,8 +53,6 @@ require('resl')({
   }
 })
 
-
-
 function run_viz(regl, assets){
 
   var zoom_function = function(context){
@@ -76,30 +69,7 @@ function run_viz(regl, assets){
   //////////////////////////
   var mat_data = network.mat
 
-  var num_row = mat_data.length;
-  var num_col = mat_data[0].length;
-
-
   var params = initialize_params(mat_data);
-
-  // update zoom_data
-  zoom_rules_high_mat(regl, params);
-
-  console.log('num_row: ' + String(num_row))
-  console.log('num_col: ' + String(num_col))
-
-  params.cameras = make_cameras(params);
-
-  window.addEventListener('resize', params.cameras['mat'].resize);
-  window.addEventListener('resize', params.cameras['row-labels'].resize);
-
-  params.spillover_positions = calc_spillover_positions(params);
-
-  // generate position and opacity arrays from mat_data
-  var arrs = make_draw_cells_arr(regl, mat_data)
-  // generate draw_cells_props using buffers
-  params.draw_cells_props = make_draw_cells_props(arrs);
-
 
   regl.frame(function () {
 
@@ -111,7 +81,5 @@ function run_viz(regl, assets){
     }
 
   })
-
-
 
 }
