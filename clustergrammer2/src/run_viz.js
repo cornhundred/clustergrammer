@@ -11,7 +11,6 @@ module.exports = function run_viz(regl, assets){
 
   tick = 0
   has_been_both = false
-  still_interacting = false;
   initialize_viz = true;
 
   // use data from network
@@ -22,7 +21,7 @@ module.exports = function run_viz(regl, assets){
 
   regl.frame(function () {
 
-    if (still_interacting == true || initialize_viz == true){
+    if (params.still_interacting == true || initialize_viz == true){
       console.log('draw')
       initialize_viz = false;
 

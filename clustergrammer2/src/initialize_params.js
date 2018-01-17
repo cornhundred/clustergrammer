@@ -18,6 +18,8 @@ module.exports = function initialize_params(regl, mat_data){
     return context.view;
   }
 
+  params.still_interacting = false;
+
   params.mat_data = mat_data;
 
   var num_row = params.mat_data.length;

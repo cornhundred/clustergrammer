@@ -78,10 +78,10 @@ module.exports = function zoom_rules_high_mat(regl, params){
       zoom_data.y = zoom_rules_low_mat(zoom_restrict.y, zoom_data.y,
         viz_dim.mat.y, 'y');
 
-      if (still_interacting == false){
-        still_interacting = true;
+      if (params.still_interacting == false){
+        params.still_interacting = true;
         setTimeout(function(){
-          return still_interacting = false;
+          return params.still_interacting = false;
         }, 1000)
       }
 
