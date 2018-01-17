@@ -35,8 +35,6 @@ module.exports = function initialize_params(regl, network){
   // console.log('num_row: ' + String(params.num_row));
   // console.log('num_col: ' + String(params.num_col));
 
-  // calculate the text_triangles for all rows
-  params.row_label_text = row_label_text(params);
 
   params.draw_labels = {};
   params.draw_labels.row = draw_mat_labels(regl, params.num_row, 'row');
@@ -46,7 +44,11 @@ module.exports = function initialize_params(regl, network){
   params.draw_dendro.row = draw_dendro(regl, params.num_row, 'row');
   params.draw_dendro.col = draw_dendro(regl, params.num_col, 'col');
 
-  params.draw_text_triangles = draw_text_triangles(regl, zoom_function);
+  params.text_zoom = {};
+  params.text_zoom.row = 40;
+  // calculate the text_triangles for all rows
+  params.row_label_text = row_label_text(params);
+  params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
 
   params.draw_spillover_rects = {};
 

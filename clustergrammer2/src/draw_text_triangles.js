@@ -1,4 +1,4 @@
-module.exports = function draw_text_triangles(regl, zoom_function){
+module.exports = function draw_text_triangles(regl, params, zoom_function){
 
   var args = {
     vert: `
@@ -6,6 +6,7 @@ module.exports = function draw_text_triangles(regl, zoom_function){
       attribute vec2 position;
       uniform mat4 zoom;
       uniform vec2 offset;
+      uniform float text_zoom;
 
       // last value is a sort-of zoom
       void main () {
@@ -17,7 +18,7 @@ module.exports = function draw_text_triangles(regl, zoom_function){
                            // depth
                            0.50,
                            // zoom
-                           200);
+                           text_zoom);
       }`,
     frag: `
       precision mediump float;
@@ -32,7 +33,8 @@ module.exports = function draw_text_triangles(regl, zoom_function){
     elements: regl.prop('cells'),
     uniforms: {
       zoom: zoom_function,
-      offset: regl.prop('offset')
+      offset: regl.prop('offset'),
+      text_zoom: params.text_zoom.row
     },
     depth: {
       enable: true,
