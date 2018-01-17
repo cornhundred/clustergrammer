@@ -39,8 +39,7 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
 
   var mat_rotate = m3.rotation(rotation_radians);
 
-  // draw background
-  const draw_rows = regl({
+  var args = {
 
     vert: `
       precision highp float;
@@ -108,8 +107,13 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
       range: [0, 1]
     },
 
-  });
+  };
 
-  return draw_rows;
+  // // draw background
+  // const draw_rows = regl(args);
+
+  // return draw_rows;
+
+  return args;
 
 };

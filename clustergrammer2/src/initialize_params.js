@@ -7,7 +7,7 @@ var make_cameras = require('./make_cameras');
 var calc_spillover_positions = require('./calc_spillover_positions');
 
 var make_draw_cells_props = require('./make_draw_cells_props');
-var draw_mat_labels = require('./draw_mat_labels');
+var make_label_args = require('./make_label_args');
 var draw_dendro = require('./draw_dendro');
 // var draw_text_triangles = require('./draw_text_triangles');
 var make_spillover_args = require('./make_spillover_args');
@@ -37,9 +37,9 @@ module.exports = function initialize_params(regl, network){
   // console.log('num_row: ' + String(params.num_row));
   // console.log('num_col: ' + String(params.num_col));
 
-  params.draw_labels = {};
-  params.draw_labels.row = draw_mat_labels(regl, params.num_row, 'row');
-  params.draw_labels.col = draw_mat_labels(regl, params.num_col, 'col');
+  params.label_args = {};
+  params.label_args.row = make_label_args(regl, params.num_row, 'row');
+  params.label_args.col = make_label_args(regl, params.num_col, 'col');
 
   params.draw_dendro = {};
   params.draw_dendro.row = draw_dendro(regl, params.num_row, 'row');
