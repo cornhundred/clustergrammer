@@ -1,4 +1,6 @@
-module.exports = function make_position_arr(num_row, num_col){
+module.exports = function make_position_arr(params, num_row, num_col){
+
+  var network = params.network;
 
   // draw matrix cells
   /////////////////////////////////////////

@@ -9,10 +9,14 @@ var calc_spillover_positions = require('./calc_spillover_positions');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 var make_draw_cells_props = require('./make_draw_cells_props');
 
-module.exports = function initialize_params(regl, mat_data){
+module.exports = function initialize_params(regl, network){
 
   console.log('** initialize_params')
   var params = {}
+
+  // use data from network
+  //////////////////////////
+  params.network = network;
 
   var zoom_function = function(context){
     return context.view;
@@ -20,7 +24,7 @@ module.exports = function initialize_params(regl, mat_data){
 
   params.still_interacting = false;
 
-  params.mat_data = mat_data;
+  params.mat_data = network.mat;
 
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
@@ -73,7 +77,7 @@ module.exports = function initialize_params(regl, mat_data){
   window.addEventListener('resize', params.cameras['row-labels'].resize);
 
   // generate position and opacity arrays from params.mat_data
-  var arrs = make_draw_cells_arr(regl, params.mat_data)
+  var arrs = make_draw_cells_arr(regl, params)
 
   // generate draw_cells_props using buffers
   params.draw_cells_props = make_draw_cells_props(regl, arrs);
