@@ -1,5 +1,3 @@
-// var filter_visible_mat = require('./filter_visible_mat');
-// var make_draw_cells_props = require('./make_draw_cells_props');
 var draw_matrix_components = require('./draw_matrix_components');
 var draw_row_components = require('./draw_row_components');
 var draw_col_components = require('./draw_col_components');

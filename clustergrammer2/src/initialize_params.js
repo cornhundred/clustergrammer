@@ -9,7 +9,7 @@ var calc_spillover_positions = require('./calc_spillover_positions');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var draw_mat_labels = require('./draw_mat_labels');
 var draw_dendro = require('./draw_dendro');
-var draw_text_triangles = require('./draw_text_triangles');
+// var draw_text_triangles = require('./draw_text_triangles');
 var draw_spillover_rects = require('./draw_spillover_rects');
 
 module.exports = function initialize_params(regl, network){
@@ -71,7 +71,9 @@ module.exports = function initialize_params(regl, network){
 
   // calculate the text_triangles for all rows
   params.row_label_text = row_label_text(params);
-  params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
+
+  // do not need to calculate here since I'm re-calculating it each time
+  // params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
 
   params.zoom_restrict = ini_zoom_restrict(params);
 

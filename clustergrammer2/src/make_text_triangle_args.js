@@ -1,14 +1,10 @@
-module.exports = function draw_text_triangles(regl, params, zoom_function){
-
-  // console.log('draw_text_triangles');
+module.exports = function make_text_triangle_args(regl, params, zoom_function){
 
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])
     .range([-26.5, -53]);
 
   var x_offset = row_x_offset(params.text_zoom.row);
-
-  // console.log('width_scale', params.zoom_data.y.total_zoom)
 
   var args = {
     vert: `
@@ -61,8 +57,6 @@ module.exports = function draw_text_triangles(regl, params, zoom_function){
     },
   };
 
-  var draw_function = regl(args);
-
-  return draw_function;
+  return args;
 
 };
