@@ -7,14 +7,16 @@ module.exports = function row_label_text(params){
   inst_nodes = inst_nodes.slice(0, 10);
 
   var num_rows = params.num_row;
-  console.log(num_rows)
+
+  // console.log(num_rows);
+
   var row_height = 1/num_rows;
   var y_offset_array = [];
   for (var i = 0; i < num_rows; i++){
     y_offset_array[i] = 0.5 - row_height/2 - i * row_height;
   }
 
-  console.log(y_offset_array)
+  // console.log(y_offset_array);
 
   // console.log('calculating text-triangles');
 
@@ -34,9 +36,8 @@ module.exports = function row_label_text(params){
   var outside_text_vect = [];
 
   var num_labels = inst_nodes.length;
-  var offsets = _.range(num_labels);
 
-  console.log(offsets)
+  // console.log(offsets);
 
   _.each(inst_nodes, function(inst_node, i){
     var inst_name = inst_node.name.split(': ')[1];

@@ -15,6 +15,8 @@ module.exports = function run_viz(regl, assets){
 
   var params = initialize_params(regl, network);
 
+  // gparams = params;
+
   regl.frame(function () {
 
     if (params.still_interacting == true || initialize_viz == true){

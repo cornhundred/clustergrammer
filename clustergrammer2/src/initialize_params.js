@@ -6,7 +6,6 @@ var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 var make_cameras = require('./make_cameras');
 var calc_spillover_positions = require('./calc_spillover_positions');
 
-var make_draw_cells_arr = require('./make_draw_cells_arr');
 var make_draw_cells_props = require('./make_draw_cells_props');
 var draw_mat_labels = require('./draw_mat_labels');
 var draw_dendro = require('./draw_dendro');
@@ -72,13 +71,8 @@ module.exports = function initialize_params(regl, network){
   window.addEventListener('resize', params.cameras.mat.resize);
   window.addEventListener('resize', params.cameras['row-labels'].resize);
 
-  // generate position and opacity arrays from params.mat_data
-  var arrs = make_draw_cells_arr(regl, params);
-
   // generate draw_cells_props using buffers
-  params.draw_cells_props = make_draw_cells_props(regl, params, arrs);
-
-  params.arrs = arrs;
+  params.draw_cells_props = make_draw_cells_props(regl, params);
 
   return params;
 

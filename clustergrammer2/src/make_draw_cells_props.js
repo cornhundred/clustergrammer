@@ -1,13 +1,17 @@
 var make_draw_cells_buffers = require('./make_draw_cells_buffers');
 var blend_info = require('./blend_info');
 var $ = require('jquery');
+var make_draw_cells_arr = require('./make_draw_cells_arr');
 
-module.exports = function make_draw_cells_props(regl, params, arrs){
+module.exports = function make_draw_cells_props(regl, params){
 
-  // transfer to buffers is sort of slow
+  // generate position and opacity arrays from params.mat_data
+  params.arrs = make_draw_cells_arr(regl, params);
+
+  // transfer to buffers is slow
   //////////////////////////////////////////
-  var buffers = make_draw_cells_buffers(regl, arrs.position_arr,
-                                        arrs.opacity_arr);
+  var buffers = make_draw_cells_buffers(regl, params.arrs.position_arr,
+                                        params.arrs.opacity_arr);
 
   var opacity_buffer = buffers.opacity_buffer;
   var position_buffer = buffers.position_buffer;
@@ -77,7 +81,7 @@ module.exports = function make_draw_cells_props(regl, params, arrs){
 
     }`;
 
-  var num_instances = arrs.position_arr.length;
+  var num_instances = params.arrs.position_arr.length;
 
   var zoom_function = function(context){
     return context.view;
