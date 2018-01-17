@@ -7,42 +7,36 @@ module.exports = function draw_commands(regl, params){
 
     draw_matrix(regl, params);
 
-    /* Row labels and dendrogram */
-    params.cameras['row-labels'].draw(() => {
-      params.draw_labels.row();
-      params.draw_dendro.row();
-    });
-
     var allowable_zoom_factor = 3;
     var text_scale = d3.scale.linear()
       .domain([1, 10])
       .range([1, 10/allowable_zoom_factor]);
 
-    params.cameras['row-label-text'].draw(() => {
+    /* Row Components */
+    params.cameras['row-labels'].draw(() => {
+      params.draw_labels.row();
+      params.draw_dendro.row();
 
-      // quick attempt to keep text fixed size
-      // params.text_zoom.row_factor = ( 4 + params.zoom_data.y.inst_zoom)/5;
-      // params.text_zoom.row = params.text_zoom.row * params.text_zoom.row_factor;
-
+      /* Row Text */
+      // update text information with zooming
       params.text_zoom.row = params.text_zoom.row_reference *
                              text_scale(params.zoom_data.y.total_zoom);
-
-      // console.log(params.zoom_data.y.total_zoom)
 
       // make the arguments for the draw command
       params.draw_text_triangles = draw_text_triangles(regl, params, params.zoom_function);
 
       // params.text_zoom.row = params.num_row;
       params.draw_text_triangles(params.row_label_text);
+
     });
 
-    /* Column labels and dendrogram */
+    /* Column Components */
     params.cameras['col-labels'].draw(() => {
       params.draw_labels.col();
       params.draw_dendro.col();
     });
 
-    // Static components (later prevent from redrawing)
+    // Spillover Components (may not need to redraw)
     params.cameras.static.draw(() => {
 
       // spillover rects to hide matrix spillover

@@ -133,26 +133,6 @@ module.exports = function makeCamera2D (regl, opts, zoom_data, viz_component) {
         inst_x_pan_by_zoom = 0;
       }
 
-      if (viz_component === 'row-label-text'){
-        // need to turn on zoom and have reciprocal zoom dragging
-        // console.log(inst_x_zoom, inst_x_pan_by_zoom)
-
-        /*
-
-          Need to make specific zoom_rules for row and column labels
-
-        */
-
-
-        inst_x_zoom = 1;
-        inst_x_pan_by_zoom = 0;
-
-        // console.log(inst_x_zoom, inst_x_pan_by_zoom)
-        // console.log('\n')
-
-        inst_x_pan_by_drag = 0;
-      }
-
       if (viz_component === 'col-labels'){
         inst_y_zoom = 1;
         inst_y_pan_by_drag = 0;

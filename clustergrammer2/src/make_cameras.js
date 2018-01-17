@@ -16,8 +16,6 @@ module.exports = function make_cameras(regl, params){
 
   cameras['row-labels'] = custom_camera_2d(regl, zoom_range, zoom_data, 'row-labels');
 
-  cameras['row-label-text'] = custom_camera_2d(regl, zoom_range, zoom_data, 'row-label-text');
-
   cameras['col-labels'] = custom_camera_2d(regl, zoom_range, zoom_data, 'col-labels');
 
   cameras.static = custom_camera_2d(regl, zoom_range, zoom_data, 'static');
