@@ -13,8 +13,8 @@ module.exports = function draw_row_components(regl, params){
     // params.label_args.row();
     regl(params.label_args.row)();
 
-
-    params.draw_dendro.row();
+    // params.draw_dendro.row();
+    regl(params.dendro_args.row)();
 
     /* Row Text */
     // update text information with zooming

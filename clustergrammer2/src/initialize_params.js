@@ -6,10 +6,9 @@ var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 var make_cameras = require('./make_cameras');
 var calc_spillover_positions = require('./calc_spillover_positions');
 
-var make_draw_cells_props = require('./make_draw_cells_props');
+var make_cell_args = require('./make_cell_args');
 var make_label_args = require('./make_label_args');
-var draw_dendro = require('./draw_dendro');
-// var draw_text_triangles = require('./draw_text_triangles');
+var make_dendro_args = require('./make_dendro_args');
 var make_spillover_args = require('./make_spillover_args');
 
 module.exports = function initialize_params(regl, network){
@@ -41,9 +40,9 @@ module.exports = function initialize_params(regl, network){
   params.label_args.row = make_label_args(regl, params.num_row, 'row');
   params.label_args.col = make_label_args(regl, params.num_col, 'col');
 
-  params.draw_dendro = {};
-  params.draw_dendro.row = draw_dendro(regl, params.num_row, 'row');
-  params.draw_dendro.col = draw_dendro(regl, params.num_col, 'col');
+  params.dendro_args = {};
+  params.dendro_args.row = make_dendro_args(regl, params.num_row, 'row');
+  params.dendro_args.col = make_dendro_args(regl, params.num_col, 'col');
 
   var spillover_args = {};
 
@@ -68,8 +67,7 @@ module.exports = function initialize_params(regl, network){
   // calculate the text_triangles for all rows
   params.row_label_triangles = calc_row_label_triangles(params);
 
-  // do not need to calculate here since I'm re-calculating it each time
-  // params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
+  // do not need to calc text triangles args since I'm re-calculating later
 
   params.zoom_restrict = ini_zoom_restrict(params);
 
@@ -83,8 +81,8 @@ module.exports = function initialize_params(regl, network){
   window.addEventListener('resize', params.cameras.mat.resize);
   window.addEventListener('resize', params.cameras['row-labels'].resize);
 
-  // generate draw_cells_props using buffers
-  params.draw_cells_props = make_draw_cells_props(regl, params);
+  // generate cell_args using buffers
+  params.cell_args = make_cell_args(regl, params);
 
   return params;
 

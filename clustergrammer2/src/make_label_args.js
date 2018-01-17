@@ -109,11 +109,6 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
 
   };
 
-  // // draw background
-  // const draw_rows = regl(args);
-
-  // return draw_rows;
-
   return args;
 
 };

@@ -83,9 +83,11 @@ module.exports = function make_draw_cells_props(regl, params){
 
   var num_instances = params.arrs.position_arr.length;
 
-  var zoom_function = function(context){
-    return context.view;
-  };
+  // var zoom_function = function(context){
+  //   return context.view;
+  // };
+
+  var zoom_function = params.zoom_function;
 
   var regl_props = {
     vert: vert_string,

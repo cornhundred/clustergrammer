@@ -15,8 +15,8 @@ module.exports = function draw_matri(regl, params){
     // //////////////////////////////////////////////////////
     // var draw_cells_props = make_draw_cells_props(regl, arrs_filt);
 
-    regl(params.draw_cells_props.regl_props.top)();
-    regl(params.draw_cells_props.regl_props.bot)();
+    regl(params.cell_args.regl_props.top)();
+    regl(params.cell_args.regl_props.bot)();
 
   });
 
