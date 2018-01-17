@@ -17,7 +17,7 @@ module.exports = function draw_text_triangles(regl, zoom_function){
                            // depth
                            0.50,
                            // zoom
-                           100);
+                           200);
       }`,
     frag: `
       precision mediump float;

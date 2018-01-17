@@ -47,6 +47,7 @@ module.exports = function row_label_text(params){
       return -i/num_row + offset.y - 0.5/num_row;
     });
 
+  var scale_y = 200;
 
   // working on loop
   var outside_text_vect = [];
@@ -71,7 +72,7 @@ module.exports = function row_label_text(params){
 
     // console.log(row_id, inst_name, row_order_id, tmp, y)
 
-    tmp_text_vect.offset = [-53.0, y*100];
+    tmp_text_vect.offset = [-53.0 * 2, y * scale_y];
     outside_text_vect.push(tmp_text_vect);
 
   });
