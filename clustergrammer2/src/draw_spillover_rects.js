@@ -1,5 +1,3 @@
-// const vectorizeText = require('vectorize-text')
-
 module.exports = function draw_spillover_rects(regl, zoom_function, inst_depth,
                                                inst_color=[1, 1, 1, 1]){
 
@@ -40,9 +38,9 @@ module.exports = function draw_spillover_rects(regl, zoom_function, inst_depth,
       // func: 'greater',
       range: [0, 1]
     },
-  }
+  };
 
-  draw_function = regl(args);
+  var draw_function = regl(args);
 
   return draw_function;
 
