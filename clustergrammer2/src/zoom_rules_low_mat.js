@@ -17,12 +17,11 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
     zoom_data.inst_zoom = 1;
   }
 
-
   // calc unsanitized potential_total_zoom
   // checking this prevents the real total_zoom from going out of bounds
   var potential_total_zoom = zoom_data.total_zoom * zoom_data.inst_zoom;
 
-  var zooming_below_one = false;
+  // var zooming_below_one = false;
 
   // zooming within allowed range
   if (potential_total_zoom < max_zoom && potential_total_zoom > min_zoom){
@@ -46,12 +45,12 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
       zoom_data.total_zoom = zoom_data.total_zoom * zoom_data.inst_zoom;
     } else {
       // declare that this is zooming_below_one
-      if (zoom_data.total_zoom == 1){
+      // if (zoom_data.total_zoom == 1){
         // if (axis === 'x'){
         //   console.log('zooming_below_one')
         // }
-        zooming_below_one = false;
-      }
+        // zooming_below_one = false;
+      // }
 
       // bump zoom down to min
       zoom_data.inst_zoom =  min_zoom/zoom_data.total_zoom;
@@ -73,7 +72,7 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
   if (zoom_data.pan_by_drag > 0){
     if (zoom_data.total_pan_min + zoom_data.pan_by_drag >= 0){
       // push to edge
-      zoom_data.pan_by_drag = - zoom_data.total_pan_min;
+      zoom_data.pan_by_drag = -zoom_data.total_pan_min;
     }
   }
 
@@ -117,8 +116,8 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
   // zooming in causes negative panning
   // net positive panning is not allowed
   var inst_eff_zoom = zoom_data.inst_zoom - 1;
-  zoom_data.pbz_relative_min = - inst_eff_zoom * cursor_relative_min;
-  zoom_data.pbz_relative_max = - inst_eff_zoom * cursor_relative_max;
+  zoom_data.pbz_relative_min = -inst_eff_zoom * cursor_relative_min;
+  zoom_data.pbz_relative_max = -inst_eff_zoom * cursor_relative_max;
 
   // calculate unsanitized versions of total pan values
   var potential_total_pan_min = zoom_data.total_pan_min +
@@ -128,7 +127,7 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
 
   // panning by drag has the opposite effect relative to the max/right side
   var potential_total_pan_max = zoom_data.total_pan_max +
-                 - zoom_data.pan_by_drag / zoom_data.total_zoom  +
+                 -zoom_data.pan_by_drag / zoom_data.total_zoom  +
                  zoom_data.pbz_relative_max / zoom_data.total_zoom ;
 
   var zero_threshold = 0.0001;
@@ -149,7 +148,7 @@ module.exports = function zoom_rules_low_mat(zoom_restrict, zoom_data,
   // Panning in bounds
   if (potential_total_pan_min <= zero_threshold && potential_total_pan_max <= zero_threshold){
 
-    zoom_data.pan_by_zoom = - inst_eff_zoom * zoom_data.cursor_position;
+    zoom_data.pan_by_zoom = -inst_eff_zoom * zoom_data.cursor_position;
     zoom_data.total_pan_min = potential_total_pan_min;
     zoom_data.total_pan_max = potential_total_pan_max;
 
