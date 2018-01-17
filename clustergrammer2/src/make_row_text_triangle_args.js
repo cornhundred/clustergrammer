@@ -4,7 +4,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
     .domain([50, 100])
     .range([-26.5, -53]);
 
-  var x_offset = row_x_offset(params.text_zoom.row);
+  var x_offset = row_x_offset(params.text_zoom.row.inst_factor);
 
   var args = {
     vert: `
@@ -12,7 +12,6 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
       attribute vec2 position;
       uniform mat4 zoom;
       uniform vec2 offset;
-      uniform float text_zoom;
       uniform float x_offset;
       uniform float scale_y;
       uniform float width_scale;
@@ -27,7 +26,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
                            // depth
                            0.50,
                            // zoom
-                           text_zoom);
+                           scale_y);
       }`,
     frag: `
       precision mediump float;
@@ -35,17 +34,14 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
         gl_FragColor = vec4(0.2, 0.2, 0.2, 1.0);
       }`,
     attributes: {
-      // position: text_vect.positions
       position: regl.prop('positions')
     },
-    // elements: text_vect.cells,
     elements: regl.prop('cells'),
     uniforms: {
       zoom: zoom_function,
       offset: regl.prop('offset'),
-      text_zoom: params.text_zoom.row,
       x_offset: x_offset,
-      scale_y: params.text_zoom.row,
+      scale_y: params.text_zoom.row.inst_factor,
       width_scale: params.zoom_data.y.total_zoom
     },
     depth: {

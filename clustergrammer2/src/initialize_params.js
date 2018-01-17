@@ -5,7 +5,6 @@ var ini_zoom_restrict = require('./ini_zoom_restrict');
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 var make_cameras = require('./make_cameras');
 var calc_spillover_triangles = require('./calc_spillover_triangles');
-
 var make_cell_args = require('./make_cell_args');
 var make_label_args = require('./make_label_args');
 var make_dendro_args = require('./make_dendro_args');
@@ -60,14 +59,13 @@ module.exports = function initialize_params(regl, network){
   params.text_zoom = {};
 
   // this scaling factor can be set to the number of rows
-  params.text_zoom.row = params.num_row;
-  params.text_zoom.row_reference = params.text_zoom.row;
-  params.text_zoom.row_factor = 1;
+  params.text_zoom.row = {};
+  params.text_zoom.row.inst_factor = params.num_row;
+  params.text_zoom.row.reference = params.text_zoom.row.inst_factor;
+  params.text_zoom.row.factor = 1;
 
   // calculate the text_triangles for all rows
   params.row_label_triangles = calc_row_label_triangles(params);
-
-  // do not need to calc text triangles args since I'm re-calculating later
 
   params.zoom_restrict = ini_zoom_restrict(params);
 

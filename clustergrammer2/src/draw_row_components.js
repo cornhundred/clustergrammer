@@ -18,7 +18,7 @@ module.exports = function draw_row_components(regl, params){
 
     /* Row Text */
     // update text information with zooming
-    params.text_zoom.row = params.text_zoom.row_reference *
+    params.text_zoom.row.inst_factor = params.text_zoom.row.reference *
                            text_scale(params.zoom_data.y.total_zoom);
 
     // make the arguments for the draw command
