@@ -1,5 +1,7 @@
 var row_label_text = require('./row_label_text');
 var calc_viz_dim = require('./calc_viz_dim');
+var ini_zoom_data = require('./ini_zoom_data');
+var ini_zoom_restrict = require('./ini_zoom_restrict');
 
 module.exports = function initialize_params(mat_data){
 
@@ -42,6 +44,9 @@ module.exports = function initialize_params(mat_data){
 
   params.viz_dim = calc_viz_dim();
 
+  params.zoom_data = ini_zoom_data();
+
+  params.zoom_restrict = ini_zoom_restrict(mat_data);
 
   return params;
 

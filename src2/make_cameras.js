@@ -1,4 +1,6 @@
-module.exports = function make_cameras(zoom_data){
+module.exports = function make_cameras(params){
+
+  var zoom_data = params.zoom_data;
 
   const cameras = {}
   var ini_scale = 1.0 ;

@@ -2,9 +2,10 @@ var interactionEvents = require('./interaction-events');
 var extend = require('xtend/mutable');
 var zoom_rules_low_mat = require('./zoom_rules_low_mat');
 
-module.exports = function zoom_rules_high_mat(regl, zoom_restrict, zoom_data,
-                                              params){
+module.exports = function zoom_rules_high_mat(regl, params){
 
+  var zoom_data = params.zoom_data;
+  var zoom_restrict = params.zoom_restrict;
   var viz_dim = params.viz_dim;
 
   var opts = opts || {};
