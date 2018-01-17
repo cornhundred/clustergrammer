@@ -88,7 +88,7 @@ function run_viz(regl, assets){
   var zoom_restrict = ini_zoom_restrict(mat_data);
 
   // update zoom_data
-  zoom_rules_high_mat(regl, zoom_restrict, zoom_data, params.viz_dim);
+  zoom_rules_high_mat(regl, zoom_restrict, zoom_data, params);
 
   console.log('num_row: ' + String(num_row))
   console.log('num_col: ' + String(num_col))
@@ -100,7 +100,7 @@ function run_viz(regl, assets){
   window.addEventListener('resize', cameras['mat'].resize);
   window.addEventListener('resize', cameras['row-labels'].resize);
 
-  params.spillover_positions = calc_spillover_positions(params.viz_dim);
+  params.spillover_positions = calc_spillover_positions(params);
 
   // generate position and opacity arrays from mat_data
   var arrs = make_draw_cells_arr(regl, mat_data)

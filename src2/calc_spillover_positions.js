@@ -1,4 +1,6 @@
-module.exports = function calc_spillover_positions(viz_dim){
+module.exports = function calc_spillover_positions(params){
+
+  var viz_dim = params.viz_dim;
 
   var height_to_width = viz_dim.canvas.height/viz_dim.canvas.width;
   var scaled_height = 0.5 / height_to_width;

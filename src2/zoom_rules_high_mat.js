@@ -3,7 +3,9 @@ var extend = require('xtend/mutable');
 var zoom_rules_low_mat = require('./zoom_rules_low_mat');
 
 module.exports = function zoom_rules_high_mat(regl, zoom_restrict, zoom_data,
-                                              viz_dim){
+                                              params){
+
+  var viz_dim = params.viz_dim;
 
   var opts = opts || {};
   var options = extend({
