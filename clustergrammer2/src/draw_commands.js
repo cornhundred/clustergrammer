@@ -43,8 +43,10 @@ module.exports = function draw_commands(regl, params){
     // Static components (later prevent from redrawing)
     params.cameras.static.draw(() => {
 
-      params.draw_spillover_rects.mat(params.spillover_positions.mat);
-      params.draw_spillover_rects.corners(params.spillover_positions.corners);
+      // spillover rects to hide matrix spillover
+      params.draw_spillover_rects.mat_sides(params.spillover_positions.mat);
+      params.draw_spillover_rects.mat_corners(params.spillover_positions.corners);
+      params.draw_spillover_rects.label_corners(params.spillover_positions.corners);
 
     });
 

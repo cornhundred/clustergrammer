@@ -53,12 +53,17 @@ module.exports = function initialize_params(regl, network){
   params.row_label_text = row_label_text(params);
   params.draw_text_triangles = draw_text_triangles(regl, params, zoom_function);
 
-  params.draw_spillover_rects = {};
+  spillover_commands = {};
 
   // inst_depth is passed to spillover rects
-  params.draw_spillover_rects.mat = draw_spillover_rects(regl, zoom_function, 0.5);
+  spillover_commands.mat_sides = draw_spillover_rects(regl, zoom_function, 0.5);
 
-  params.draw_spillover_rects.corners = draw_spillover_rects(regl, zoom_function, 0.4);
+  spillover_commands.mat_corners = draw_spillover_rects(regl, zoom_function, 0.4);
+
+  // only covering text at depth of 0??
+  spillover_commands.label_corners = draw_spillover_rects(regl, zoom_function, 0.0);
+
+  params.draw_spillover_rects = spillover_commands;
 
   params.viz_dim = calc_viz_dim(regl);
 
