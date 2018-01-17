@@ -52,7 +52,6 @@ module.exports = function calc_col_text_triangles(params){
     var y = y_arr[ col_order_id ];
     tmp_text_vect.offset = [ 0, y];
 
-    console.log(tmp_text_vect.offset)
     col_text_triangles.push(tmp_text_vect);
 
   });
