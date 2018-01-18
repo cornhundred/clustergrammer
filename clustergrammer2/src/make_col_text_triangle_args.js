@@ -4,9 +4,9 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
   var col_x_offset = d3.scale.linear()
     .domain([50, 100])
-    .range([-26.5, -53]);
+    .range([26.2, 53]);
 
-  var x_offset = col_x_offset(params.text_zoom.col.inst_factor);
+  var y_offset = col_x_offset(params.text_zoom.col.inst_factor);
 
   /*
   Not using mat_translate since each label needs to be translated a specific
@@ -14,7 +14,10 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
   */
   var mat_rotate = m3.rotation(Math.PI/4);
   var mat_scale = m3.scaling(1, params.zoom_data.x.total_zoom);
-  var mat_reduce_text_size = m3.scaling(0.75, 0.75);
+  var reduce_factor = 0.75 // 1 / params.zoom_data.x.total_zoom;
+  var mat_reduce_text_size = m3.scaling(reduce_factor, reduce_factor);
+
+  var scale_y = params.text_zoom.col.inst_factor;
 
   var args = {
     vert: `
@@ -22,7 +25,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       attribute vec2 position;
       uniform mat4 zoom;
       uniform vec2 offset;
-      uniform float x_offset;
+      uniform float y_offset;
       uniform float scale_y;
       uniform float width_scale;
       uniform mat3 mat_rotate;
@@ -64,7 +67,12 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
                 +
 
                 // apply translation to rotated text
-                vec3( offset[1] * scale_y, 14.8, 0),
+
+                ////////////////////////
+                // need to set range for x_offset
+                ////////////////////////
+
+                vec3( offset[1] * scale_y, y_offset, 0),
 
                 ////////////////////
                 // add vec4 element
@@ -88,9 +96,9 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
     uniforms: {
       zoom: zoom_function,
       offset: regl.prop('offset'),
-      x_offset: x_offset,
-      scale_y: params.text_zoom.col.inst_factor,
-      width_scale: params.zoom_data.y.total_zoom,
+      scale_y: scale_y,
+      y_offset: y_offset,
+      width_scale: params.zoom_data.x.total_zoom,
       mat_rotate: mat_rotate,
       mat_scale: mat_scale,
       mat_reduce_text_size: mat_reduce_text_size,

@@ -12,10 +12,10 @@ module.exports = function draw_column_components(regl, params){
     /* control allowable zoom for column text */
 
 
-    // /* Col Text */
-    // // update text information with zooming
-    // params.text_zoom.col.inst_factor = params.text_zoom.col.reference *
-    //                                    params.text_scale(params.zoom_data.x.total_zoom);
+    /* Col Text */
+    // update text information with zooming
+    params.text_zoom.col.inst_factor = params.text_zoom.col.reference *
+                                       params.text_scale(params.zoom_data.x.total_zoom);
 
 
 

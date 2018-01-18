@@ -7,6 +7,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
     .range([-26.5, -53]);
 
   var x_offset = row_x_offset(params.text_zoom.row.inst_factor);
+  var scale_y = params.text_zoom.row.inst_factor;
 
   var mat_rotate = m3.rotation(Math.PI/2);
 
@@ -49,7 +50,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
       zoom: zoom_function,
       offset: regl.prop('offset'),
       x_offset: x_offset,
-      scale_y: params.text_zoom.row.inst_factor,
+      scale_y: scale_y,
       width_scale: params.zoom_data.y.total_zoom,
       mat_rotate: mat_rotate
     },
