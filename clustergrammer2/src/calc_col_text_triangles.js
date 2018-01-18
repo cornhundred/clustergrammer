@@ -46,8 +46,7 @@ module.exports = function calc_col_text_triangles(params){
 
     var inst_name = inst_node.name.split(': ')[1];
     var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-    var col_order_id =
-                       params.network.col_nodes[col_id][inst_order];
+    var col_order_id = params.network.col_nodes[col_id][inst_order];
 
     var y = y_arr[ col_order_id ];
     tmp_text_vect.offset = [ 0, y];
