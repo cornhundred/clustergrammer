@@ -14,6 +14,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
   */
   var mat_rotate = m3.rotation(Math.PI/4);
   var mat_scale = m3.scaling(1, params.zoom_data.x.total_zoom);
+  var mat_reduce_text_size = m3.scaling(0.75, 0.75);
 
   var args = {
     vert: `
@@ -26,6 +27,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform float width_scale;
       uniform mat3 mat_rotate;
       uniform mat3 mat_scale;
+      uniform mat3 mat_reduce_text_size;
 
       // last value is a sort-of zoom
       void main () {
@@ -33,21 +35,33 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
         gl_Position = zoom *
 
           vec4(
-                // stretch letters vertically
-                ////////////////////////////
+                ////////////////////
+                // make vec3
+                ////////////////////
+
+                // stretch letters vertically to maintain proportions
                 mat_scale *
+
+                // rotate text triangles
                 mat_rotate *
-                (
-                  vec3(position.y, position.x, 0.5)) +
 
-                      // apply translation to rotated text
-                      vec3(
-                            offset[1] * scale_y,
-                            15.0,
-                            0),
-                            scale_y
+                mat_reduce_text_size *
 
-                        );
+                // text triangles
+                vec3(position.y, position.x, 0.5) +
+
+                // apply translation to rotated text
+                vec3( offset[1] * scale_y, 15.3, 0),
+
+                ////////////////////
+                // add vec4 element
+                ////////////////////
+
+                // zoom element in vec4
+                scale_y
+
+          );
+
       }`,
     frag: `
       precision mediump float;
@@ -66,6 +80,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       width_scale: params.zoom_data.y.total_zoom,
       mat_rotate: mat_rotate,
       mat_scale: mat_scale,
+      mat_reduce_text_size: mat_reduce_text_size,
     },
     depth: {
       enable: true,
