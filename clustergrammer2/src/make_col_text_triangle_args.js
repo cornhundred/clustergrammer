@@ -8,9 +8,12 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
   var x_offset = col_x_offset(params.text_zoom.col.inst_factor);
 
+  /*
+  Not using mat_translate since each label needs to be translated a specific
+  amount that is saved in the batch data.
+  */
   var mat_rotate = m3.rotation(Math.PI/4);
   var mat_scale = m3.scaling(1, params.zoom_data.x.total_zoom);
-  var mat_translate = m3.translation(1, 0);
 
   var args = {
     vert: `
@@ -23,35 +26,28 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform float width_scale;
       uniform mat3 mat_rotate;
       uniform mat3 mat_scale;
-      uniform mat3 mat_translate;
 
       // last value is a sort-of zoom
       void main () {
         // reverse y position to get words to be upright
         gl_Position = zoom *
-                      vec4(
-                            // mat_translate *
-                            mat_scale *
-                            mat_rotate *
-                            (
-                              vec3(
 
-                                  // (position.y) + offset[1] * scale_y,
-                                  position.y ,
+          vec4(
+                // stretch letters vertically
+                ////////////////////////////
+                mat_scale *
+                mat_rotate *
+                (
+                  vec3(position.y, position.x, 0.5)) +
 
-                                  // position.x  * width_scale + 15.5,
-                                  position.x ,
+                      // apply translation to rotated text
+                      vec3(
+                            offset[1] * scale_y,
+                            15.0,
+                            0),
+                            scale_y
 
-                                  0.5)) +
-
-                                  vec3(
-                                        offset[1] * scale_y * width_scale ,
-                                        15.0,
-                                        0),
-
-                             scale_y
-
-                            );
+                        );
       }`,
     frag: `
       precision mediump float;
@@ -70,7 +66,6 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       width_scale: params.zoom_data.y.total_zoom,
       mat_rotate: mat_rotate,
       mat_scale: mat_scale,
-      mat_translate: mat_translate
     },
     depth: {
       enable: true,
