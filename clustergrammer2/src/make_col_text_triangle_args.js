@@ -57,7 +57,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
                   // shift text up a little so that zooming results in
                   // the bottom of the text remaining at the same position
-                  vec3( 0, 0.5, 0)
+                  vec3( 0, 0.4, 0)
 
                 )
 

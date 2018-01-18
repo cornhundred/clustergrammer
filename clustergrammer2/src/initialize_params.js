@@ -83,6 +83,7 @@ module.exports = function initialize_params(regl, network){
   // generate cell_args using buffers
   params.cell_args = make_cell_args(regl, params);
 
+  // 1 no zooming allowed, 3 is good value, inf allows zooming
   params.allowable_zoom_factor = 3;
 
   params.text_scale = d3.scale.linear()
