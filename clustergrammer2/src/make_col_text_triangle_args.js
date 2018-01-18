@@ -21,12 +21,14 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
         // reverse y position to get words to be upright
         gl_Position = zoom *
                       vec4(
-                            (position.y) + offset[1] * scale_y,
-                           position.x  * width_scale + 15.5,
-                           // depth
-                           0.50,
-                           // zoom
-                           scale_y);
+
+                            vec3(
+                                  (position.y) + offset[1] * scale_y,
+                                  position.x  * width_scale + 15.5,
+                                  0.5),
+                             scale_y
+
+                            );
       }`,
     frag: `
       precision mediump float;
