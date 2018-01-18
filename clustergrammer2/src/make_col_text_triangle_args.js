@@ -47,11 +47,24 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
                 mat_reduce_text_size *
 
-                // text triangles
-                vec3(position.y, position.x, 0.5) +
+                // shifted text triangles
+                (
+
+                  // text triangles
+                  vec3(position.y, position.x, 0.5)
+
+                  +
+
+                  // shift text up a little so that zooming results in
+                  // the bottom of the text remaining at the same position
+                  vec3( 0, 0.5, 0)
+
+                )
+
+                +
 
                 // apply translation to rotated text
-                vec3( offset[1] * scale_y, 15.3, 0),
+                vec3( offset[1] * scale_y, 14.8, 0),
 
                 ////////////////////
                 // add vec4 element
