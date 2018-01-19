@@ -30,7 +30,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
   y_offset_buffer(y_offset_array);
 
-  var scale_y = m3.scaling(2., 1);
+  var scale_y = m3.scaling(2, 1);
 
   var rotation_radians;
   if (inst_rc === 'row'){

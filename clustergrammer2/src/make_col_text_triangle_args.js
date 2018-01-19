@@ -25,7 +25,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
   // smaller number gives smaller text
   // rc_two_cats: 0.75
   // mnist: 1
-  var reduce_factor = 0.75 // 1 / params.zoom_data.x.total_zoom;
+  var reduce_factor = 0.75; // 1 / params.zoom_data.x.total_zoom;
   var total_zoom = params.zoom_data.x.total_zoom;
   var mat_reduce_text_size = m3.scaling(reduce_factor, reduce_factor);
 

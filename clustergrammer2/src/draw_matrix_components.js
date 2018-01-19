@@ -1,11 +1,11 @@
-var make_cell_args = require('./make_cell_args');
-var filter_visible_mat = require('./filter_visible_mat');
+// var filter_visible_mat = require('./filter_visible_mat');
+// var make_cell_args = require('./make_cell_args');
 
 module.exports = function draw_matri(regl, params){
 
   /* Matrix */
   params.cameras.mat.draw(() => {
-    regl.clear({ color: [0, 0, 0, 0] });
+    regl.clear({color: [0, 0, 0, 0]});
 
     /*
       Filter and regenerate args is slow
