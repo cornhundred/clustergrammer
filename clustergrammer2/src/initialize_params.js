@@ -96,6 +96,8 @@ module.exports = function initialize_params(regl, network){
     .domain([1, 10])
     .range([1, 10/params.allowable_zoom_factor]);
 
+  params.max_num_text = 10;
+
   return params;
 
 };

@@ -22,12 +22,21 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
 
     if (slow_draw){
 
-      calc_viz_area(params);
+      var num_viz_rows = params.num_row/params.zoom_data.y.total_zoom;
 
-      params.row_text_triangles = calc_row_text_triangles(params);
+      if (num_viz_rows < params.max_num_text){
 
-      // draw using text_triangle_args and row_text_triangles
-      regl(text_triangle_args)(params.row_text_triangles);
+        calc_viz_area(params);
+
+        // // draw using text_triangle_args and row_text_triangles
+        // params.row_text_triangles = calc_row_text_triangles(params);
+        // regl(text_triangle_args)(params.row_text_triangles);
+
+        console.log('can draw rows');
+
+      } else {
+        console.log('too many rows to draw');
+      }
 
     }
 
