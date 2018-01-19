@@ -32,7 +32,7 @@ module.exports = function run_viz(regl, assets){
       setTimeout(function(){
         params.zoom_data.x.total_int = params.zoom_data.x.total_int - 1;
 
-        console.log('total_int: ', params.zoom_data.x.total_int);
+        // console.log('total_int: ', params.zoom_data.x.total_int);
 
         if (params.zoom_data.x.total_int == 0 && initialize_viz == false){
 
@@ -42,7 +42,7 @@ module.exports = function run_viz(regl, assets){
             // console.log('initialize_viz', initialize_viz)
 
             // run draw commands
-            draw_commands(regl, params);
+            draw_commands(regl, params, slow_draw=true);
 
           } else {
             first_frame = false;

@@ -2,6 +2,8 @@ var calc_row_text_triangles = require('./calc_row_text_triangles');
 
 module.exports = function calc_viz_area(params){
 
+  console.log('calc_viz_area');
+
   var zoom_data = params.zoom_data;
 
   if (zoom_data.y.total_zoom > zoom_data.y.zoom_step) {
