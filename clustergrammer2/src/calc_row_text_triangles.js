@@ -1,6 +1,7 @@
 const vectorizeText = require('vectorize-text');
 
 module.exports = function calc_row_text_triangles(params){
+  console.log('calcluating row_text_triangles')
 
   var inst_nodes = params.network.row_nodes;
   var num_row = params.num_row;

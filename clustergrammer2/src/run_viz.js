@@ -17,14 +17,41 @@ module.exports = function run_viz(regl, assets){
 
   // gparams = params;
 
+  var first_frame = true;
+
   regl.frame(function () {
 
     if (params.still_interacting == true || initialize_viz == true){
 
-      // console.log('draw');
-      initialize_viz = false;
+      // console.log('initialize_viz', initialize_viz)
+      console.log('frame-animation')
+
+      params.zoom_data.x.total_int = params.zoom_data.x.total_int + 1;
+      // console.log('start: ', params.zoom_data.x.total_int)
 
       draw_commands(regl, params);
+
+      // console.log(params.still_interacting)
+
+      setTimeout(function(){
+        params.zoom_data.x.total_int = params.zoom_data.x.total_int - 1;
+        // console.log('end: ', params.zoom_data.x.total_int)
+
+        if (params.zoom_data.x.total_int == 0 && initialize_viz == false){
+
+          // preventing from running on first frame
+          if (first_frame == false){
+            console.log('FINAL INTERACTION')
+            // console.log('initialize_viz', initialize_viz)
+          } else {
+            first_frame = false;
+          }
+        }
+
+      }, 100)
+
+      // console.log('draw');
+      initialize_viz = false;
 
     }
 

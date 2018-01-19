@@ -28,6 +28,12 @@ module.exports = function ini_zoom_data(){
     // delay viz area calculations until sufficient zooming has
     // occurred
     inst_data.zoom_step = 10;
+    inst_data.show_text = false;
+
+    // keep track of when zooming stops
+    inst_data.still_zooming = false;
+
+    inst_data.total_int = 0;
 
     // add to zoom_data
     zoom_data[inst_dim] = inst_data;
