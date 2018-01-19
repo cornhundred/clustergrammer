@@ -84,7 +84,13 @@ module.exports = function initialize_params(regl, network){
   params.cell_args = make_cell_args(regl, params);
 
   // 1 no zooming allowed, 3 is good value, 10 allows zooming
-  params.allowable_zoom_factor = 3;
+  // rc_two_cats: 3
+  // mnist: 7
+  var allow_factor = d3.scale.linear()
+    .domain([10, 1000])
+    .range([2, 25]);
+
+  params.allowable_zoom_factor = allow_factor(params.num_col);
 
   params.text_scale = d3.scale.linear()
     .domain([1, 10])
