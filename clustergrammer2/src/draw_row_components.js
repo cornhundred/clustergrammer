@@ -1,4 +1,5 @@
 var make_row_text_triangle_args = require('./make_row_text_triangle_args');
+var calc_viz_area = require('./calc_viz_area');
 
 module.exports = function draw_row_components(regl, params){
 
@@ -7,6 +8,8 @@ module.exports = function draw_row_components(regl, params){
 
     regl(params.viz_aid_tri_args.row)();
     regl(params.dendro_args.row)();
+
+    calc_viz_area(params);
 
     /* Row Text */
     // update text information with zooming

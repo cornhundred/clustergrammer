@@ -25,6 +25,10 @@ module.exports = function ini_zoom_data(){
     // keep track of previous restrictions
     inst_data.prev_restrict = false;
 
+    // delay viz area calculations until sufficient zooming has
+    // occurred
+    inst_data.zoom_step = 10;
+
     // add to zoom_data
     zoom_data[inst_dim] = inst_data;
   });
