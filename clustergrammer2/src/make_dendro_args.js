@@ -82,7 +82,7 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
     attributes: {
       position: [
         [0.0,  row_height/2],
-        [row_width,  0.0],
+        [row_width/2,  0.0],
         [0.0, -row_height/2],
       ],
       y_offset_att: {

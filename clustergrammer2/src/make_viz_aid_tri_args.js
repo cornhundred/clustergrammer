@@ -84,7 +84,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
     attributes: {
       position: [
         [row_width,  row_height/2],
-        [0.00,  0.0],
+        [row_width/2,  0.0],
         [row_width, -row_height/2],
       ],
       y_offset_att: {

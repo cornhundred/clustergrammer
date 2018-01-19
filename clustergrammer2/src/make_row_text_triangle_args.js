@@ -4,7 +4,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
 
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])
-    .range([-26.5, -53]);
+    .range([-26.1, -53]);
 
   var x_offset = row_x_offset(params.text_zoom.row.inst_factor);
   var scale_y = params.text_zoom.row.inst_factor;
