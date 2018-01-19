@@ -38,6 +38,7 @@ module.exports = function run_viz(regl, assets){
 
           // preventing from running on first frame
           if (first_frame == false){
+
             console.log('\n------------------\nFINAL INTERACTION');
             // console.log('initialize_viz', initialize_viz)
 
@@ -49,7 +50,7 @@ module.exports = function run_viz(regl, assets){
           }
         }
 
-      }, 100)
+      }, 500)
 
       // console.log('draw');
       initialize_viz = false;

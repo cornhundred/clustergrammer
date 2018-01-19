@@ -78,17 +78,14 @@ module.exports = function zoom_rules_high_mat(regl, params){
       zoom_data.y = zoom_rules_low_mat(zoom_restrict.y, zoom_data.y,
         viz_dim.mat.y, 'y');
 
+      // keep track of interactions
       if (params.still_interacting == false){
 
         params.still_interacting = true;
 
         // wait some time to confirm still not interacting
         setTimeout(function(){
-          // if (params.zoom_data.x.total_int === 0){
-                // console.log('---------------------')
-                // console.log('total_int: ', params.zoom_data.x.total_int)
-                params.still_interacting = false;
-          // }
+          params.still_interacting = false;
         }, 1000);
 
       }

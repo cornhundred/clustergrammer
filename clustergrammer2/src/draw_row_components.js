@@ -1,5 +1,6 @@
 var make_row_text_triangle_args = require('./make_row_text_triangle_args');
 var calc_viz_area = require('./calc_viz_area');
+var calc_row_text_triangles = require('./calc_row_text_triangles');
 
 module.exports = function draw_row_components(regl, params, slow_draw=false){
 
@@ -23,8 +24,10 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
 
       calc_viz_area(params);
 
-      // // draw using text_triangle_args and row_text_triangles
-      // regl(text_triangle_args)(params.row_text_triangles);
+      params.row_text_triangles = calc_row_text_triangles(params);
+
+      // draw using text_triangle_args and row_text_triangles
+      regl(text_triangle_args)(params.row_text_triangles);
 
     }
 
