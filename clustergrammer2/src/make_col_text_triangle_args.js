@@ -38,47 +38,44 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform mat3 mat_reduce_text_size;
       uniform float total_zoom;
       varying vec3 rotated_text;
+      varying vec3 shift_to_right;
 
       // last value is a sort-of zoom
       void main () {
 
-        // rotate, reduce size, and give text triangles positions
-        rotated_text = mat_rotate *
-              mat_reduce_text_size *
-              vec3(position.y, position.x, 0.5);
+        // rotate, reduce size, stretch in y, and give text triangles positions
+        rotated_text = text_y_scale *
+                       mat_rotate *
+                       mat_reduce_text_size *
+                       vec3(position.y, position.x, 0.5);
+
+        // Shift text over a little by a fixed amount and then
+        // shift by a zoom-dependent amount so that the bottom
+        // of the text remains at the same lower right position
+        // vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
+        /*
+          need to have
+            0.11 * total_zoom
+          factor scale with the number of columns
+          so that the labels remain on top of the correct columns
+        */
+        shift_to_right = vec3( 0.0 * total_zoom  + 0.2 , 0, 0);
 
         // reverse y position to get words to be upright
         gl_Position = zoom *
 
           vec4(
+
                 ////////////////////
                 // make vec3
                 ////////////////////
 
                 // stretch letters vertically to maintain proportions
-                text_y_scale *
+                rotated_text
 
-                (
+                +
 
-                  rotated_text
-
-                  +
-
-                  // Shift text over a little by a fixed amount and then
-                  // shift by a zoom-dependent amount so that the bottom
-                  // of the text remains at the same lower right position
-                  // vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
-
-                  /*
-                    need to have
-                      0.11 * total_zoom
-                    factor scale with the number of columns
-                    so that the labels remain on top of the correct columns
-                  */
-
-                  vec3( 0.0 * total_zoom  + 0.2 , 0, 0)
-
-                )
+                shift_to_right
 
                 +
 
