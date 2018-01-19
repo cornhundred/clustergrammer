@@ -42,17 +42,27 @@ module.exports = function calc_row_text_triangles(params){
 
   var inst_order = 'clust';
 
+  var viz_area = params.viz_area;
+
   _.each(inst_nodes, function(inst_node, row_id){
 
     var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
     var inst_y = y_arr[ row_order_id ];
 
-    var inst_name = inst_node.name.split(': ')[1];
-    var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-    tmp_text_vect.offset = [ 0, inst_y];
-    row_text_triangles.push(tmp_text_vect);
+    // console.log(viz_area.y_max, inst_y)
 
-  });
+    // reverse from what would expect (max/min)
+    if (inst_y > viz_area.y_max && inst_y < viz_area.y_min){
+      var inst_name = inst_node.name.split(': ')[1];
+      var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
+      tmp_text_vect.offset = [0, inst_y];
+      row_text_triangles.push(tmp_text_vect);
+    }
+
+
+  })
+
+  console.log('row_text_triangles length: ', row_text_triangles.length)
 
   return row_text_triangles;
 
