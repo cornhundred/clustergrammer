@@ -1,6 +1,6 @@
 var m3 = require('./mat3_transform');
 
-module.exports = function make_label_args(regl, params, inst_rc){
+module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
   var num_rows = params['num_'+inst_rc];
 
