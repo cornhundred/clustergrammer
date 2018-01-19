@@ -13,8 +13,9 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
   amount that is saved in the batch data.
   */
   var mat_rotate = m3.rotation(Math.PI/4);
-  var mat_scale = m3.scaling(1, params.zoom_data.x.total_zoom);
+  var text_y_scale = m3.scaling(1, params.zoom_data.x.total_zoom);
   var reduce_factor = 0.75 // 1 / params.zoom_data.x.total_zoom;
+  var total_zoom = params.zoom_data.x.total_zoom;
   var mat_reduce_text_size = m3.scaling(reduce_factor, reduce_factor);
 
   var scale_y = params.text_zoom.col.inst_factor;
@@ -29,8 +30,9 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform float scale_y;
       uniform float width_scale;
       uniform mat3 mat_rotate;
-      uniform mat3 mat_scale;
+      uniform mat3 text_y_scale;
       uniform mat3 mat_reduce_text_size;
+      uniform float total_zoom;
 
       // last value is a sort-of zoom
       void main () {
@@ -43,36 +45,33 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
                 ////////////////////
 
                 // stretch letters vertically to maintain proportions
-                mat_scale *
+                text_y_scale *
 
-                // rotate text triangles
-                mat_rotate *
-
-                mat_reduce_text_size *
-
-                // shifted text triangles
                 (
+
+                  // rotate text triangles
+                  mat_rotate *
+
+                  mat_reduce_text_size *
 
                   // text triangles
                   vec3(position.y, position.x, 0.5)
 
                   +
 
-                  // shift text up a little so that zooming results in
-                  // the bottom of the text remaining at the same position
-                  vec3( 0, 0.4, 0)
+                  // Shift text over a little so that the bottom of the text
+                  // remains at the same lower right position
+                  vec3( 0.11 * total_zoom, 0, 0)
 
                 )
 
                 +
 
-                // apply translation to rotated text
+                // also need to shift text right a bit to keep the bottom
+                // corner centered
 
-                ////////////////////////
-                // need to set range for x_offset
-                ////////////////////////
+                vec3( (offset[1] ) * scale_y + 0.3, y_offset, 0),
 
-                vec3( offset[1] * scale_y, y_offset, 0),
 
                 ////////////////////
                 // add vec4 element
@@ -100,8 +99,9 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       y_offset: y_offset,
       width_scale: params.zoom_data.x.total_zoom,
       mat_rotate: mat_rotate,
-      mat_scale: mat_scale,
+      text_y_scale: text_y_scale,
       mat_reduce_text_size: mat_reduce_text_size,
+      total_zoom: total_zoom,
     },
     depth: {
       enable: true,
