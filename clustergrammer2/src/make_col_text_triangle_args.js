@@ -37,6 +37,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform mat3 text_y_scale;
       uniform mat3 mat_reduce_text_size;
       uniform float total_zoom;
+      uniform float col_width;
       varying vec3 rotated_text;
       varying vec3 shift_to_right;
       varying vec3 position_cols;
@@ -61,7 +62,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
           factor scale with the number of columns
           so that the labels remain on top of the correct columns
         */
-        shift_to_right = vec3( 0.0 * total_zoom  + 0.2 , 0, 0);
+        shift_to_right = vec3( col_width * total_zoom , 0, 0);
 
         position_cols = vec3( offset[1] * scale_x, offset_y, 0);
 
@@ -105,6 +106,8 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       text_y_scale: text_y_scale,
       mat_reduce_text_size: mat_reduce_text_size,
       total_zoom: total_zoom,
+      // need to pin down number
+      col_width: 4.5/params.num_col,
     },
     depth: {
       enable: true,
