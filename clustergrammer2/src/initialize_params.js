@@ -7,7 +7,7 @@ var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 var make_cameras = require('./make_cameras');
 var calc_spillover_triangles = require('./calc_spillover_triangles');
 var make_cell_args = require('./make_cell_args');
-var make_label_args = require('./make_label_args');
+var make_viz_aid_tri_args = require('./make_viz_aid_tri_args');
 var make_dendro_args = require('./make_dendro_args');
 var make_spillover_args = require('./make_spillover_args');
 
@@ -31,8 +31,8 @@ module.exports = function initialize_params(regl, network){
   params.num_col = params.mat_data[0].length;
 
   params.label_args = {};
-  params.label_args.row = make_label_args(regl, params, 'row');
-  params.label_args.col = make_label_args(regl, params, 'col');
+  params.label_args.row = make_viz_aid_tri_args(regl, params, 'row');
+  params.label_args.col = make_viz_aid_tri_args(regl, params, 'col');
 
   params.dendro_args = {};
   params.dendro_args.row = make_dendro_args(regl, params.num_row, 'row');
