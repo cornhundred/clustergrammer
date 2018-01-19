@@ -6,7 +6,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
     .domain([50, 100])
     .range([26.2, 53]);
 
-  var y_offset = col_x_offset(params.text_zoom.col.inst_factor);
+  var offset_y = col_x_offset(params.text_zoom.col.inst_factor);
 
   /*
   Not using mat_translate since each label needs to be translated a specific
@@ -22,7 +22,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
   var total_zoom = params.zoom_data.x.total_zoom;
   var mat_reduce_text_size = m3.scaling(reduce_factor, reduce_factor);
 
-  var scale_y = params.text_zoom.col.inst_factor;
+  var scale_x = params.text_zoom.col.inst_factor;
 
   var args = {
     vert: `
@@ -30,8 +30,8 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       attribute vec2 position;
       uniform mat4 zoom;
       uniform vec2 offset;
-      uniform float y_offset;
-      uniform float scale_y;
+      uniform float offset_y;
+      uniform float scale_x;
       uniform float width_scale;
       uniform mat3 mat_rotate;
       uniform mat3 text_y_scale;
@@ -66,14 +66,23 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
                   // Shift text over a little by a fixed amount and then
                   // shift by a zoom-dependent amount so that the bottom
                   // of the text remains at the same lower right position
-                  vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
+                  // vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
+
+                  /*
+                    need to have
+                      0.11 * total_zoom
+                    factor scale with the number of columns
+                    so that the labels remain on top of the correct columns
+                  */
+
+                  vec3( 0.0 * total_zoom  + 0.2 , 0, 0)
 
                 )
 
                 +
 
                 // position columns using offset data
-                vec3( offset[1] * scale_y, y_offset, 0),
+                vec3( offset[1] * scale_x, offset_y, 0),
 
 
                 ////////////////////
@@ -81,7 +90,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
                 ////////////////////
 
                 // zoom element in vec4
-                scale_y
+                scale_x
 
           );
 
@@ -98,8 +107,8 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
     uniforms: {
       zoom: zoom_function,
       offset: regl.prop('offset'),
-      scale_y: scale_y,
-      y_offset: y_offset,
+      scale_x: scale_x,
+      offset_y: offset_y,
       width_scale: params.zoom_data.x.total_zoom,
       mat_rotate: mat_rotate,
       text_y_scale: text_y_scale,
