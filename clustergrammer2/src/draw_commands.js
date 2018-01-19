@@ -5,17 +5,17 @@ var draw_spillover_components = require('./draw_spillover_components');
 
 module.exports = function draw_commands(regl, params, slow_draw=false){
 
-  if (slow_draw){
-    console.log('\n***************');
-    console.log('** slow draw **');
-    console.log('***************');
-  }
+  // if (slow_draw){
+  //   console.log('\n***************');
+  //   console.log('** slow draw **');
+  //   console.log('***************');
+  // }
 
   draw_matrix_components(regl, params);
 
   draw_row_components(regl, params, slow_draw);
 
-  draw_col_components(regl, params, slow_draw);
+  draw_col_components(regl, params);
 
   draw_spillover_components(regl, params);
 

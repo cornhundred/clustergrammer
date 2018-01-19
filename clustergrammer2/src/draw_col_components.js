@@ -1,6 +1,6 @@
 var make_col_text_triangle_args = require('./make_col_text_triangle_args');
 
-module.exports = function draw_column_components(regl, params, slow_draw=false){
+module.exports = function draw_column_components(regl, params){
 
   /* Column Components */
   params.cameras['col-labels'].draw(() => {

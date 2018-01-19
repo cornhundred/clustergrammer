@@ -1,25 +1,46 @@
-var calc_row_text_triangles = require('./calc_row_text_triangles');
-
 module.exports = function calc_viz_area(params){
 
   console.log('calc_viz_area');
 
   var zoom_data = params.zoom_data;
 
-  if (zoom_data.y.total_zoom > zoom_data.y.zoom_step) {
+  // make a d3.scale to transition from 0px - 500px to -1, 1 space
+  var mat_width = 500;
+  var mat_height = 500;
 
-    if (zoom_data.y.show_text === false){
-      zoom_data.y.show_text = true;
+  var pix_to_webgl = {};
 
-      // console.log('calc_viz_area once');
-      // params.row_text_triangles = calc_row_text_triangles(params);
+  pix_to_webgl.x = d3.scale.linear();
+  pix_to_webgl.x
+    .domain([0, mat_height])
+    .range([-0.5, 0.5])
+    .clamp(true);
 
-    }
+  pix_to_webgl.y = d3.scale.linear();
+  pix_to_webgl.y
+    .domain([0, mat_width])
+    .range([0.5, -0.5])
+    .clamp(true);
 
-  } else {
+  // panning is defined as negative pixel values
+  var total_pan = {};
+  total_pan.x_min = -zoom_data.x.total_pan_min;
+  total_pan.x_max = mat_width + zoom_data.x.total_pan_max;
 
-    zoom_data.y.show_text = false;
+  total_pan.y_min = -zoom_data.y.total_pan_min;
+  total_pan.y_max = mat_width + zoom_data.y.total_pan_max;
 
-  }
+  var buffer_width = 0.025;
+
+  var pan_webgl = {};
+  pan_webgl.x_min = pix_to_webgl.x(total_pan.x_min) - buffer_width;
+  pan_webgl.x_max = pix_to_webgl.x(total_pan.x_max) + buffer_width;
+
+  pan_webgl.y_min = pix_to_webgl.y(total_pan.y_min) + buffer_width;
+  pan_webgl.y_max = pix_to_webgl.y(total_pan.y_max) - buffer_width;
+
+  console.log('y_min', pan_webgl.y_min);
+  console.log('y_max', pan_webgl.y_max);
+
 
 };
