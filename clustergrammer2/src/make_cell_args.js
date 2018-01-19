@@ -3,7 +3,9 @@ var blend_info = require('./blend_info');
 var $ = require('jquery');
 var make_draw_cells_arr = require('./make_draw_cells_arr');
 
-module.exports = function make_draw_cells_props(regl, params){
+module.exports = function make_cell_args(regl, params){
+
+  console.log('make_cell_args')
 
   // generate position and opacity arrays from params.mat_data
   params.arrs = make_draw_cells_arr(regl, params);

@@ -64,8 +64,8 @@ module.exports = function initialize_params(regl, network){
   params.text_zoom.col.reference = params.text_zoom.col.inst_factor;
   params.text_zoom.col.factor = 1;
 
-  // calculate the text_triangles for all rows
-  params.row_text_triangles = calc_row_text_triangles(params);
+  // // calculate the text_triangles for all rows
+  // params.row_text_triangles = calc_row_text_triangles(params);
   params.col_text_triangles = calc_col_text_triangles(params);
 
   params.zoom_restrict = ini_zoom_restrict(params);

@@ -88,6 +88,7 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
     zoom_data.y.filter_zoom = 1; //  zoom_data.y.total_zoom;
   }
 
+  // console.log(arrs.opacity_arr.length);
 
   return arrs;
 };
