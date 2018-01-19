@@ -8,6 +8,10 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
     occurred so that this will not slow things down too much
   */
 
+  // make a d3.scale to transition from 0px - 500px to -1, 1 space
+  var mat_width = 500;
+  var mat_height = 500;
+
   var filter_at_zoom = 2;
   var check_total_zoom = zoom_data.y.total_zoom > filter_at_zoom * zoom_data.y.filter_zoom ;
   var check_zoom_in = zoom_data.y.inst_zoom > 1.0;
@@ -21,10 +25,6 @@ module.exports = function filter_visible_mat(arrs_orig, zoom_data){
     // console.log('filter', zoom_data.y.filter_zoom);
 
     var arrs = $.extend(true, {}, arrs_orig);
-
-    // make a d3.scale to transition from 0px - 500px to -1, 1 space
-    var mat_width = 500;
-    var mat_height = 500;
 
     var pix_to_webgl = {};
 

@@ -1,5 +1,6 @@
 // var filter_visible_mat = require('./filter_visible_mat');
 // var make_cell_args = require('./make_cell_args');
+var calc_viz_area = require('./calc_viz_area');
 
 module.exports = function draw_matri(regl, params){
 
@@ -14,6 +15,8 @@ module.exports = function draw_matri(regl, params){
     // params.arrs_filt = filter_visible_mat(params.arrs, params.zoom_data);
     // // Regenerate args
     // params.cell_args = make_cell_args(regl, params);
+
+    calc_viz_area();
 
     regl(params.cell_args.regl_props.top)();
     regl(params.cell_args.regl_props.bot)();
