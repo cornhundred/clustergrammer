@@ -1,7 +1,7 @@
 const vectorizeText = require('vectorize-text');
 
 module.exports = function calc_row_text_triangles(params){
-  console.log('calcluating row_text_triangles');
+  // console.log('calcluating row_text_triangles');
 
   var inst_nodes = params.network.row_nodes;
   var num_row = params.num_row;
@@ -32,7 +32,7 @@ module.exports = function calc_row_text_triangles(params){
   inst_offset.x = 0.5;
   inst_offset.y = 0.5;
 
-  var y_arr = Array(num_row).fill()
+  var row_text_y_arr = Array(num_row).fill()
     .map(function(_, i){
       return -i/num_row + inst_offset.y - 0.5/num_row;
     });
@@ -44,10 +44,12 @@ module.exports = function calc_row_text_triangles(params){
 
   var viz_area = params.viz_area;
 
+  var kept_row_y = []
+
   _.each(inst_nodes, function(inst_node, row_id){
 
     var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
-    var inst_y = y_arr[ row_order_id ];
+    var inst_y = row_text_y_arr[ row_order_id ];
 
     // console.log(viz_area.y_max, inst_y)
 
@@ -57,12 +59,18 @@ module.exports = function calc_row_text_triangles(params){
       var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
       tmp_text_vect.offset = [0, inst_y];
       row_text_triangles.push(tmp_text_vect);
+      kept_row_y.push(inst_y);
     }
 
 
   })
 
-  console.log('row_text_triangles length: ', row_text_triangles.length)
+  console.log('num rows drawn: ', row_text_triangles.length)
+
+  // using to improve row filtering behavior
+  params.row_text_y_arr = row_text_y_arr;
+  params.kept_row_y = kept_row_y;
+
 
   return row_text_triangles;
 

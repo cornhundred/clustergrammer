@@ -97,10 +97,12 @@ module.exports = function initialize_params(regl, network){
     .domain([1, 10])
     .range([1, 10/params.allowable_zoom_factor]);
 
-  params.max_num_text = 50;
+  params.max_num_text = 20;
 
   calc_viz_area(params);
 
+  // initialize with no row_text_triangles
+  params.row_text_triangles = false;
 
   return params;
 
