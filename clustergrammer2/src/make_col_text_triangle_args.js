@@ -39,6 +39,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform float total_zoom;
       varying vec3 rotated_text;
       varying vec3 shift_to_right;
+      varying vec3 position_cols;
 
       // last value is a sort-of zoom
       void main () {
@@ -49,11 +50,12 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
                        mat_reduce_text_size *
                        vec3(position.y, position.x, 0.5);
 
-        // Shift text over a little by a fixed amount and then
-        // shift by a zoom-dependent amount so that the bottom
-        // of the text remains at the same lower right position
-        // vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
         /*
+          Shift text over a little by a fixed amount and then
+          shift by a zoom-dependent amount so that the bottom
+          of the text remains at the same lower right position
+          vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
+
           need to have
             0.11 * total_zoom
           factor scale with the number of columns
@@ -61,31 +63,22 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
         */
         shift_to_right = vec3( 0.0 * total_zoom  + 0.2 , 0, 0);
 
+        position_cols = vec3( offset[1] * scale_x, offset_y, 0);
+
         // reverse y position to get words to be upright
         gl_Position = zoom *
 
           vec4(
 
-                ////////////////////
-                // make vec3
-                ////////////////////
+                //////////////////////
+                // vec3: x, y, depth
+                //////////////////////
 
-                // stretch letters vertically to maintain proportions
-                rotated_text
+                rotated_text + shift_to_right + position_cols,
 
-                +
-
-                shift_to_right
-
-                +
-
-                // position columns using offset data
-                vec3( offset[1] * scale_x, offset_y, 0),
-
-
-                ////////////////////
-                // add vec4 element
-                ////////////////////
+                /////////////////////
+                // vec4: zoom
+                /////////////////////
 
                 // zoom element in vec4
                 scale_x
