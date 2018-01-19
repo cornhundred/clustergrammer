@@ -30,7 +30,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
   y_offset_buffer(y_offset_array);
 
-  var mat_scale = m3.scaling(1, 1);
+  var scale_y = m3.scaling(2., 1);
 
   var rotation_radians;
   if (inst_rc === 'row'){
@@ -49,7 +49,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
       attribute float y_offset_att;
 
       uniform mat3 mat_rotate;
-      uniform mat3 mat_scale;
+      uniform mat3 scale_y;
       uniform mat4 zoom;
       uniform float x_offset;
 
@@ -62,10 +62,15 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
         vec_translate = vec3(x_offset, y_offset_att, 0);
 
-        new_position = mat_rotate * ( mat_scale * new_position + vec_translate ) ;
+        // rotate translated triangles
+        new_position = mat_rotate * ( new_position + vec_translate ) ;
+
+        /*
+          need to stretch column viz_aid_triangles in y direction
+        */
 
         // depth is being set to 0.45
-        gl_Position = zoom * vec4(new_position[0], new_position[1], 0.45, 1);
+        gl_Position = zoom * vec4( vec2(new_position), 0.45, 1);
 
       }
     `,
@@ -94,7 +99,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
     uniforms: {
       zoom: zoom_function,
       mat_rotate: mat_rotate,
-      mat_scale: mat_scale,
+      scale_y: scale_y,
       x_offset: x_offset
     },
 
