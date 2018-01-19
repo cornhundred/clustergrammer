@@ -28,14 +28,13 @@ module.exports = function calc_row_text_triangles(params){
   // draw matrix cells
   /////////////////////////////////////////
   // set up offset array for buffer
-  var offset = {};
-  offset.x = 0.5;
-  offset.y = 0.5;
+  var inst_offset = {};
+  inst_offset.x = 0.5;
+  inst_offset.y = 0.5;
 
   var y_arr = Array(num_row).fill()
     .map(function(_, i){
-      // return -i/num_row + offset.y - 1/num_row;
-      return -i/num_row + offset.y - 0.5/num_row;
+      return -i/num_row + inst_offset.y - 0.5/num_row;
     });
 
   // generating array with row text triangles and y-offsets
@@ -45,13 +44,12 @@ module.exports = function calc_row_text_triangles(params){
 
   _.each(inst_nodes, function(inst_node, row_id){
 
+    var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
+    var inst_y = y_arr[ row_order_id ];
+
     var inst_name = inst_node.name.split(': ')[1];
     var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-    var row_order_id = num_row - 1 -
-                       params.network.row_nodes[row_id][inst_order];
-
-    var y = y_arr[ row_order_id ];
-    tmp_text_vect.offset = [ 0, y];
+    tmp_text_vect.offset = [ 0, inst_y];
     row_text_triangles.push(tmp_text_vect);
 
   });

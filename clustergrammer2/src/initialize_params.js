@@ -10,6 +10,7 @@ var make_cell_args = require('./make_cell_args');
 var make_viz_aid_tri_args = require('./make_viz_aid_tri_args');
 var make_dendro_args = require('./make_dendro_args');
 var make_spillover_args = require('./make_spillover_args');
+var calc_viz_area = require('./calc_viz_area');
 
 module.exports = function initialize_params(regl, network){
 
@@ -97,6 +98,9 @@ module.exports = function initialize_params(regl, network){
     .range([1, 10/params.allowable_zoom_factor]);
 
   params.max_num_text = 10;
+
+  calc_viz_area(params);
+
 
   return params;
 

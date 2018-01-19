@@ -28,9 +28,9 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
 
         calc_viz_area(params);
 
-        // // draw using text_triangle_args and row_text_triangles
-        // params.row_text_triangles = calc_row_text_triangles(params);
-        // regl(text_triangle_args)(params.row_text_triangles);
+        // draw using text_triangle_args and row_text_triangles
+        params.row_text_triangles = calc_row_text_triangles(params);
+        regl(text_triangle_args)(params.row_text_triangles);
 
         console.log('can draw rows');
 

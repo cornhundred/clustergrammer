@@ -42,5 +42,6 @@ module.exports = function calc_viz_area(params){
   console.log('y_min', pan_webgl.y_min);
   console.log('y_max', pan_webgl.y_max);
 
+  params.viz_area = pan_webgl;
 
 };
