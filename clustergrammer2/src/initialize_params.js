@@ -31,8 +31,8 @@ module.exports = function initialize_params(regl, network){
   params.num_col = params.mat_data[0].length;
 
   params.label_args = {};
-  params.label_args.row = make_label_args(regl, params.num_row, 'row');
-  params.label_args.col = make_label_args(regl, params.num_col, 'col');
+  params.label_args.row = make_label_args(regl, params, 'row');
+  params.label_args.col = make_label_args(regl, params, 'col');
 
   params.dendro_args = {};
   params.dendro_args.row = make_dendro_args(regl, params.num_row, 'row');

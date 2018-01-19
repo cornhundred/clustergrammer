@@ -1,6 +1,8 @@
 var m3 = require('./mat3_transform');
 
-module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
+module.exports = function make_label_args(regl, params, inst_rc){
+
+  var num_rows = params['num_'+inst_rc];
 
   var row_width = 0.025;
   var row_height = 1/num_rows;
@@ -64,6 +66,7 @@ module.exports = function draw_mat_labels(regl, num_rows, inst_rc){
         new_position = mat_rotate * ( mat_scale * new_position + vec_translate ) ;
 
         // depth is being set to 0.45
+        // gl_Position = zoom * vec4(new_position[0], new_position[1], 0.45, 1);
         gl_Position = zoom * vec4(new_position[0], new_position[1], 0.45, 1);
 
       }
