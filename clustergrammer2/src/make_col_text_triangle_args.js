@@ -37,9 +37,16 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
       uniform mat3 text_y_scale;
       uniform mat3 mat_reduce_text_size;
       uniform float total_zoom;
+      varying vec3 rotated_text;
 
       // last value is a sort-of zoom
       void main () {
+
+        // rotate, reduce size, and give text triangles positions
+        rotated_text = mat_rotate *
+              mat_reduce_text_size *
+              vec3(position.y, position.x, 0.5);
+
         // reverse y position to get words to be upright
         gl_Position = zoom *
 
@@ -53,13 +60,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
                 (
 
-                  // rotate text triangles
-                  mat_rotate *
-
-                  mat_reduce_text_size *
-
-                  // text triangles
-                  vec3(position.y, position.x, 0.5)
+                  rotated_text
 
                   +
 

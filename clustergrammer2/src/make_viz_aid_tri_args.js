@@ -62,11 +62,9 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
         vec_translate = vec3(x_offset, y_offset_att, 0);
 
-        // new_position = mat_rotate * mat_scale * new_position + vec_translate;
         new_position = mat_rotate * ( mat_scale * new_position + vec_translate ) ;
 
         // depth is being set to 0.45
-        // gl_Position = zoom * vec4(new_position[0], new_position[1], 0.45, 1);
         gl_Position = zoom * vec4(new_position[0], new_position[1], 0.45, 1);
 
       }
