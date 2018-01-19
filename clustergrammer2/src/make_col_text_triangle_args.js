@@ -2,11 +2,18 @@ var m3 = require('./mat3_transform');
 
 module.exports = function make_col_text_triangle_args(regl, params, zoom_function){
 
+  /*
+  works but needs to be improved
+  */
+
+  // manually tuned numbers
   var col_x_offset = d3.scale.linear()
     .domain([50, 100])
-    .range([26.2, 53]);
+    .range([25.9, 52]);
 
+  // console.log(params.text_zoom.col.inst_factor);
   var offset_y = col_x_offset(params.text_zoom.col.inst_factor);
+  // console.log('offset_y: ', offset_y);
 
   /*
   Not using mat_translate since each label needs to be translated a specific
