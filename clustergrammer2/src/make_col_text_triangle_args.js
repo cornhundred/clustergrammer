@@ -59,18 +59,17 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
                   +
 
-                  // Shift text over a little so that the bottom of the text
-                  // remains at the same lower right position
-                  vec3( 0.11 * total_zoom, 0, 0)
+                  // Shift text over a little by a fixed amount and then
+                  // shift by a zoom-dependent amount so that the bottom
+                  // of the text remains at the same lower right position
+                  vec3( 0.11 * total_zoom  + 0.2 , 0, 0)
 
                 )
 
                 +
 
-                // also need to shift text right a bit to keep the bottom
-                // corner centered
-
-                vec3( (offset[1] ) * scale_y + 0.3, y_offset, 0),
+                // position columns using offset data
+                vec3( offset[1] * scale_y, y_offset, 0),
 
 
                 ////////////////////
