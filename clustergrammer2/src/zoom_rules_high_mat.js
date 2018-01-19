@@ -1,6 +1,7 @@
 var interactionEvents = require('./interaction-events');
 var extend = require('xtend/mutable');
 var zoom_rules_low_mat = require('./zoom_rules_low_mat');
+var keep_track_of_interactions = require('./keep_track_of_interactions');
 
 module.exports = function zoom_rules_high_mat(regl, params){
 
@@ -78,17 +79,7 @@ module.exports = function zoom_rules_high_mat(regl, params){
       zoom_data.y = zoom_rules_low_mat(zoom_restrict.y, zoom_data.y,
         viz_dim.mat.y, 'y');
 
-      // keep track of interactions
-      if (params.still_interacting == false){
-
-        params.still_interacting = true;
-
-        // wait some time to confirm still not interacting
-        setTimeout(function(){
-          params.still_interacting = false;
-        }, 1000);
-
-      }
+      keep_track_of_interactions(params);
 
     }
   });

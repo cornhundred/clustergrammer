@@ -50,7 +50,7 @@ module.exports = function run_viz(regl, assets){
           }
         }
 
-      }, 500)
+      }, 100)
 
       // console.log('draw');
       initialize_viz = false;
