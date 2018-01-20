@@ -5,8 +5,8 @@ module.exports = function calc_viz_area(params){
   var zoom_data = params.zoom_data;
 
   // make a d3.scale to transition from 0px - 500px to -1, 1 space
-  var mat_width = 500;
-  var mat_height = 500;
+  var mat_width = params.viz_dim.mat.width;
+  var mat_height = params.viz_dim.mat.height;
 
   var pix_to_webgl = {};
 
@@ -21,6 +21,7 @@ module.exports = function calc_viz_area(params){
     Experimenting with scales to improve viz area calculation
 
   */
+  
   pix_to_webgl.y = d3.scale.linear();
   pix_to_webgl.y
     .domain([0, mat_width])
@@ -39,21 +40,20 @@ module.exports = function calc_viz_area(params){
 
   var buffer_width = 0.0;
 
-  var pan_webgl = {};
-  pan_webgl.x_min = pix_to_webgl.x(total_pan.x_min) - buffer_width;
-  pan_webgl.x_max = pix_to_webgl.x(total_pan.x_max) + buffer_width;
-
+  var viz_area = {};
+  viz_area.x_min = pix_to_webgl.x(total_pan.x_min) - buffer_width;
+  viz_area.x_max = pix_to_webgl.x(total_pan.x_max) + buffer_width;
 
   /*
   experimenting with viz_area calc
   */
 
-  pan_webgl.y_min = pix_to_webgl.y(total_pan.y_min) - buffer_width;
-  pan_webgl.y_max = pix_to_webgl.y(total_pan.y_max) + buffer_width;
+  viz_area.y_max = pix_to_webgl.y(total_pan.y_min) - buffer_width;
+  viz_area.y_min = pix_to_webgl.y(total_pan.y_max) + buffer_width;
 
-  console.log('y_min', pan_webgl.y_min);
-  console.log('y_max', pan_webgl.y_max);
+  console.log('y_min', viz_area.y_min);
+  console.log('y_max', viz_area.y_max);
 
-  params.viz_area = pan_webgl;
+  params.viz_area = viz_area;
 
 };

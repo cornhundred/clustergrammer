@@ -54,7 +54,7 @@ module.exports = function calc_row_text_triangles(params){
     // console.log(viz_area.y_max, inst_y)
 
     // reverse from what would expect (max/min)
-    if (inst_y > viz_area.y_max && inst_y < viz_area.y_min){
+    if (inst_y > viz_area.y_min && inst_y < viz_area.y_max){
       var inst_name = inst_node.name.split(': ')[1];
       var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
       tmp_text_vect.offset = [0, inst_y];
