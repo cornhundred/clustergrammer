@@ -10,7 +10,6 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
     regl(params.viz_aid_tri_args.row)();
     regl(params.dendro_args.row)();
 
-
     /* Row Text */
     // update text information with zooming
     params.text_zoom.row.inst_factor = params.text_zoom.row.reference *
@@ -41,6 +40,7 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
       }
 
     } else {
+
       /*
         show text triangles if avaialble
       */
