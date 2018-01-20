@@ -59,7 +59,10 @@ module.exports = function calc_row_text_triangles(params){
       var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
       tmp_text_vect.offset = [0, inst_y];
       row_text_triangles.push(tmp_text_vect);
-      kept_row_y.push(inst_y);
+      var inst_data = {};
+      inst_data.y = inst_y;
+      inst_data.name = inst_name;
+      kept_row_y.push(inst_data);
     }
 
 

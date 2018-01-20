@@ -40,10 +40,13 @@ module.exports = function run_viz(regl, assets){
           if (first_frame == false){
 
             console.log('\n------------------\nFINAL INTERACTION');
+
             // console.log('initialize_viz', initialize_viz)
 
             // run draw commands
             draw_commands(regl, params, slow_draw=true);
+
+            console.log(params.kept_row_y);            
 
           } else {
             first_frame = false;
