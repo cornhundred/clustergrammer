@@ -14,9 +14,9 @@ module.exports = function calc_col_text_triangles(params){
   var vect_text_attrs = {
     textAlign: 'left',
     textBaseline: 'middle',
-    triangles:true,
-    size:params.font_detail,
-    font:'"Open Sans", verdana, arial, sans-serif'
+    triangles: true,
+    size: params.font_detail,
+    font: '"Open Sans", verdana, arial, sans-serif'
   };
 
   // draw matrix cells

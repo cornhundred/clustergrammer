@@ -65,6 +65,11 @@ module.exports = function initialize_params(regl, network){
   params.text_zoom.col.reference = params.text_zoom.col.scaled_num;
   params.text_zoom.col.factor = 1;
 
+  // font_detail range: min ~12 max ~200
+  ////////////////////////////////////////
+  // usable range: 14-30 (was using 25)
+  params.font_detail = 15;
+
   // // calculate the text_triangles for all rows
   // params.row_text_triangles = calc_row_text_triangles(params);
   params.col_text_triangles = calc_col_text_triangles(params);
@@ -98,11 +103,6 @@ module.exports = function initialize_params(regl, network){
   params.max_num_text = 75;
 
   calc_viz_area(params);
-
-  // font_detail range: min ~12 max ~200
-  ////////////////////////////////////////
-  // usable range: 14-30 (was using 25)
-  params.font_detail = 15;
 
   // initialize with no row_text_triangles
   params.row_text_triangles = false;
