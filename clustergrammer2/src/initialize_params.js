@@ -89,15 +89,20 @@ module.exports = function initialize_params(regl, network){
   // mnist: 7
   var allow_factor = d3.scale.linear()
     .domain([10, 1000])
-    .range([2, 25]);
+    .range([2, 10]);
 
   params.allowable_zoom_factor = allow_factor(params.num_col);
 
   params.text_scale = {};
 
-  params.max_num_text = 50;
+  params.max_num_text = 75;
 
   calc_viz_area(params);
+
+  // font_detail range: min ~12 max ~200
+  ////////////////////////////////////////
+  // usable range: 14-30 (was using 25)
+  params.font_detail = 15;
 
   // initialize with no row_text_triangles
   params.row_text_triangles = false;

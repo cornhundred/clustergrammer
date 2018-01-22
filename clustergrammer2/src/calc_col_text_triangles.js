@@ -11,16 +11,11 @@ module.exports = function calc_col_text_triangles(params){
     y_offset_array[i] = 0.5 - col_height/2 - i * col_height;
   }
 
-  // font_detail range: min ~12 max ~200
-  ////////////////////////////////////////
-  // usable range: 14-30
-  var font_detail = 25;
-
   var vect_text_attrs = {
     textAlign: 'left',
     textBaseline: 'middle',
     triangles:true,
-    size:font_detail,
+    size:params.font_detail,
     font:'"Open Sans", verdana, arial, sans-serif'
   };
 

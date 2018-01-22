@@ -2,21 +2,29 @@ var m3 = require('./mat3_transform');
 
 module.exports = function make_row_text_triangle_args(regl, params, zoom_function){
 
+  // prevent text from getting too large when zooming
   params.text_scale.row = d3.scale.linear()
       .domain([1, 10])
       .range([1, 10/params.allowable_zoom_factor]);
 
+  // console.log('scaled_num', params.text_zoom.row.scaled_num);
+
   // /* Row Text */
   // // update text information with zooming
   // params.text_zoom.row.scaled_num = params.text_zoom.row.reference *
-  //                                    params.text_scale.row(params.zoom_data.y.total_zoom);
+  //                                   // reduce text size when zooming
+  //                                   params.text_scale.row(params.zoom_data.y.total_zoom);
 
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])
     .range([-26.1, -53]);
 
+  // smaller scale_y -> larger text
+  var tmp_reduce_text_factor = 3;
+  var scale_y = params.text_zoom.row.scaled_num * tmp_reduce_text_factor;
 
-  var scale_y = params.text_zoom.row.scaled_num;
+  // console.log('scale_y', scale_y);
+
   var scale_x = params.zoom_data.y.total_zoom;
 
   // var x_offset = row_x_offset(params.text_zoom.row.scaled_num);
@@ -26,7 +34,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
   // needs to be scaled by scale_y
   x_offset = -0.5 * scale_y;
 
-  console.log('scale_y', scale_y)
+  // console.log('scale_y', scale_y)
 
   var mat_rotate = m3.rotation(Math.PI/2);
 

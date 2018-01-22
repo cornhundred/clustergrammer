@@ -4,7 +4,6 @@ module.exports = function calc_row_text_triangles(params){
   // console.log('calcluating row_text_triangles');
 
   var inst_nodes = params.network.row_nodes;
-  console.log(inst_nodes[0])
   var num_row = params.num_row;
 
   var row_height = 1/num_row;
@@ -13,16 +12,11 @@ module.exports = function calc_row_text_triangles(params){
     y_offset_array[i] = 0.5 - row_height/2 - i * row_height;
   }
 
-  // font_detail range: min ~12 max ~200
-  ////////////////////////////////////////
-  // usable range: 14-30
-  var font_detail = 25;
-
   var vect_text_attrs = {
     textAlign: 'right',
     textBaseline: 'middle',
     triangles:true,
-    size:font_detail,
+    size:params.font_detail,
     font:'"Open Sans", verdana, arial, sans-serif'
   };
 
@@ -69,7 +63,6 @@ module.exports = function calc_row_text_triangles(params){
       kept_row_y.push(inst_data);
     }
 
-
   });
 
   // console.log('num rows drawn: ', row_text_triangles.length)
@@ -77,7 +70,6 @@ module.exports = function calc_row_text_triangles(params){
   // using to improve row filtering behavior
   params.row_text_y_arr = row_text_y_arr;
   params.kept_row_y = kept_row_y;
-
 
   return row_text_triangles;
 
