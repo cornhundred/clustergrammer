@@ -2,17 +2,25 @@ var m3 = require('./mat3_transform');
 
 module.exports = function make_row_text_triangle_args(regl, params, zoom_function){
 
-  /* Row Text */
-  // update text information with zooming
-  params.text_zoom.row.inst_factor = params.text_zoom.row.reference *
-                                     params.text_scale(params.zoom_data.y.total_zoom);
+  params.text_scale.row = d3.scale.linear()
+      .domain([1, 10])
+      .range([1, 10/params.allowable_zoom_factor]);
+
+  // /* Row Text */
+  // // update text information with zooming
+  // params.text_zoom.row.inst_factor = params.text_zoom.row.reference *
+  //                                    params.text_scale.row(params.zoom_data.y.total_zoom);
 
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])
     .range([-26.1, -53]);
 
-  var x_offset = row_x_offset(params.text_zoom.row.inst_factor);
+  // var x_offset = row_x_offset(params.text_zoom.row.inst_factor);
+  x_offset = -10;
+  // console.log(x_offset)
+
   var scale_y = params.text_zoom.row.inst_factor;
+  // console.log('scale_y', scale_y)
 
   var mat_rotate = m3.rotation(Math.PI/2);
 
@@ -56,7 +64,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
       offset: regl.prop('offset'),
       x_offset: x_offset,
       scale_y: scale_y,
-      width_scale: params.zoom_data.y.total_zoom,
+      width_scale: 1, // params.zoom_data.y.total_zoom,
       mat_rotate: mat_rotate
     },
     depth: {

@@ -4,10 +4,14 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
   /* control allowable zoom for column text */
 
+  params.text_scale.col = d3.scale.linear()
+      .domain([1, 10])
+      .range([1, 10/params.allowable_zoom_factor]);
+
   /* Col Text */
   // update text information with zooming
   params.text_zoom.col.inst_factor = params.text_zoom.col.reference *
-                                     params.text_scale(params.zoom_data.x.total_zoom);
+                                     params.text_scale.col(params.zoom_data.x.total_zoom);
 
   /*
   works but needs to be improved

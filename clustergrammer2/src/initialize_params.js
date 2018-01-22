@@ -93,11 +93,7 @@ module.exports = function initialize_params(regl, network){
 
   params.allowable_zoom_factor = allow_factor(params.num_col);
 
-  params.text_scale = d3.scale.linear()
-    .domain([1, 10])
-    .range([1, 10/params.allowable_zoom_factor]);
-
-  // params.text_scale =
+  params.text_scale = {};
 
   params.max_num_text = 50;
 
