@@ -30,6 +30,11 @@ module.exports = function make_position_arr(params){
   // inst_order = 'rank';
   var inst_order = 'clust';
 
+  /*
+    working on saving actual row positions (downsampling)
+  */
+  params.row_positions = _.range(row_nodes.length);
+
   // generate x and y positions
   ////////////////////////////////
   function position_function(_, i){
@@ -43,6 +48,8 @@ module.exports = function make_position_arr(params){
 
     var x = x_arr[ col_order_id ];
     var y = y_arr[ row_order_id ];
+
+    params.row_positions[row_id] = y;
 
     return [x, y];
   }
