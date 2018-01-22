@@ -2,6 +2,13 @@ var m3 = require('./mat3_transform');
 
 module.exports = function make_col_text_triangle_args(regl, params, zoom_function){
 
+  /* control allowable zoom for column text */
+
+  /* Col Text */
+  // update text information with zooming
+  params.text_zoom.col.inst_factor = params.text_zoom.col.reference *
+                                     params.text_scale(params.zoom_data.x.total_zoom);
+
   /*
   works but needs to be improved
   */

@@ -2,6 +2,11 @@ var m3 = require('./mat3_transform');
 
 module.exports = function make_row_text_triangle_args(regl, params, zoom_function){
 
+  /* Row Text */
+  // update text information with zooming
+  params.text_zoom.row.inst_factor = params.text_zoom.row.reference *
+                                     params.text_scale(params.zoom_data.y.total_zoom);
+
   var row_x_offset = d3.scale.linear()
     .domain([50, 100])
     .range([-26.1, -53]);
