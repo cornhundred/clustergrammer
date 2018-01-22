@@ -37899,7 +37899,7 @@ _ = require('underscore');
 // var filename = 'data/cytof_35k.json';
 
 // var filename = 'data/ccle_1000x100.json';
-var filename = 'data/ccle_1000x1037.json';
+var filename = 'data/ccle_1000x200.json';
 // var filename = 'data/ccle_2000x1037.json';
 
 // resource loader
