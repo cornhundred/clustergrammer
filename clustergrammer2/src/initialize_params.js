@@ -56,13 +56,13 @@ module.exports = function initialize_params(regl, network){
 
   // text zooming info
   params.text_zoom.row = {};
-  params.text_zoom.row.inst_factor = params.num_row;
-  params.text_zoom.row.reference = params.text_zoom.row.inst_factor;
+  params.text_zoom.row.scaled_num = params.num_row;
+  params.text_zoom.row.reference = params.text_zoom.row.scaled_num;
   params.text_zoom.row.factor = 1;
 
   params.text_zoom.col = {};
-  params.text_zoom.col.inst_factor = params.num_col;
-  params.text_zoom.col.reference = params.text_zoom.col.inst_factor;
+  params.text_zoom.col.scaled_num = params.num_col;
+  params.text_zoom.col.reference = params.text_zoom.col.scaled_num;
   params.text_zoom.col.factor = 1;
 
   // // calculate the text_triangles for all rows

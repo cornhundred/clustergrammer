@@ -10,7 +10,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
 
   /* Col Text */
   // update text information with zooming
-  params.text_zoom.col.inst_factor = params.text_zoom.col.reference *
+  params.text_zoom.col.scaled_num = params.text_zoom.col.reference *
                                      params.text_scale.col(params.zoom_data.x.total_zoom);
 
   /*
@@ -22,8 +22,8 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
     .domain([50, 100])
     .range([25.9, 52]);
 
-  // console.log(params.text_zoom.col.inst_factor);
-  var offset_y = col_x_offset(params.text_zoom.col.inst_factor);
+  // console.log(params.text_zoom.col.scaled_num);
+  var offset_y = col_x_offset(params.text_zoom.col.scaled_num);
   // console.log('offset_y: ', offset_y);
 
   /*
@@ -40,7 +40,7 @@ module.exports = function make_col_text_triangle_args(regl, params, zoom_functio
   var total_zoom = params.zoom_data.x.total_zoom;
   var mat_reduce_text_size = m3.scaling(reduce_factor, reduce_factor);
 
-  var scale_x = params.text_zoom.col.inst_factor;
+  var scale_x = params.text_zoom.col.scaled_num;
 
   var args = {
     vert: `
