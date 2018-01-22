@@ -14,9 +14,8 @@ module.exports = function run_viz(regl, assets){
   // var has_been_both = false;
   var initialize_viz = true;
 
+  // global params
   params = initialize_params(regl, network);
-
-  // gparams = params;
 
   var first_frame = true;
 
@@ -58,6 +57,15 @@ module.exports = function run_viz(regl, assets){
 
       // console.log('draw');
       initialize_viz = false;
+
+    } else {
+
+      /*
+        Consider setting up something to run background calculations if
+        necessary when the visualization is not being updated. For instance,
+        we could calculate the text triangles of all rows a little at a time
+        in the background.
+      */
 
     }
 

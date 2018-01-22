@@ -15,9 +15,9 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
   //                                   // reduce text size when zooming
   //                                   params.text_scale.row(params.zoom_data.y.total_zoom);
 
-  var row_x_offset = d3.scale.linear()
-    .domain([50, 100])
-    .range([-26.1, -53]);
+  // var row_x_offset = d3.scale.linear()
+  //   .domain([50, 100])
+  //   .range([-26.1, -53]);
 
   // smaller scale_y -> larger text
   var tmp_reduce_text_factor = 3;
@@ -32,7 +32,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
   // scale_y is applying a zoom to x and y
   // so the normal offset of -0.5 to get to the left side of the matrix now
   // needs to be scaled by scale_y
-  x_offset = -0.5 * scale_y;
+  var x_offset = -0.5 * scale_y;
 
   // console.log('scale_y', scale_y)
 
