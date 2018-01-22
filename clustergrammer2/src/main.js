@@ -25,8 +25,9 @@ _ = require('underscore');
 // var filename = 'data/mnist.json';
 // var filename = 'data/mnist_thin.json';
 // var filename = 'data/cytof_10k.json';
-var filename = 'data/cytof_25k.json';
+// var filename = 'data/cytof_25k.json';
 // var filename = 'data/cytof_35k.json';
+var filename = 'data/ccle_1000x100.json';
 
 // resource loader
 require('resl')({
