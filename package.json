@@ -31,7 +31,7 @@
     "webpack": "^1.13.2"
   },
   "dependencies": {
-    "awesomplete": "1.1.1",
+    "awesomplete": "^1.1.1",
     "cornhundred-clusterfck": "^0.7.5",
     "d3": "^3.5.15",
     "extend": "^3.0.0",
