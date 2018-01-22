@@ -4,6 +4,7 @@ module.exports = function calc_row_text_triangles(params){
   // console.log('calcluating row_text_triangles');
 
   var inst_nodes = params.network.row_nodes;
+  console.log(inst_nodes[0])
   var num_row = params.num_row;
 
   var row_height = 1/num_row;
@@ -55,7 +56,10 @@ module.exports = function calc_row_text_triangles(params){
 
     // reverse from what would expect (max/min)
     if (inst_y > viz_area.y_min && inst_y < viz_area.y_max){
-      var inst_name = inst_node.name.split(': ')[1];
+      var inst_name = inst_node.name;
+      if (inst_name.indexOf(': ') >= 0){
+        inst_name = inst_node.name.split(': ')[1];
+      }
       var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
       tmp_text_vect.offset = [0, inst_y];
       row_text_triangles.push(tmp_text_vect);

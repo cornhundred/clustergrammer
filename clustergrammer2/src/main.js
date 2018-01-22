@@ -21,10 +21,10 @@ var run_viz = require('./run_viz');
 d3 = require('d3');
 _ = require('underscore');
 
-var filename = 'data/mult_view.json';
+// var filename = 'data/mult_view.json';
 // var filename = 'data/mnist.json'
 // var filename = 'data/mnist_thin.json'
-// var filename = 'data/cytof_10k.json'
+var filename = 'data/cytof_10k.json'
 // var filename = 'data/cytof_25k.json'
 // var filename = 'data/cytof_35k.json'
 
