@@ -21,7 +21,7 @@ module.exports = function calc_viz_area(params){
     Experimenting with scales to improve viz area calculation
 
   */
-  
+
   pix_to_webgl.y = d3.scale.linear();
   pix_to_webgl.y
     .domain([0, mat_width])
@@ -51,8 +51,8 @@ module.exports = function calc_viz_area(params){
   viz_area.y_max = pix_to_webgl.y(total_pan.y_min) - buffer_width;
   viz_area.y_min = pix_to_webgl.y(total_pan.y_max) + buffer_width;
 
-  console.log('y_min', viz_area.y_min);
-  console.log('y_max', viz_area.y_max);
+  // console.log('y_min', viz_area.y_min);
+  // console.log('y_max', viz_area.y_max);
 
   params.viz_area = viz_area;
 

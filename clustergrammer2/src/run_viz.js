@@ -1,7 +1,8 @@
+/* eslint-disable */
+
 var initialize_params = require('./initialize_params');
 var draw_commands = require('./draw_commands');
 module.exports = function run_viz(regl, assets){
-  /* eslint-disable */
 
   // console.log('****************');
   // console.log('** initialize **');
@@ -46,7 +47,7 @@ module.exports = function run_viz(regl, assets){
             // run draw commands
             draw_commands(regl, params, slow_draw=true);
 
-            console.log(params.kept_row_y);            
+            // console.log(params.kept_row_y);
 
           } else {
             first_frame = false;

@@ -28,15 +28,15 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
         calc_viz_area(params);
 
         // draw using text_triangle_args and row_text_triangles
-        console.log('can draw rows');
+        // console.log('can draw rows');
         params.row_text_triangles = calc_row_text_triangles(params);
         regl(text_triangle_args)(params.row_text_triangles);
 
-        console.log('done drawing rows')
+        // console.log('done drawing rows');
 
 
       } else {
-        console.log('too many rows to draw');
+        // console.log('too many rows to draw');
       }
 
     } else {

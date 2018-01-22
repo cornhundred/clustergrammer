@@ -44,7 +44,7 @@ module.exports = function calc_row_text_triangles(params){
 
   var viz_area = params.viz_area;
 
-  var kept_row_y = []
+  var kept_row_y = [];
 
   _.each(inst_nodes, function(inst_node, row_id){
 
@@ -66,9 +66,9 @@ module.exports = function calc_row_text_triangles(params){
     }
 
 
-  })
+  });
 
-  console.log('num rows drawn: ', row_text_triangles.length)
+  // console.log('num rows drawn: ', row_text_triangles.length)
 
   // using to improve row filtering behavior
   params.row_text_y_arr = row_text_y_arr;
