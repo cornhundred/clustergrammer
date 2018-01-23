@@ -8,6 +8,9 @@ module.exports = function make_position_arr(params){
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
 
+  console.log(num_row, num_col)
+
+
   // draw matrix cells
   /////////////////////////////////////////
   // set up offset array for buffer

@@ -1,4 +1,4 @@
-module.exports = function calc_row_downsampled_mat(params){
+module.exports = function calc_row_downsampled_mat(params, run_downsampling=false){
   console.log('calc_row_downsampled_mat')
 
   var mat_data = params.mat_data;
@@ -6,13 +6,21 @@ module.exports = function calc_row_downsampled_mat(params){
   var ds_mat = [];
   var inst_pos;
 
-  // params.mat_data = params.mat_data.slice(0,5);
-  // params.is_downsample = true;
-
+  if (run_downsampling){
+    /*
+      Perform trivial downsampling (subsampling)
+    */
+    params.mat_data = params.mat_data.slice(0,5);
+    params.is_downsample = true;
+  }
 
   /*
-    row_pos go from -0.5 to 0.5
+    Working on actual downsampling
   */
+
+  // /*
+  //   row_pos go from -0.5 to 0.5
+  // */
 
   // // make 10 positions
   // var new_pos = _.range(-0.5, 0.5, 0.1);
@@ -31,7 +39,5 @@ module.exports = function calc_row_downsampled_mat(params){
   //   console.log('\n');
 
   // });
-
-
 
 }
