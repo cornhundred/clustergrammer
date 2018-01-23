@@ -34,7 +34,7 @@ module.exports = function initialize_params(regl, network){
 
   // calc row-downsampled matrix
   params.is_downsampled = false;
-  calc_row_downsampled_mat(params, run_downsamplin=false);
+  calc_row_downsampled_mat(params, false);
 
   params.viz_aid_tri_args = {};
   params.viz_aid_tri_args.row = make_viz_aid_tri_args(regl, params, 'row');

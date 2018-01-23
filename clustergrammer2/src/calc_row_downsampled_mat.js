@@ -1,5 +1,6 @@
 module.exports = function calc_row_downsampled_mat(params, run_downsampling=false){
-  console.log('calc_row_downsampled_mat')
+
+  // console.log('calc_row_downsampled_mat');
 
   var mat_data = params.mat_data;
   var row_pos = params.row_positions;

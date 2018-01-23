@@ -8,9 +8,6 @@ module.exports = function make_position_arr(params){
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
 
-  console.log(num_row, num_col)
-
-
   // draw matrix cells
   /////////////////////////////////////////
   // set up offset array for buffer
@@ -41,6 +38,9 @@ module.exports = function make_position_arr(params){
   */
   params.row_positions = _.range(row_nodes.length);
 
+  var row_order_id;
+  var col_order_id;
+
   // generate x and y positions
   ////////////////////////////////
   function position_function(_, i){
@@ -55,24 +55,20 @@ module.exports = function make_position_arr(params){
         Temporary measure to work with downsampled data that should be
         plotted in the order that it is in
       */
-      var row_order_id = row_id;
-      var col_order_id = col_id;
+      row_order_id = row_id;
+      col_order_id = col_id;
 
     } else {
 
-      var row_order_id = num_row - 1 - row_nodes[row_id][inst_order];
-      var col_order_id = num_col - 1 - col_nodes[col_id][inst_order];
+      row_order_id = num_row - 1 - row_nodes[row_id][inst_order];
+      col_order_id = num_col - 1 - col_nodes[col_id][inst_order];
 
     }
-
-    // console.log(row_order_id, col_order_id)
 
     var x = x_arr[ col_order_id ];
     var y = y_arr[ row_order_id ];
 
     params.row_positions[row_id] = y;
-
-    // console.log('y', y)
 
     return [x, y];
   }
@@ -81,7 +77,6 @@ module.exports = function make_position_arr(params){
             .fill()
             .map(position_function);
 
-  console.log(position_arr[0])
   return position_arr;
 
 };
