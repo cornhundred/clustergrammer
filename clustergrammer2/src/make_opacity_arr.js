@@ -1,4 +1,6 @@
-module.exports = function make_opacity_arr(mat_data){
+module.exports = function make_opacity_arr(params){
+
+  var mat_data = params.mat_data;
 
   var opacity_arr = [].concat.apply([], mat_data);
 
