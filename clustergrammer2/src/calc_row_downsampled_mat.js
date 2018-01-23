@@ -6,7 +6,9 @@ module.exports = function calc_row_downsampled_mat(params){
   var ds_mat = [];
   var inst_pos;
 
-  // params.mat_data = params.mat_data.slice(0,10)
+  // params.mat_data = params.mat_data.slice(0,5);
+  // params.is_downsample = true;
+
 
   /*
     row_pos go from -0.5 to 0.5
