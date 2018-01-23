@@ -6,7 +6,7 @@ var ini_zoom_restrict = require('./ini_zoom_restrict');
 var zoom_rules_high_mat = require('./zoom_rules_high_mat');
 var make_cameras = require('./make_cameras');
 var calc_spillover_triangles = require('./calc_spillover_triangles');
-var make_cell_args = require('./make_cell_args');
+var make_matrix_args = require('./make_matrix_args');
 var make_viz_aid_tri_args = require('./make_viz_aid_tri_args');
 var make_dendro_args = require('./make_dendro_args');
 var make_spillover_args = require('./make_spillover_args');
@@ -31,6 +31,9 @@ module.exports = function initialize_params(regl, network){
 
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
+
+  // calc row-downsampled matrix
+  calc_row_downsampled_mat(params);
 
   params.viz_aid_tri_args = {};
   params.viz_aid_tri_args.row = make_viz_aid_tri_args(regl, params, 'row');
@@ -87,8 +90,8 @@ module.exports = function initialize_params(regl, network){
   window.addEventListener('resize', params.cameras.mat.resize);
   window.addEventListener('resize', params.cameras['row-labels'].resize);
 
-  // generate cell_args using buffers
-  params.cell_args = make_cell_args(regl, params);
+  // generate matrix_args using buffers
+  params.matrix_args = make_matrix_args(regl, params);
 
   // 1 no zooming allowed, 3 is good value, 10 allows zooming
   // rc_two_cats: 3
@@ -108,8 +111,6 @@ module.exports = function initialize_params(regl, network){
   // initialize with no row_text_triangles
   params.row_text_triangles = false;
 
-  // calc row-downsampled matrix
-  calc_row_downsampled_mat(params);
 
 
   return params;

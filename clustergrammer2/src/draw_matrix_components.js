@@ -1,7 +1,7 @@
 // var filter_visible_mat = require('./filter_visible_mat');
-// var make_cell_args = require('./make_cell_args');
+// var make_matrix_args = require('./make_matrix_args');
 
-module.exports = function draw_matri(regl, params){
+module.exports = function draw_matrix_components(regl, params){
 
   /* Matrix */
   params.cameras.mat.draw(() => {
@@ -13,10 +13,10 @@ module.exports = function draw_matri(regl, params){
     // // Filter
     // params.arrs_filt = filter_visible_mat(params.arrs, params.zoom_data);
     // // Regenerate args
-    // params.cell_args = make_cell_args(regl, params);
+    // params.matrix_args = make_matrix_args(regl, params);
 
-    regl(params.cell_args.regl_props.top)();
-    regl(params.cell_args.regl_props.bot)();
+    regl(params.matrix_args.regl_props.top)();
+    regl(params.matrix_args.regl_props.bot)();
 
   });
 
