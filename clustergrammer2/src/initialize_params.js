@@ -11,6 +11,7 @@ var make_viz_aid_tri_args = require('./make_viz_aid_tri_args');
 var make_dendro_args = require('./make_dendro_args');
 var make_spillover_args = require('./make_spillover_args');
 var calc_viz_area = require('./calc_viz_area');
+var calc_row_downsampled_mat = require('./calc_row_downsampled_mat');
 
 module.exports = function initialize_params(regl, network){
 
@@ -106,6 +107,10 @@ module.exports = function initialize_params(regl, network){
 
   // initialize with no row_text_triangles
   params.row_text_triangles = false;
+
+  // calc row-downsampled matrix
+  calc_row_downsampled_mat(params);
+
 
   return params;
 

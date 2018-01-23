@@ -23,7 +23,7 @@ _ = require('underscore');
 
 // var filename = 'data/mult_view.json';
 
-// var filename = 'data/mnist.json';
+var filename = 'data/mnist.json';
 // var filename = 'data/mnist_thin.json';
 
 // var filename = 'data/cytof_10k.json';
@@ -31,7 +31,7 @@ _ = require('underscore');
 // var filename = 'data/cytof_35k.json';
 
 // var filename = 'data/ccle_1000x100.json';
-var filename = 'data/ccle_2000x200.json';
+// var filename = 'data/ccle_2000x200.json';
 // var filename = 'data/ccle_5000x200.json';
 // var filename = 'data/ccle_1000x200.json';
 
