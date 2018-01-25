@@ -83,15 +83,17 @@ module.exports = function initialize_params(regl, network){
   // calculate the text_triangles for all rows
   // initialize with no row_text_triangles
   if (params.num_row > params.max_num_text){
-    // console.log('not calculating row ');
     params.row_text_triangles = false;
   } else {
-    // console.log('calculating row triangles at start of viz')
     params.row_text_triangles = calc_row_text_triangles(params);
   }
 
-  // column text triangles
-  params.col_text_triangles = calc_col_text_triangles(params);
+  if (params.num_col > params.max_num_text){
+    params.col_text_triangles = false;
+  } else {
+    params.col_text_triangles = calc_col_text_triangles(params);
+  }
+
 
   // console.log('row_text_triangles in initialize_params')
   // console.log(params.row_text_triangles)

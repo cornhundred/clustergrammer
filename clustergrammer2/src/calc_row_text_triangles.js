@@ -37,9 +37,6 @@ module.exports = function calc_row_text_triangles(params){
   var inst_order = 'clust';
 
   var viz_area = params.viz_area;
-
-  // console.log(viz_area)
-
   var kept_row_y = [];
 
   _.each(inst_nodes, function(inst_node, row_id){
@@ -47,13 +44,13 @@ module.exports = function calc_row_text_triangles(params){
     var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
     var inst_y = row_text_y_arr[ row_order_id ];
 
-    // reverse from what would expect (max/min)
     if (inst_y > viz_area.y_min && inst_y < viz_area.y_max){
       var inst_name = inst_node.name;
-      // console.log(inst_name)
+
       if (inst_name.indexOf(': ') >= 0){
         inst_name = inst_node.name.split(': ')[1];
       }
+
       var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
       tmp_text_vect.offset = [0, inst_y];
       row_text_triangles.push(tmp_text_vect);
@@ -64,8 +61,6 @@ module.exports = function calc_row_text_triangles(params){
     }
 
   });
-
-  // console.log('num rows drawn: ', row_text_triangles.length)
 
   // using to improve row filtering behavior
   params.row_text_y_arr = row_text_y_arr;
