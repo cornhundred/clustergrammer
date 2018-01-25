@@ -1,6 +1,6 @@
 var make_col_text_triangle_args = require('./make_col_text_triangle_args');
 var calc_viz_area = require('./calc_viz_area');
-var calc_col_text_triangles = require('./calc_col_text_triangles')
+var calc_col_text_triangles = require('./calc_col_text_triangles');
 
 module.exports = function draw_col_components(regl, params, slow_draw=false){
 

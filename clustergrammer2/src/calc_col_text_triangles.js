@@ -73,9 +73,7 @@ module.exports = function calc_col_text_triangles(params){
 
 
   params.col_text_x_arr = col_text_x_arr;
-  params.kept_col_x = kept_col_x
-
-  console.log(params.kept_col_x.length)
+  params.kept_col_x = kept_col_x;
 
   return col_text_triangles;
 
