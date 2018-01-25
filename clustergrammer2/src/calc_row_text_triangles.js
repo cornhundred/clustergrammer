@@ -1,7 +1,6 @@
 const vectorizeText = require('vectorize-text');
 
 module.exports = function calc_row_text_triangles(params){
-  // console.log('calcluating row_text_triangles');
 
   var inst_nodes = params.network.row_nodes;
   var num_row = params.num_row;
@@ -39,6 +38,8 @@ module.exports = function calc_row_text_triangles(params){
 
   var viz_area = params.viz_area;
 
+  // console.log(viz_area)
+
   var kept_row_y = [];
 
   _.each(inst_nodes, function(inst_node, row_id){
@@ -46,11 +47,10 @@ module.exports = function calc_row_text_triangles(params){
     var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
     var inst_y = row_text_y_arr[ row_order_id ];
 
-    // console.log(viz_area.y_max, inst_y)
-
     // reverse from what would expect (max/min)
     if (inst_y > viz_area.y_min && inst_y < viz_area.y_max){
       var inst_name = inst_node.name;
+      // console.log(inst_name)
       if (inst_name.indexOf(': ') >= 0){
         inst_name = inst_node.name.split(': ')[1];
       }

@@ -27,8 +27,6 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
         params.row_text_triangles = calc_row_text_triangles(params);
         regl(text_triangle_args)(params.row_text_triangles);
 
-        // console.log('done drawing rows');
-
 
       } else {
         // console.log('too many rows to draw');
@@ -39,6 +37,7 @@ module.exports = function draw_row_components(regl, params, slow_draw=false){
       /*
         show text triangles if avaialble
       */
+
       if (params.row_text_triangles != false){
         regl(text_triangle_args)(params.row_text_triangles);
       }

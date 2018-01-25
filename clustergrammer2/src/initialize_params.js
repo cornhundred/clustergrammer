@@ -1,4 +1,4 @@
-// var calc_row_text_triangles = require('./calc_row_text_triangles');
+var calc_row_text_triangles = require('./calc_row_text_triangles');
 var calc_col_text_triangles = require('./calc_col_text_triangles');
 var calc_viz_dim = require('./calc_viz_dim');
 var ini_zoom_data = require('./ini_zoom_data');
@@ -76,9 +76,25 @@ module.exports = function initialize_params(regl, network){
   // usable range: 14-30 (was using 25)
   params.font_detail = 15;
 
-  // // calculate the text_triangles for all rows
-  // params.row_text_triangles = calc_row_text_triangles(params);
+  calc_viz_area(params);
+
+  params.max_num_text = 75;
+
+  // calculate the text_triangles for all rows
+  // initialize with no row_text_triangles
+  if (params.num_row > params.max_num_text){
+    // console.log('not calculating row ');
+    params.row_text_triangles = false;
+  } else {
+    // console.log('calculating row triangles at start of viz')
+    params.row_text_triangles = calc_row_text_triangles(params);
+  }
+
+  // column text triangles
   params.col_text_triangles = calc_col_text_triangles(params);
+
+  // console.log('row_text_triangles in initialize_params')
+  // console.log(params.row_text_triangles)
 
   params.zoom_restrict = ini_zoom_restrict(params);
 
@@ -106,12 +122,7 @@ module.exports = function initialize_params(regl, network){
 
   params.text_scale = {};
 
-  params.max_num_text = 75;
 
-  calc_viz_area(params);
-
-  // initialize with no row_text_triangles
-  params.row_text_triangles = false;
 
 
 
