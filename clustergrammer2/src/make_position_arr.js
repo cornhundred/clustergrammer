@@ -49,16 +49,20 @@ module.exports = function make_position_arr(params){
     var col_id = i % num_col;
     var row_id = Math.floor(i / num_col);
 
-    if (params.is_downsample){
+    if (params.is_downsampled){
 
       /*
-        Temporary measure to work with downsampled data that should be
-        plotted in the order that it is in
+        the downsampled matrix should be plotted in its inherent order
       */
       row_order_id = row_id;
       col_order_id = col_id;
 
     } else {
+
+      /*
+        regular data needs to be plotted in the order given by the order
+        arguments in row_nodes/col_nodes
+      */
 
       row_order_id = num_row - 1 - row_nodes[row_id][inst_order];
       col_order_id = num_col - 1 - col_nodes[col_id][inst_order];

@@ -23,7 +23,7 @@ module.exports = function calc_row_downsampled_mat(params, run_downsampling=fals
     });
 
     params.mat_data = new_mat_data;
-    params.is_downsample = true;
+    params.is_downsampled = true;
   }
 
   /*
