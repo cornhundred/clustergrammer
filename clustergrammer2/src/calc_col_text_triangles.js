@@ -41,7 +41,8 @@ module.exports = function calc_col_text_triangles(params){
 
   _.each(inst_nodes, function(inst_node, col_id){
 
-    var col_order_id = num_col - 1 - params.network.col_nodes[col_id][inst_order];
+    var col_order_id = params.network.col_nodes[col_id][inst_order];
+
     var inst_y = col_text_x_arr[ col_order_id ];
 
     if (inst_y > viz_area.x_min && inst_y < viz_area.x_max){

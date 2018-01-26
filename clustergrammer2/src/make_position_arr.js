@@ -1,3 +1,5 @@
+var calc_node_canvas_positions = require('./calc_node_canvas_positions');
+
 module.exports = function make_position_arr(params){
 
   var network = params.network;
@@ -7,6 +9,8 @@ module.exports = function make_position_arr(params){
 
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
+
+  calc_node_canvas_positions();
 
   // draw matrix cells
   /////////////////////////////////////////
@@ -25,6 +29,10 @@ module.exports = function make_position_arr(params){
     .map(function(_, i){
       return -i/num_row + offset.y - 1/num_row;
     });
+
+  node_canvas_pos = {};
+  node_canvas_pos.x_arr = x_arr;
+  node_canvas_pos.y_arr = y_arr;
 
   // pass along row and col node information
   var row_nodes = network.row_nodes;
@@ -69,8 +77,8 @@ module.exports = function make_position_arr(params){
 
     }
 
-    var x = x_arr[ col_order_id ];
-    var y = y_arr[ row_order_id ];
+    var y = node_canvas_pos.y_arr[row_order_id];
+    var x = node_canvas_pos.x_arr[col_order_id];
 
     params.row_positions[row_id] = y;
 
