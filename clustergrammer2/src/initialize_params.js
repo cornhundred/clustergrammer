@@ -33,8 +33,8 @@ module.exports = function initialize_params(regl, network){
   params.num_col = params.mat_data[0].length;
 
   // calc row-downsampled matrix
+  var run_downsampling = true;
   params.is_downsampled = false;
-  var run_downsampling = false;
   calc_row_downsampled_mat(params, run_downsampling);
 
   params.viz_aid_tri_args = {};
