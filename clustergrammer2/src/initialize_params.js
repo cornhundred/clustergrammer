@@ -32,6 +32,8 @@ module.exports = function initialize_params(regl, network){
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
 
+  // calculate row/col canvas positions
+
   // calc row-downsampled matrix
   var run_downsampling = false;
   params.is_downsampled = false;

@@ -1,4 +1,4 @@
-var calc_node_canvas_positions = require('./calc_node_canvas_positions');
+var calc_row_and_col_canvas_positions = require('./calc_row_and_col_canvas_positions');
 
 module.exports = function make_position_arr(params){
 
@@ -10,29 +10,7 @@ module.exports = function make_position_arr(params){
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
 
-  calc_node_canvas_positions();
-
-  // draw matrix cells
-  /////////////////////////////////////////
-  // set up offset array for buffer
-  var offset = {};
-  offset.x = 0.5;
-  offset.y = 0.5;
-
-  // generate x position array
-  var x_arr = Array(num_col).fill()
-    .map(function(_, i){
-      return i/num_col - offset.x;
-    });
-
-  var y_arr = Array(num_row).fill()
-    .map(function(_, i){
-      return -i/num_row + offset.y - 1/num_row;
-    });
-
-  node_canvas_pos = {};
-  node_canvas_pos.x_arr = x_arr;
-  node_canvas_pos.y_arr = y_arr;
+  var canvas_pos = calc_row_and_col_canvas_positions(params);
 
   // pass along row and col node information
   var row_nodes = network.row_nodes;
@@ -77,8 +55,8 @@ module.exports = function make_position_arr(params){
 
     }
 
-    var y = node_canvas_pos.y_arr[row_order_id];
-    var x = node_canvas_pos.x_arr[col_order_id];
+    var y = canvas_pos.y_arr[row_order_id];
+    var x = canvas_pos.x_arr[col_order_id];
 
     params.row_positions[row_id] = y;
 
