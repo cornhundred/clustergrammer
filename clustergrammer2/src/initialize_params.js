@@ -1,3 +1,4 @@
+var calc_row_and_col_canvas_positions = require('./calc_row_and_col_canvas_positions');
 var calc_row_text_triangles = require('./calc_row_text_triangles');
 var calc_col_text_triangles = require('./calc_col_text_triangles');
 var calc_viz_dim = require('./calc_viz_dim');
@@ -33,6 +34,7 @@ module.exports = function initialize_params(regl, network){
   params.num_col = params.mat_data[0].length;
 
   // calculate row/col canvas positions
+  params.canvas_pos = calc_row_and_col_canvas_positions(params);
 
   // calc row-downsampled matrix
   var run_downsampling = false;

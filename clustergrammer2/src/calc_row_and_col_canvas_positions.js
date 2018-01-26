@@ -1,5 +1,4 @@
 module.exports = function calc_row_and_col_canvas_positions(params){
-  console.log('something')
 
   var num_col = params.num_col;
   var num_row = params.num_row;
@@ -27,4 +26,5 @@ module.exports = function calc_row_and_col_canvas_positions(params){
   canvas_pos.y_arr = y_arr;
 
   return canvas_pos;
-}
+
+};

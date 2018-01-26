@@ -1,4 +1,3 @@
-var calc_row_and_col_canvas_positions = require('./calc_row_and_col_canvas_positions');
 
 module.exports = function make_position_arr(params){
 
@@ -10,7 +9,7 @@ module.exports = function make_position_arr(params){
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
 
-  var canvas_pos = calc_row_and_col_canvas_positions(params);
+  var canvas_pos = params.canvas_pos;
 
   // pass along row and col node information
   var row_nodes = network.row_nodes;
