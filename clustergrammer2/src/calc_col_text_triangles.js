@@ -5,12 +5,6 @@ module.exports = function calc_col_text_triangles(params){
   var inst_nodes = params.network.col_nodes;
   var num_col = params.num_col;
 
-  // var col_height = 1/num_col;
-  // var y_offset_array = [];
-  // for (var i = 0; i < num_col; i++){
-  //   y_offset_array[i] = 0.5 - col_height/2 - i * col_height;
-  // }
-
   var vect_text_attrs = {
     textAlign: 'left',
     textBaseline: 'middle',
