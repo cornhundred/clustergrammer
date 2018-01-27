@@ -26,16 +26,16 @@ module.exports = function calc_col_text_triangles(params){
   offset.x = 0.5;
   offset.y = 0.5;
 
-  var col_text_x_arr = Array(num_col).fill()
+  var x_arr = Array(num_col).fill()
     .map(function(_, i){
       return -(i/num_col - offset.x) - 0.5/num_col;
     });
 
-  var new_col_text_x_arr = params.canvas_pos.x_arr;
+  var new_x_arr = params.canvas_pos.x_arr;
 
   console.log('----------------')
-  console.log(col_text_x_arr)
-  console.log(new_col_text_x_arr)
+  console.log(x_arr)
+  console.log(new_x_arr)
 
   // generating array with col text triangles and y-offsets
   var col_text_triangles = [];
@@ -49,9 +49,9 @@ module.exports = function calc_col_text_triangles(params){
 
     var col_order_id = params.network.col_nodes[col_id][inst_order];
 
-    var inst_y = col_text_x_arr[ col_order_id ];
+    var inst_x = x_arr[ col_order_id ];
 
-    if (inst_y > viz_area.x_min && inst_y < viz_area.x_max){
+    if (inst_x > viz_area.x_min && inst_x < viz_area.x_max){
       var inst_name = inst_node.name;
 
       if (inst_name.indexOf(': ') >= 0){
@@ -59,10 +59,12 @@ module.exports = function calc_col_text_triangles(params){
       }
 
       var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
-      tmp_text_vect.offset = [0, inst_y];
+
+      tmp_text_vect.offset = [0, inst_x];
       col_text_triangles.push(tmp_text_vect);
+
       var inst_data = {};
-      inst_data.y = inst_y;
+      inst_data.y = inst_x;
       inst_data.name = inst_name;
       kept_col_x.push(inst_data);
     }
@@ -71,7 +73,7 @@ module.exports = function calc_col_text_triangles(params){
     // var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
     // var col_order_id = params.network.col_nodes[col_id][inst_order];
 
-    // var inst_x = col_text_x_arr[ col_order_id ];
+    // var inst_x = x_arr[ col_order_id ];
     // tmp_text_vect.offset = [ 0, inst_x];
 
     // col_text_triangles.push(tmp_text_vect);
