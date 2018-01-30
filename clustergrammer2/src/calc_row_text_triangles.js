@@ -21,15 +21,7 @@ module.exports = function calc_row_text_triangles(params){
 
   // draw matrix cells
   /////////////////////////////////////////
-  // set up offset array for buffer
-  var inst_offset = {};
-  inst_offset.x = 0.5;
-  inst_offset.y = 0.5;
-
-  var row_text_y_arr = Array(num_row).fill()
-    .map(function(_, i){
-      return -i/num_row + inst_offset.y - 0.5/num_row;
-    });
+  var y_arr = params.canvas_pos.y_arr;
 
   // generating array with row text triangles and y-offsets
   var row_text_triangles = [];
@@ -42,7 +34,7 @@ module.exports = function calc_row_text_triangles(params){
   _.each(inst_nodes, function(inst_node, row_id){
 
     var row_order_id = num_row - 1 - params.network.row_nodes[row_id][inst_order];
-    var inst_y = row_text_y_arr[ row_order_id ];
+    var inst_y = y_arr[ row_order_id ] + 0.5/num_row;
 
     if (inst_y > viz_area.y_min && inst_y < viz_area.y_max){
       var inst_name = inst_node.name;
@@ -63,7 +55,6 @@ module.exports = function calc_row_text_triangles(params){
   });
 
   // using to improve row filtering behavior
-  params.row_text_y_arr = row_text_y_arr;
   params.kept_row_y = kept_row_y;
 
   return row_text_triangles;

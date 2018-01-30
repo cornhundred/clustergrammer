@@ -15,10 +15,6 @@ module.exports = function calc_col_text_triangles(params){
 
   // draw matrix cells
   /////////////////////////////////////////
-  // set up offset array for buffer
-  var offset = {};
-  offset.x = 0.5;
-  offset.y = 0.5;
 
   var x_arr = params.canvas_pos.x_arr;
 
