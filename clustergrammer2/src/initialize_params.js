@@ -14,6 +14,16 @@ var make_spillover_args = require('./make_spillover_args');
 var calc_viz_area = require('./calc_viz_area');
 var calc_row_downsampled_mat = require('./calc_row_downsampled_mat');
 
+/*
+  Working on using subset of math.js for matrix splicing
+*/
+var core = require('mathjs/core');
+var math = core.create();
+
+math.import(require('mathjs/lib/function/probability/factorial'));
+
+// console.log(math)
+
 module.exports = function initialize_params(regl, network){
 
   var params = {};
