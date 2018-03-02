@@ -1,6 +1,10 @@
 <!-- # clustergrammer -->
 <!-- # ![clustergrammer_logo](img/clustergrammer_logo.png | width=100) -->
 
+# Clustergrammer2-alpha
+------------------------
+The Clustergrammer2-alpha repo contains the in development WebGL version of Clustergrammer.
+
 <img src='img/clustergrammer_logo.png' alt="Clustergramer" width="300px" >
 
 [![NPM](https://img.shields.io/npm/v/clustergrammer.svg)](https://www.npmjs.com/package/clustergrammer)
