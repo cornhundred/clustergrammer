@@ -24,7 +24,7 @@ module.exports = function make_draw_cells_arr(regl, params){
   */
 
   _.each(arrs.opacity_arr, function(d){
-    console.log(d)
+    // console.log(d)
   })
 
   return arrs;
