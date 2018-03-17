@@ -47,6 +47,8 @@ require('resl')({
     }
   },
   onDone: (assets) => {
-    run_viz(regl, assets);
+    var network = JSON.parse(assets.viz);
+    console.log(network)
+    run_viz(regl, network);
   }
 });

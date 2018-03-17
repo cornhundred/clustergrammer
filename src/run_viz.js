@@ -2,13 +2,13 @@
 
 var initialize_params = require('./initialize_params');
 var draw_commands = require('./draw_commands');
-module.exports = function run_viz(regl, assets){
+module.exports = function run_viz(regl, network){
 
   // console.log('****************');
   // console.log('** initialize **');
   // console.log('****************');
 
-  var network = JSON.parse(assets.viz);
+  // var network = JSON.parse(assets.viz);
 
   // var tick = 0;
   // var has_been_both = false;
