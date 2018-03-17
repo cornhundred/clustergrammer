@@ -1,7 +1,7 @@
 {
-  "name": "points",
-  "version": "1.0.0",
-  "description": "Smoothly animating points with regl",
+  "name": "clustergrammer2-alpha",
+  "version": "0.1.0",
+  "description": "Rebuilding Clustergrammer with WebGL and regl",
   "main": "index.js",
   "scripts": {
     "start": "budo --open --live --force-default-index --host localhost index.js -- -g es2040 -t glslify",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rreusser/smoothly-animating-points-with-regl"
+    "url": "https://github.com/cornhundred/clustergrammer2-alpha"
   },
   "keywords": [],
   "author": "Ricky Reusser",
