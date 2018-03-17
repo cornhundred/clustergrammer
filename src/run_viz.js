@@ -2,7 +2,11 @@
 
 var initialize_params = require('./initialize_params');
 var draw_commands = require('./draw_commands');
+
 module.exports = function run_viz(regl, network){
+
+  console.log('run_viz')
+  console.log(network)
 
   // console.log('****************');
   // console.log('** initialize **');

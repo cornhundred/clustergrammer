@@ -38,17 +38,27 @@ var filename = 'data/mult_view.json';
 // var filename = 'data/ccle_1000x1037.json';
 // var filename = 'data/ccle_2000x1037.json';
 
-// resource loader
-require('resl')({
-  manifest:{
-    'viz':{
-      type: 'text',
-      src: filename
-    }
-  },
-  onDone: (assets) => {
-    var network = JSON.parse(assets.viz);
-    console.log(network)
-    run_viz(regl, network);
-  }
-});
+d3.json('data/mult_view.json', function(network){
+  console.log(network);
+  run_viz(regl, network);
+})
+
+/*
+Bypassing resource loader, using d3 instead, working on passing arbitrary
+json to run_viz from a load_clustergrammer script
+*/
+
+// // resource loader
+// require('resl')({
+//   manifest:{
+//     'viz':{
+//       type: 'text',
+//       src: filename
+//     }
+//   },
+//   onDone: (assets) => {
+//     var network = JSON.parse(assets.viz);
+//     console.log(network)
+//     run_viz(regl, network);
+//   }
+// });
