@@ -17,7 +17,7 @@ module.exports = [
         library: 'Clustergrammer2'
       },
       externals: {
-        'jQuery': 'jQuery',
+        // 'jQuery': 'jQuery',
         // 'lodash': '_',
         // 'underscore': '_',
         // 'd3': 'd3'
@@ -43,6 +43,36 @@ module.exports = [
     //   })
     // ],
   },
+  {
+      entry: './src/main.js',
+      // devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
+      devtool: DEBUG ? 'cheap-module-source-map' : false,
+      target: 'web',
+      output: {
+        path: __dirname,
+        filename: 'clustergrammer2-alpha.node.js',
+        libraryTarget: 'commonjs2',
+        library: 'Clustergrammer2'
+      },
+      externals: {
+        // 'jQuery': 'jQuery',
+        // 'lodash': '_',
+        // 'underscore': '_',
+        // 'd3': 'd3'
+      },
+      module: {
+          loaders: [
+              {
+                test: /\.js$/,
+                loader: 'babel',
+                query: {
+                  // disabled presets es2015
+                  // presets: ['es2015']
+                }
+              }
+          ]
+      }
+  },
   // {
   //     entry: './src/main.js',
   //     // devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
@@ -50,36 +80,7 @@ module.exports = [
   //     target: 'web',
   //     output: {
   //       path: __dirname,
-  //       filename: 'clustergrammer.node.js',
-  //       libraryTarget: 'commonjs2',
-  //       library: 'Clustergrammer2'
-  //     },
-  //     externals: {
-  //       'jQuery': 'jQuery',
-  //       // 'lodash': '_',
-  //       // 'underscore': '_',
-  //       'd3': 'd3'
-  //     },
-  //     module: {
-  //         loaders: [
-  //             {
-  //               test: /\.js$/,
-  //               loader: 'babel',
-  //               query: {
-  //                 presets: ['es2015']
-  //               }
-  //             }
-  //         ]
-  //     }
-  // },
-  // {
-  //     entry: './src/main.js',
-  //     // devtool: DEBUG ? 'cheap-module-eval-source-map' : false,
-  //     devtool: DEBUG ? 'cheap-module-source-map' : false,
-  //     target: 'web',
-  //     output: {
-  //       path: __dirname,
-  //       filename: 'clustergrammer.min.js',
+  //       filename: 'clustergrammer2-alpha.min.js',
   //       libraryTarget: 'var',
   //       library: 'Clustergrammer2'
   //     },
@@ -111,7 +112,7 @@ module.exports = [
   //     target: 'web',
   //     output: {
   //       path: __dirname,
-  //       filename: 'clustergrammer.node.min.js',
+  //       filename: 'clustergrammer2-alpha.node.min.js',
   //       libraryTarget: 'commonjs2',
   //       library: 'Clustergrammer2'
   //     },

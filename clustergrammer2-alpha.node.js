@@ -1,4 +1,4 @@
-var Clustergrammer2 =
+module.exports =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -47799,4 +47799,4 @@ var Clustergrammer2 =
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=clustergrammer2-alpha.js.map
+//# sourceMappingURL=clustergrammer2-alpha.node.js.map

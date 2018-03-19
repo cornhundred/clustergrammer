@@ -15,18 +15,17 @@
 
 // var filename = 'data/mult_view.json';
 
-function Clustergrammer2(filename){
+// const
+var run_viz = require('./run_viz');
 
-  // const
-  var run_viz = require('./run_viz');
+// global variables
+// d3 = require('d3');
 
-  // global variables
-  d3 = require('d3');
+function Clustergrammer2(args){
 
+  var network = args.network;
 
-  d3.json('data/mult_view.json', function(network){
-    run_viz(network);
-  });
+  run_viz(network);
 
 }
 
