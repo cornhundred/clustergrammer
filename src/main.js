@@ -13,52 +13,22 @@
 
  */
 
-// const
-var regl = require('regl')({extensions: ['angle_instanced_arrays']});
-var run_viz = require('./run_viz');
+// var filename = 'data/mult_view.json';
 
-// global variables
-d3 = require('d3');
-_ = require('underscore');
+function Clustergrammer2(filename){
 
-var filename = 'data/mult_view.json';
+  // const
+  var run_viz = require('./run_viz');
 
-// var filename = 'data/mnist.json';
-// var filename = 'data/mnist_thin.json';
+  // global variables
+  d3 = require('d3');
 
-// var filename = 'data/cytof_10k.json';
-// var filename = 'data/cytof_25k.json';
-// var filename = 'data/cytof_35k.json';
 
-// var filename = 'data/ccle_1000x100.json';
-// var filename = 'data/ccle_2000x200.json';
-// var filename = 'data/ccle_5000x200.json';
-// var filename = 'data/ccle_1000x200.json';
+  d3.json('data/mult_view.json', function(network){
+    run_viz(network);
+  });
 
-// var filename = 'data/ccle_1000x1037.json';
-// var filename = 'data/ccle_2000x1037.json';
+}
 
-d3.json('data/mult_view.json', function(network){
-  console.log(network);
-  run_viz(regl, network);
-})
-
-/*
-Bypassing resource loader, using d3 instead, working on passing arbitrary
-json to run_viz from a load_clustergrammer script
-*/
-
-// // resource loader
-// require('resl')({
-//   manifest:{
-//     'viz':{
-//       type: 'text',
-//       src: filename
-//     }
-//   },
-//   onDone: (assets) => {
-//     var network = JSON.parse(assets.viz);
-//     console.log(network)
-//     run_viz(regl, network);
-//   }
-// });
+// necessary for exporting function
+module.exports = Clustergrammer2;

@@ -16,7 +16,31 @@
 <body>
 
   <!-- <script src="bundle.js"></script> -->
+  <script>console.log('loading webpack built bundle')</script>
   <script src="clustergrammer2-alpha.js"></script>
+
+  <script>
+
+    var filename = 'data/mult_view.json';
+
+    // var filename = 'data/mnist.json';
+    // var filename = 'data/mnist_thin.json';
+
+    // var filename = 'data/cytof_10k.json';
+    // var filename = 'data/cytof_25k.json';
+    // var filename = 'data/cytof_35k.json';
+
+    // var filename = 'data/ccle_1000x100.json';
+    // var filename = 'data/ccle_2000x200.json';
+    // var filename = 'data/ccle_5000x200.json';
+    // var filename = 'data/ccle_1000x200.json';
+
+    // var filename = 'data/ccle_1000x1037.json';
+    // var filename = 'data/ccle_2000x1037.json';
+
+    Clustergrammer2(filename);
+
+  </script>
 
 </body>
 

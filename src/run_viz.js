@@ -1,11 +1,13 @@
 /* eslint-disable */
 
+var regl = require('regl')({extensions: ['angle_instanced_arrays']});
 var initialize_params = require('./initialize_params');
 var draw_commands = require('./draw_commands');
+_ = require('underscore');
 
-module.exports = function run_viz(regl, network){
+module.exports = function run_viz(network){
 
-  console.log('run_viz')
+  console.log('run_viz loading regl')
   console.log(network)
 
   // console.log('****************');
