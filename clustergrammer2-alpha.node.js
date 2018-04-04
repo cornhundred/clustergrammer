@@ -45231,7 +45231,12 @@ module.exports =
 
 	  /* Matrix */
 	  params.cameras.mat.draw(() => {
-	    regl.clear({ color: [0, 0, 0, 0] });
+
+	    /*
+	      Disabling this, prevents the screen from flashing when working with very
+	      large datasets
+	    */
+	    // regl.clear({color: [0, 0, 0, 0]});
 
 	    /*
 	      Filter and regenerate args is slow
