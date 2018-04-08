@@ -46,17 +46,8 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 	/*
-	  Making an interactive matrix using instancing.
 
-	  use the following to run using budo:
-	  budo main.js --open --live -- -t es2020
-
-	  use the following command to create a bundle:
-	  browserify -r es2020 main.js > ../cytof_example_2/bundle.js
-
-	  Bugs
-	  **************
-	  1. resizing does not immediately redraw figure
+	  Version 0.1.2
 
 	 */
 
