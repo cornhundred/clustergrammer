@@ -22,6 +22,17 @@
 
   <script>
 
+
+    tmp = d3.select('body').append('div').attr('id','something');
+
+    var inst_height = 500;
+    var inst_width = 500;
+    d3.select('#something')
+      .style('height',inst_height + 'px')
+      .style('width',inst_width+'px')
+        .style('background','white');
+
+
     // var filename = 'data/mult_view.json';
 
     // var filename = 'data/mnist.json';
@@ -44,6 +55,7 @@
 
       args = {};
       args.network = network;
+      args.container=tmp[0][0];
       Clustergrammer2(args);
     });
 

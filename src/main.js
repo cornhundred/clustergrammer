@@ -24,8 +24,9 @@ var run_viz = require('./run_viz');
 function Clustergrammer2(args){
 
   var network = args.network;
+  var container = args.container;
 
-  run_viz(network);
+  run_viz(container, network);
 
 }
 

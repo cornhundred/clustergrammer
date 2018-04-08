@@ -71,8 +71,9 @@ module.exports =
 	function Clustergrammer2(args) {
 
 	  var network = args.network;
+	  var container = args.container;
 
-	  run_viz(network);
+	  run_viz(container, network);
 	}
 
 	// necessary for exporting function
@@ -84,12 +85,16 @@ module.exports =
 
 	/* eslint-disable */
 
-	var regl = __webpack_require__(2)({ extensions: ['angle_instanced_arrays'] });
 	var initialize_params = __webpack_require__(3);
 	var draw_commands = __webpack_require__(230);
 	_ = __webpack_require__(237);
 
-	module.exports = function run_viz(network) {
+	module.exports = function run_viz(container, network) {
+
+	  var regl = __webpack_require__(2)({
+	    extensions: ['angle_instanced_arrays'],
+	    container: container
+	  });
 
 	  console.log('run_viz loading regl');
 	  console.log(network);
