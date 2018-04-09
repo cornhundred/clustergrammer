@@ -51,11 +51,22 @@ function interactionEvents (opts) {
   function onWheel (event) {
     // var dx, dy, dz, x0, y0;
 
+    /*
+    Working on improving behavior for offset canvas
+    */
+
+
+    var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+
+    console.log(event)
+    console.log(event.target.offsetLeft, event.target.offsetTop)
+    console.log('scrollTop', scrollTop)
+
     ev.type = 'wheel';
     ev.buttons = buttons;
     ev.mods = mods;
-    ev.x0 = event.x;
-    ev.y0 = event.y;
+    ev.x0 = event.x - event.target.offsetLeft;
+    ev.y0 = event.y - event.target.offsetTop + scrollTop;
     ev.dx = event.deltaX;
     ev.dy = event.deltaY;
     ev.dz = event.deltaZ;

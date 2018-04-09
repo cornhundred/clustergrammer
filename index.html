@@ -30,13 +30,16 @@
     var inst_height = 1000;
     var inst_width = 1000;
 
+    var x_offset = 300;
+    var y_offset = 1000;
+
     d3.select('#something')
       .style('height',inst_height + 'px')
       .style('width',inst_width+'px')
         .style('background','white')
         .style('border', '2px solid #000')
-        .style('margin-left', '100px')
-        .style('margin-top', '100px');
+        .style('margin-left', x_offset + 'px')
+        .style('margin-top', y_offset + 'px');
 
 
     var filename = 'data/mult_view.json';
