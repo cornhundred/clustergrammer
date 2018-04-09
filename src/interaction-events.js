@@ -58,9 +58,9 @@ function interactionEvents (opts) {
 
     var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
-    console.log(event)
-    console.log(event.target.offsetLeft, event.target.offsetTop)
-    console.log('scrollTop', scrollTop)
+    // console.log(event)
+    // console.log(event.target.offsetLeft, event.target.offsetTop)
+    // console.log('scrollTop', scrollTop)
 
     ev.type = 'wheel';
     ev.buttons = buttons;

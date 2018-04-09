@@ -16097,7 +16097,7 @@ module.exports =
 	  var num_col = params.num_col;
 
 	  // working on improved matrix zooming
-	  var max_zoom = 20;
+	  var max_zoom = 40;
 	  var zoom_restrict = {};
 	  zoom_restrict.x = {};
 	  zoom_restrict.x.max = max_zoom;
@@ -16269,9 +16269,9 @@ module.exports =
 
 	    var scrollTop = window.pageYOffset !== undefined ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
-	    console.log(event);
-	    console.log(event.target.offsetLeft, event.target.offsetTop);
-	    console.log('scrollTop', scrollTop);
+	    // console.log(event)
+	    // console.log(event.target.offsetLeft, event.target.offsetTop)
+	    // console.log('scrollTop', scrollTop)
 
 	    ev.type = 'wheel';
 	    ev.buttons = buttons;
@@ -36947,8 +36947,8 @@ module.exports =
 	  //   console.log('***************');
 	  // }
 
-	  console.log('draw');
-	  console.log(params.zoom_data.x.cursor_position, params.zoom_data.y.cursor_position);
+	  // console.log('draw')
+	  // console.log(params.zoom_data.x.cursor_position, params.zoom_data.y.cursor_position)
 
 	  draw_matrix_components(regl, params);
 

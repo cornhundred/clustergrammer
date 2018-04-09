@@ -11,8 +11,8 @@ module.exports = function draw_commands(regl, params, slow_draw=false){
   //   console.log('***************');
   // }
 
-  console.log('draw')
-  console.log(params.zoom_data.x.cursor_position, params.zoom_data.y.cursor_position)
+  // console.log('draw')
+  // console.log(params.zoom_data.x.cursor_position, params.zoom_data.y.cursor_position)
 
   draw_matrix_components(regl, params);
 
