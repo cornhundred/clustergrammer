@@ -29,13 +29,15 @@
 
     var inst_height = 1000;
     var inst_width = 1000;
+
     d3.select('#something')
       .style('height',inst_height + 'px')
       .style('width',inst_width+'px')
-        .style('background','white');
+        .style('background','white')
+        .style('border', '2px solid #000');
 
 
-    // var filename = 'data/mult_view.json';
+    var filename = 'data/mult_view.json';
 
     // var filename = 'data/mnist.json';
     // var filename = 'data/mnist_thin.json';
@@ -49,7 +51,7 @@
     // var filename = 'data/ccle_5000x200.json';
     // var filename = 'data/ccle_1000x200.json';
 
-    var filename = 'data/ccle_1000x1037.json';
+    // var filename = 'data/ccle_1000x1037.json';
     // var filename = 'data/ccle_2000x1037.json';
 
     console.log('passing network to Clustergrammer2')
