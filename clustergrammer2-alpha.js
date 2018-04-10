@@ -105,7 +105,7 @@ var Clustergrammer2 =
 	  var initialize_viz = true;
 
 	  // global params
-	  params = initialize_params(regl, network);
+	  var params = initialize_params(regl, network);
 
 	  var first_frame = true;
 

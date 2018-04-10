@@ -26,7 +26,7 @@ module.exports = function run_viz(container, network){
   var initialize_viz = true;
 
   // global params
-  params = initialize_params(regl, network);
+  var params = initialize_params(regl, network);
 
   var first_frame = true;
 
