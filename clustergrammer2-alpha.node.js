@@ -61,6 +61,10 @@ module.exports =
 
 	function Clustergrammer2(args) {
 
+	  console.log('################################');
+	  console.log('version 0.1.4');
+	  console.log('################################');
+
 	  var network = args.network;
 	  var container = args.container;
 
@@ -16269,9 +16273,9 @@ module.exports =
 
 	    var scrollTop = window.pageYOffset !== undefined ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
-	    // console.log(event)
-	    // console.log(event.target.offsetLeft, event.target.offsetTop)
-	    // console.log('scrollTop', scrollTop)
+	    console.log(event);
+	    console.log(event.target.offsetLeft, event.target.offsetTop);
+	    console.log('scrollTop', scrollTop);
 
 	    ev.type = 'wheel';
 	    ev.buttons = buttons;
