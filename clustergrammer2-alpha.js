@@ -16277,11 +16277,21 @@ var Clustergrammer2 =
 	    console.log(event.target.offsetLeft, event.target.offsetTop);
 	    console.log('scrollTop', scrollTop);
 
+	    // try to better define canvas position
+	    inst_canvas = document.querySelector('#something canvas');
+	    canvas_rect = inst_canvas.getBoundingClientRect();
+	    console.log('canvas_rect', canvas_rect);
+
 	    ev.type = 'wheel';
 	    ev.buttons = buttons;
 	    ev.mods = mods;
-	    ev.x0 = event.x - event.target.offsetLeft;
-	    ev.y0 = event.y - event.target.offsetTop + scrollTop;
+
+	    // ev.x0 = event.x - event.target.offsetLeft;
+	    // ev.y0 = event.y - event.target.offsetTop + scrollTop;
+
+	    ev.x0 = event.x - canvas_rect.left;
+	    ev.y0 = event.y - canvas_rect.top;
+
 	    ev.dx = event.deltaX;
 	    ev.dy = event.deltaY;
 	    ev.dz = event.deltaZ;
