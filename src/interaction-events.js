@@ -58,14 +58,15 @@ function interactionEvents (opts) {
 
     var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
-    console.log(event)
-    console.log(event.target.offsetLeft, event.target.offsetTop)
-    console.log('scrollTop', scrollTop)
+    // console.log(event)
+    // console.log(event.target.offsetLeft, event.target.offsetTop)
+    // console.log('scrollTop', scrollTop)
 
     // try to better define canvas position
-    inst_canvas = document.querySelector('#something canvas')
-    canvas_rect = inst_canvas.getBoundingClientRect();
-    console.log('canvas_rect', canvas_rect)
+    // inst_canvas = document.querySelector('#something canvas')
+    // console.log('THIS', this)
+    canvas_rect = this.getBoundingClientRect();
+    // console.log('canvas_rect', canvas_rect)
 
     ev.type = 'wheel';
     ev.buttons = buttons;
@@ -73,6 +74,7 @@ function interactionEvents (opts) {
 
     // ev.x0 = event.x - event.target.offsetLeft;
     // ev.y0 = event.y - event.target.offsetTop + scrollTop;
+
 
     ev.x0 = event.x - canvas_rect.left;
     ev.y0 = event.y - canvas_rect.top;
