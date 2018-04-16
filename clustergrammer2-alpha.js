@@ -16280,7 +16280,7 @@ var Clustergrammer2 =
 	    // try to better define canvas position
 	    // inst_canvas = document.querySelector('#something canvas')
 	    // console.log('THIS', this)
-	    canvas_rect = this.getBoundingClientRect();
+	    var canvas_rect = this.getBoundingClientRect();
 	    // console.log('canvas_rect', canvas_rect)
 
 	    ev.type = 'wheel';
@@ -29877,7 +29877,7 @@ var Clustergrammer2 =
 	    return -i / num_row + offset.y - 1 / num_row;
 	  });
 
-	  node_canvas_pos = {};
+	  var node_canvas_pos = {};
 	  node_canvas_pos.x_arr = x_arr;
 	  node_canvas_pos.y_arr = y_arr;
 
@@ -30347,7 +30347,7 @@ var Clustergrammer2 =
 	    mat_data = mat_data.slice(0, 5);
 
 	    // column downsampling
-	    new_mat_data = [];
+	    var new_mat_data = [];
 	    _.each(mat_data, function (inst_row) {
 	      inst_row = inst_row.slice(0, 3);
 	      new_mat_data.push(inst_row);
@@ -30367,7 +30367,7 @@ var Clustergrammer2 =
 
 	  // make 10 positions
 	  var new_pos = _.range(-0.5, 0.5, 0.1);
-	  console.log(new_pos.length);
+	  // console.log(new_pos.length);
 
 	  // mod_value = 0.1;
 

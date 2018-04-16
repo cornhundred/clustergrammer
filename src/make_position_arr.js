@@ -36,7 +36,7 @@ module.exports = function make_position_arr(params){
       return -i/num_row + offset.y - 1/num_row;
     });
 
-  node_canvas_pos = {};
+  var node_canvas_pos = {};
   node_canvas_pos.x_arr = x_arr;
   node_canvas_pos.y_arr = y_arr;
 

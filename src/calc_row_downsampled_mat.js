@@ -16,7 +16,7 @@ module.exports = function calc_row_downsampled_mat(params, run_downsampling=fals
     mat_data = mat_data.slice(0,5);
 
     // column downsampling
-    new_mat_data = []
+    var new_mat_data = []
     _.each(mat_data, function(inst_row){
       inst_row = inst_row.slice(0,3);
       new_mat_data.push(inst_row);
@@ -36,7 +36,7 @@ module.exports = function calc_row_downsampled_mat(params, run_downsampling=fals
 
   // make 10 positions
   var new_pos = _.range(-0.5, 0.5, 0.1);
-  console.log(new_pos.length);
+  // console.log(new_pos.length);
 
   // mod_value = 0.1;
 
