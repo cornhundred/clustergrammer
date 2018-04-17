@@ -1,4 +1,18 @@
-module.exports = function hex_to_rgbs(hex, alpha=1.0){
+var color_table = require('./color_table.json')
+
+module.exports = function color_to_rgbs(hex, alpha=1.0){
+
+  /*
+  Later adjust the
+  */
+
+  if (hex in color_table) {
+
+    var inst_rgb = color_table[hex];
+    inst_rgb.push(alpha)
+    return [inst_rgb[0], inst_rgb[1], inst_rgb[2], alpha];
+
+  } else {
 
     var c;
     if(/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
@@ -20,6 +34,7 @@ module.exports = function hex_to_rgbs(hex, alpha=1.0){
 
     // bad hex, return black
     return [0, 0, 0, alpha];
-    // throw new Error('Bad Hex');
+
+  }
 
 };

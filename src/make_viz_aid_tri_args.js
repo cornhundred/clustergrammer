@@ -1,9 +1,10 @@
 var m3 = require('./mat3_transform');
-var hex_to_rgba = require('./hex_to_rgba');
+var color_to_rgba = require('./color_to_rgba');
 
 module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
-  var inst_rgba = hex_to_rgba('#ff0000', 0.5);
+  // var inst_rgba = color_to_rgba('#ff0000', 0.5);
+  var inst_rgba = color_to_rgba('blue', 0.5);
 
   console.log( inst_rgba );
 
