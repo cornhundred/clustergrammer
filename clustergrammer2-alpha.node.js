@@ -305,6 +305,9 @@ module.exports =
 
 	  params.text_scale = {};
 
+	  // save category colors
+	  params.cat_colors = params.network.cat_colors;
+
 	  return params;
 		};
 
@@ -30032,7 +30035,13 @@ module.exports =
 
 	  var color_arr = [];
 	  for (i = 0; i < num_labels; i++) {
+
+	    // get random colors from color dictionary
 	    var inst_color = color_names[i];
+
+	    var inst_cat = params.network[inst_rc + '_nodes'][i]['cat-0'];
+	    console.log(inst_cat);
+
 	    color_arr[i] = color_to_rgba(inst_color, 1);
 	  }
 
