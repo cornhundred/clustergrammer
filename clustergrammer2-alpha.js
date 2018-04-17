@@ -29982,6 +29982,13 @@ var Clustergrammer2 =
 
 	module.exports = function make_viz_aid_tri_args(regl, params, inst_rc) {
 
+	  /*
+	   Hacking Categories Plan
+	  ------------------------
+	  Make a buffer of vec4's that will be rgba info for the different category
+	  colors. Then pass this as an attribute (or varying) to the fragment shader.
+	   */
+
 	  // var inst_rgba = color_to_rgba('#ff0000', 0.5);
 	  var inst_rgba = color_to_rgba('blue', 0.5);
 
