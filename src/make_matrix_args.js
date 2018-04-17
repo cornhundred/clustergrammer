@@ -50,7 +50,7 @@ module.exports = function make_matrix_args(regl, params){
     uniform mat4 zoom;
 
     // pass varying variables to fragment from vector
-    varying float var_opacity;
+    varying float opacity_vary;
 
     void main() {
 
@@ -64,21 +64,24 @@ module.exports = function make_matrix_args(regl, params){
                         );
 
       // pass attribute (in vert) to varying in frag
-      var_opacity = opacity_att;
+      opacity_vary = opacity_att;
 
     }`;
 
   var frag_string = `
     precision highp float;
-    varying float var_opacity;
+
+    // use the varying being passed from the vertex shader
+    varying float opacity_vary;
+
     void main() {
 
       // manually tweaking opacity range, will improve to match old version
 
-      if (var_opacity > 0.0){
-        gl_FragColor = vec4(1, 0, 0, abs(var_opacity) + 0.15);
+      if (opacity_vary > 0.0){
+        gl_FragColor = vec4(1, 0, 0, abs(opacity_vary) + 0.15);
       } else {
-        gl_FragColor = vec4(0, 0, 1, abs(var_opacity) + 0.15);
+        gl_FragColor = vec4(0, 0, 1, abs(opacity_vary) + 0.15);
       }
 
     }`;

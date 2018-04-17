@@ -19755,7 +19755,7 @@ module.exports =
 	    uniform mat4 zoom;
 
 	    // pass varying variables to fragment from vector
-	    varying float var_opacity;
+	    varying float opacity_vary;
 
 	    void main() {
 
@@ -19769,21 +19769,24 @@ module.exports =
 	                        );
 
 	      // pass attribute (in vert) to varying in frag
-	      var_opacity = opacity_att;
+	      opacity_vary = opacity_att;
 
 	    }`;
 
 	  var frag_string = `
 	    precision highp float;
-	    varying float var_opacity;
+
+	    // use the varying being passed from the vertex shader
+	    varying float opacity_vary;
+
 	    void main() {
 
 	      // manually tweaking opacity range, will improve to match old version
 
-	      if (var_opacity > 0.0){
-	        gl_FragColor = vec4(1, 0, 0, abs(var_opacity) + 0.15);
+	      if (opacity_vary > 0.0){
+	        gl_FragColor = vec4(1, 0, 0, abs(opacity_vary) + 0.15);
 	      } else {
-	        gl_FragColor = vec4(0, 0, 1, abs(var_opacity) + 0.15);
+	        gl_FragColor = vec4(0, 0, 1, abs(opacity_vary) + 0.15);
 	      }
 
 	    }`;
@@ -30022,15 +30025,6 @@ module.exports =
 
 	  y_offset_buffer(y_offset_array);
 
-	  var scale_y = m3.scaling(2, 1);
-
-	  var rotation_radians;
-	  if (inst_rc === 'row') {
-	    rotation_radians = 0;
-	  } else if (inst_rc === 'col') {
-	    rotation_radians = Math.PI / 2;
-	  }
-
 	  /////////////////////////////////
 	  // Label Color Buffer
 	  /////////////////////////////////
@@ -30041,7 +30035,26 @@ module.exports =
 	    color_arr[i] = color_to_rgba(inst_color, 1);
 	  }
 
-	  console.log(color_arr);
+	  const color_buffer = regl.buffer({
+	    length: num_labels,
+	    // 'type': 'vec4',
+	    'usage': 'dynamic'
+	  });
+
+	  color_buffer(color_arr);
+
+	  /////////////////////////////////
+	  // Rotation and Scaling
+	  /////////////////////////////////
+
+	  var scale_y = m3.scaling(2, 1);
+
+	  var rotation_radians;
+	  if (inst_rc === 'row') {
+	    rotation_radians = 0;
+	  } else if (inst_rc === 'col') {
+	    rotation_radians = Math.PI / 2;
+	  }
 
 	  var mat_rotate = m3.rotation(rotation_radians);
 
@@ -30051,6 +30064,7 @@ module.exports =
 	      precision highp float;
 	      attribute vec2 ini_position;
 	      attribute float y_offset_att;
+	      attribute vec4 color_att;
 
 	      uniform mat3 mat_rotate;
 	      uniform mat3 scale_y;
@@ -30060,12 +30074,14 @@ module.exports =
 	      varying vec3 new_position;
 	      varying vec3 vec_translate;
 
+	      // pass varying variable to fragment from vector
+	      varying vec4 color_vary;
+
 	      void main () {
 
 	        new_position = vec3(ini_position, 0);
 
 	        vec_translate = vec3(x_offset_uni, y_offset_att, 0);
-
 
 	        // rotate translated triangles
 	        new_position = mat_rotate * ( new_position + vec_translate ) ;
@@ -30077,6 +30093,9 @@ module.exports =
 	        // depth is being set to 0.45
 	        gl_Position = zoom * vec4( vec2(new_position), 0.45, 1);
 
+	        // pass attribute (in vert) to varying in frag
+	        color_vary = color_att;
+
 	      }
 	    `,
 
@@ -30085,10 +30104,18 @@ module.exports =
 	      precision mediump float;
 	      uniform vec4 triangle_color;
 
+	      // use the varying being passed from the vertex shader
+	      varying vec4 color_vary;
+
 	      // color triangle red
 	      void main () {
 	        // gl_FragColor = vec4(0.6, 0.6, 0.6, opacity_vary);
-	        gl_FragColor = triangle_color;
+
+	        // defining the triangle color using a uniform
+	        // gl_FragColor = triangle_color;
+
+	        // define the triangle color using a varying
+	        gl_FragColor = color_vary;
 	      }
 
 	    `,
@@ -30101,7 +30128,14 @@ module.exports =
 	      y_offset_att: {
 	        buffer: y_offset_buffer,
 	        divisor: 1
+	      },
+
+	      // pass color buffer
+	      color_att: {
+	        buffer: color_buffer,
+	        divisor: 1
 	      }
+
 	    },
 
 	    uniforms: {
