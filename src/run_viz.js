@@ -1,6 +1,3 @@
-/* eslint-disable */
-
-
 var initialize_params = require('./initialize_params');
 var draw_commands = require('./draw_commands');
 _ = require('underscore');
@@ -13,8 +10,8 @@ module.exports = function run_viz(container, network){
     // pixelRatio: window.devicePixelRatio/10
   });
 
-  console.log('run_viz loading regl')
-  console.log(network)
+  // console.log('run_viz loading regl')
+  // console.log(network)
 
   // console.log('****************');
   // console.log('** initialize **');
@@ -54,7 +51,8 @@ module.exports = function run_viz(container, network){
             console.log('\n------------------\nFINAL INTERACTION');
 
             // run draw commands
-            draw_commands(regl, params, slow_draw=true);
+            var slow_draw = true;
+            draw_commands(regl, params, slow_draw);
 
             // console.log(params.kept_row_y);
 

@@ -84,8 +84,6 @@ var Clustergrammer2 =
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	/* eslint-disable */
-
 	var initialize_params = __webpack_require__(2);
 	var draw_commands = __webpack_require__(229);
 	_ = __webpack_require__(236);
@@ -98,8 +96,8 @@ var Clustergrammer2 =
 	    // pixelRatio: window.devicePixelRatio/10
 	  });
 
-	  console.log('run_viz loading regl');
-	  console.log(network);
+	  // console.log('run_viz loading regl')
+	  // console.log(network)
 
 	  // console.log('****************');
 	  // console.log('** initialize **');
@@ -139,7 +137,8 @@ var Clustergrammer2 =
 	            console.log('\n------------------\nFINAL INTERACTION');
 
 	            // run draw commands
-	            draw_commands(regl, params, slow_draw = true);
+	            var slow_draw = true;
+	            draw_commands(regl, params, slow_draw);
 
 	            // console.log(params.kept_row_y);
 	          } else {
