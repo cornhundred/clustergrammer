@@ -30015,10 +30015,24 @@ module.exports =
 
 	  var x_offset = -0.5 - row_width;
 
+	  var inst_order = 'clust';
+
 	  var y_offset_array = [];
 	  var i;
 	  for (i = 0; i < num_labels; i++) {
-	    y_offset_array[i] = 0.5 - row_height / 2 - i * row_height;
+
+	    // var inst_order = num_labels - 1 - params.network
+
+	    // emperically found rules
+	    if (inst_rc == 'row') {
+	      var tmp = num_labels - params.network[inst_rc + '_nodes'][i][inst_order] - 1;
+	    } else {
+	      var tmp = params.network[inst_rc + '_nodes'][i][inst_order];
+	    }
+	    console.log('tmp', tmp);
+
+	    /* need to position based on clustering order */
+	    y_offset_array[i] = 0.5 - row_height / 2 - tmp * row_height;
 	  }
 
 	  const y_offset_buffer = regl.buffer({
@@ -30036,16 +30050,15 @@ module.exports =
 	  var color_arr = [];
 	  for (i = 0; i < num_labels; i++) {
 
-	    // get random colors from color dictionary
-	    var inst_color = color_names[i];
+	    // // get random colors from color dictionary
+	    // var inst_color = color_names[i];
 
 	    var inst_cat = params.network[inst_rc + '_nodes'][i]['cat-0'];
-	    console.log(inst_cat);
+	    // console.log(inst_cat)
 
-	    var tmp_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
-	    console.log(tmp_color);
+	    var inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
 
-	    color_arr[i] = color_to_rgba(tmp_color, 1);
+	    color_arr[i] = color_to_rgba(inst_color, 1);
 	  }
 
 	  const color_buffer = regl.buffer({
@@ -47299,7 +47312,7 @@ module.exports =
 
 	  var max_val = 256;
 
-	  console.log(hex);
+	  // console.log(hex)
 	  var inst_rgba;
 
 	  if (hex in color_table) {
@@ -47312,7 +47325,7 @@ module.exports =
 
 	    var c;
 
-	    console.log('check hex: ', /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex));
+	    // console.log('check hex: ' , /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex))
 
 	    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
 
@@ -47329,13 +47342,13 @@ module.exports =
 	      // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
 	      inst_rgba = [inst_r / max_val, inst_g / max_val, inst_b / max_val, alpha];
 
-	      console.log(inst_rgba);
+	      // console.log(inst_rgba)
 	    } else {
 
 	      // bad hex, return black
 	      inst_rgba = [0, 0, 0, alpha];
 
-	      console.log('bad hex');
+	      // console.log('bad hex')
 	    }
 	  }
 

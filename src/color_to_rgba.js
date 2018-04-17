@@ -11,7 +11,7 @@ module.exports = function color_to_rgbs(hex, alpha=1.0){
 
   var max_val = 256;
 
-  console.log(hex)
+  // console.log(hex)
   var inst_rgba;
 
   if (hex in color_table) {
@@ -25,7 +25,7 @@ module.exports = function color_to_rgbs(hex, alpha=1.0){
 
     var c;
 
-    console.log('check hex: ' , /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex))
+    // console.log('check hex: ' , /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex))
 
     if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)){
 
@@ -43,14 +43,14 @@ module.exports = function color_to_rgbs(hex, alpha=1.0){
         // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
         inst_rgba = [inst_r/max_val, inst_g/max_val, inst_b/max_val, alpha];
 
-        console.log(inst_rgba)
+        // console.log(inst_rgba)
 
     } else {
 
       // bad hex, return black
       inst_rgba = [0, 0, 0, alpha];
 
-      console.log('bad hex')
+      // console.log('bad hex')
     }
 
 
