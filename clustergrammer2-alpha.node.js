@@ -47,7 +47,7 @@ module.exports =
 
 	/*
 
-	  Version 0.1.4
+	  Version 0.2.0
 
 	 */
 
@@ -62,7 +62,7 @@ module.exports =
 	function Clustergrammer2(args) {
 
 	  console.log('################################');
-	  console.log('version 0.1.6');
+	  console.log('version 0.2.0');
 	  console.log('################################');
 
 	  var network = args.network;
@@ -85,12 +85,12 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var initialize_params = __webpack_require__(2);
-	var draw_commands = __webpack_require__(229);
-	_ = __webpack_require__(236);
+	var draw_commands = __webpack_require__(231);
+	_ = __webpack_require__(238);
 
 	module.exports = function run_viz(container, network) {
 
-	  var regl = __webpack_require__(237)({
+	  var regl = __webpack_require__(239)({
 	    extensions: ['angle_instanced_arrays'],
 	    container: container
 	    // pixelRatio: window.devicePixelRatio/10
@@ -179,18 +179,18 @@ module.exports =
 	var calc_spillover_triangles = __webpack_require__(180);
 	var make_matrix_args = __webpack_require__(181);
 	var make_viz_aid_tri_args = __webpack_require__(188);
-	var make_dendro_args = __webpack_require__(190);
-	var make_spillover_args = __webpack_require__(191);
-	var calc_viz_area = __webpack_require__(192);
-	var calc_row_downsampled_mat = __webpack_require__(193);
+	var make_dendro_args = __webpack_require__(192);
+	var make_spillover_args = __webpack_require__(193);
+	var calc_viz_area = __webpack_require__(194);
+	var calc_row_downsampled_mat = __webpack_require__(195);
 
 	/*
 	  Working on using subset of math.js for matrix splicing
 	*/
-	var core = __webpack_require__(194);
+	var core = __webpack_require__(196);
 	var math = core.create();
 
-	math.import(__webpack_require__(207));
+	math.import(__webpack_require__(209));
 
 	// console.log(math)
 
@@ -29987,8 +29987,8 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var m3 = __webpack_require__(189);
-	var color_to_rgba = __webpack_require__(238);
-	var color_table = __webpack_require__(240);
+	var color_to_rgba = __webpack_require__(190);
+	var color_table = __webpack_require__(191);
 
 	module.exports = function make_viz_aid_tri_args(regl, params, inst_rc) {
 
@@ -30215,6 +30215,222 @@ module.exports =
 /* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	/* eslint-disable */
+	var color_table = __webpack_require__(191);
+
+	module.exports = function color_to_rgbs(hex, alpha = 1.0) {
+
+	  /*
+	  Later adjust the
+	  */
+
+	  // hex = hex.replace('#','');
+
+	  var max_val = 256;
+
+	  // console.log(hex)
+	  var inst_rgba;
+
+	  if (hex in color_table) {
+
+	    var inst_rgb = color_table[hex];
+	    inst_rgb.push(alpha);
+
+	    inst_rgba = [inst_rgb[0], inst_rgb[1], inst_rgb[2], alpha];
+	  } else {
+
+	    var c;
+
+	    // console.log('check hex: ' , /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex))
+
+	    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+
+	      c = hex.substring(1).split('');
+	      if (c.length == 3) {
+	        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+	      }
+	      c = '0x' + c.join('');
+
+	      var inst_r = c >> 16 & 255;
+	      var inst_g = c >> 8 & 255;
+	      var inst_b = c & 255;
+
+	      // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+	      inst_rgba = [inst_r / max_val, inst_g / max_val, inst_b / max_val, alpha];
+
+	      // console.log(inst_rgba)
+	    } else {
+
+	      // bad hex, return black
+	      inst_rgba = [0, 0, 0, alpha];
+
+	      // console.log('bad hex')
+	    }
+	  }
+
+	  return inst_rgba;
+		};
+
+/***/ }),
+/* 191 */
+/***/ (function(module, exports) {
+
+	module.exports = {
+	  'aliceblue': [240, 248, 255],
+	  'antiquewhite': [250, 235, 215],
+	  'aqua': [0, 255, 255],
+	  'aquamarine': [127, 255, 212],
+	  'azure': [240, 255, 255],
+	  'beige': [245, 245, 220],
+	  'bisque': [255, 228, 196],
+	  'black': [0, 0, 0],
+	  'blanchedalmond': [255, 235, 205],
+	  'blue': [0, 0, 255],
+	  'blueviolet': [138, 43, 226],
+	  'brown': [165, 42, 42],
+	  'burlywood': [222, 184, 135],
+	  'cadetblue': [95, 158, 160],
+	  'chartreuse': [127, 255, 0],
+	  'chocolate': [210, 105, 30],
+	  'coral': [255, 127, 80],
+	  'cornflowerblue': [100, 149, 237],
+	  'cornsilk': [255, 248, 220],
+	  'crimson': [220, 20, 60],
+	  'cyan': [0, 255, 255],
+	  'darkblue': [0, 0, 139],
+	  'darkcyan': [0, 139, 139],
+	  'darkgoldenrod': [184, 134, 11],
+	  'darkgray': [169, 169, 169],
+	  'darkgreen': [0, 100, 0],
+	  'darkgrey': [169, 169, 169],
+	  'darkkhaki': [189, 183, 107],
+	  'darkmagenta': [139, 0, 139],
+	  'darkolivegreen': [85, 107, 47],
+	  'darkorange': [255, 140, 0],
+	  'darkorchid': [153, 50, 204],
+	  'darkred': [139, 0, 0],
+	  'darksalmon': [233, 150, 122],
+	  'darkseagreen': [143, 188, 143],
+	  'darkslateblue': [72, 61, 139],
+	  'darkslategray': [47, 79, 79],
+	  'darkslategrey': [47, 79, 79],
+	  'darkturquoise': [0, 206, 209],
+	  'darkviolet': [148, 0, 211],
+	  'deeppink': [255, 20, 147],
+	  'deepskyblue': [0, 191, 255],
+	  'dimgray': [105, 105, 105],
+	  'dimgrey': [105, 105, 105],
+	  'dodgerblue': [30, 144, 255],
+	  'firebrick': [178, 34, 34],
+	  'floralwhite': [255, 250, 240],
+	  'forestgreen': [34, 139, 34],
+	  'fuchsia': [255, 0, 255],
+	  'gainsboro': [220, 220, 220],
+	  'ghostwhite': [248, 248, 255],
+	  'gold': [255, 215, 0],
+	  'goldenrod': [218, 165, 32],
+	  'gray': [128, 128, 128],
+	  'green': [0, 128, 0],
+	  'greenyellow': [173, 255, 47],
+	  'grey': [128, 128, 128],
+	  'honeydew': [240, 255, 240],
+	  'hotpink': [255, 105, 180],
+	  'indianred': [205, 92, 92],
+	  'indigo': [75, 0, 130],
+	  'ivory': [255, 255, 240],
+	  'khaki': [240, 230, 140],
+	  'lavender': [230, 230, 250],
+	  'lavenderblush': [255, 240, 245],
+	  'lawngreen': [124, 252, 0],
+	  'lemonchiffon': [255, 250, 205],
+	  'lightblue': [173, 216, 230],
+	  'lightcoral': [240, 128, 128],
+	  'lightcyan': [224, 255, 255],
+	  'lightgoldenrodyellow': [250, 250, 210],
+	  'lightgray': [211, 211, 211],
+	  'lightgreen': [144, 238, 144],
+	  'lightgrey': [211, 211, 211],
+	  'lightpink': [255, 182, 193],
+	  'lightsalmon': [255, 160, 122],
+	  'lightseagreen': [32, 178, 170],
+	  'lightskyblue': [135, 206, 250],
+	  'lightslategray': [119, 136, 153],
+	  'lightslategrey': [119, 136, 153],
+	  'lightsteelblue': [176, 196, 222],
+	  'lightyellow': [255, 255, 224],
+	  'lime': [0, 255, 0],
+	  'limegreen': [50, 205, 50],
+	  'linen': [250, 240, 230],
+	  'magenta': [255, 0, 255],
+	  'maroon': [128, 0, 0],
+	  'mediumaquamarine': [102, 205, 170],
+	  'mediumblue': [0, 0, 205],
+	  'mediumorchid': [186, 85, 211],
+	  'mediumpurple': [147, 112, 219],
+	  'mediumseagreen': [60, 179, 113],
+	  'mediumslateblue': [123, 104, 238],
+	  'mediumspringgreen': [0, 250, 154],
+	  'mediumturquoise': [72, 209, 204],
+	  'mediumvioletred': [199, 21, 133],
+	  'midnightblue': [25, 25, 112],
+	  'mintcream': [245, 255, 250],
+	  'mistyrose': [255, 228, 225],
+	  'moccasin': [255, 228, 181],
+	  'navajowhite': [255, 222, 173],
+	  'navy': [0, 0, 128],
+	  'oldlace': [253, 245, 230],
+	  'olive': [128, 128, 0],
+	  'olivedrab': [107, 142, 35],
+	  'orange': [255, 165, 0],
+	  'orangered': [255, 69, 0],
+	  'orchid': [218, 112, 214],
+	  'palegoldenrod': [238, 232, 170],
+	  'palegreen': [152, 251, 152],
+	  'paleturquoise': [175, 238, 238],
+	  'palevioletred': [219, 112, 147],
+	  'papayawhip': [255, 239, 213],
+	  'peachpuff': [255, 218, 185],
+	  'peru': [205, 133, 63],
+	  'pink': [255, 192, 203],
+	  'plum': [221, 160, 221],
+	  'powderblue': [176, 224, 230],
+	  'purple': [128, 0, 128],
+	  'red': [255, 0, 0],
+	  'rosybrown': [188, 143, 143],
+	  'royalblue': [65, 105, 225],
+	  'saddlebrown': [139, 69, 19],
+	  'salmon': [250, 128, 114],
+	  'sandybrown': [244, 164, 96],
+	  'seagreen': [46, 139, 87],
+	  'seashell': [255, 245, 238],
+	  'sienna': [160, 82, 45],
+	  'silver': [192, 192, 192],
+	  'skyblue': [135, 206, 235],
+	  'slateblue': [106, 90, 205],
+	  'slategray': [112, 128, 144],
+	  'slategrey': [112, 128, 144],
+	  'snow': [255, 250, 250],
+	  'springgreen': [0, 255, 127],
+	  'steelblue': [70, 130, 180],
+	  'tan': [210, 180, 140],
+	  'teal': [0, 128, 128],
+	  'thistle': [216, 191, 216],
+	  'tomato': [255, 99, 71],
+	  'transparent': [0, 0, 0, 0],
+	  'turquoise': [64, 224, 208],
+	  'violet': [238, 130, 238],
+	  'wheat': [245, 222, 179],
+	  'white': [255, 255, 255],
+	  'whitesmoke': [245, 245, 245],
+	  'yellow': [255, 255, 0],
+	  'yellowgreen': [154, 205, 50],
+	  'rebeccapurple': [102, 51, 153, 1]
+		};
+
+/***/ }),
+/* 192 */
+/***/ (function(module, exports, __webpack_require__) {
+
 	var m3 = __webpack_require__(189);
 
 	module.exports = function draw_mat_labels(regl, num_rows, inst_rc) {
@@ -30326,7 +30542,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 191 */
+/* 193 */
 /***/ (function(module, exports) {
 
 	module.exports = function draw_spillover_rects(regl, zoom_function, inst_depth, inst_color = [1, 1, 1, 1]) {
@@ -30374,7 +30590,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 192 */
+/* 194 */
 /***/ (function(module, exports) {
 
 	module.exports = function calc_viz_area(params) {
@@ -30429,7 +30645,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 193 */
+/* 195 */
 /***/ (function(module, exports) {
 
 	module.exports = function calc_row_downsampled_mat(params, run_downsampling = false) {
@@ -30488,21 +30704,21 @@ module.exports =
 		};
 
 /***/ }),
-/* 194 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(195);
+	module.exports = __webpack_require__(197);
 
 /***/ }),
-/* 195 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isFactory = __webpack_require__(196).isFactory;
-	var typedFactory = __webpack_require__(198);
-	var emitter = __webpack_require__(202);
+	var isFactory = __webpack_require__(198).isFactory;
+	var typedFactory = __webpack_require__(200);
+	var emitter = __webpack_require__(204);
 
-	var importFactory = __webpack_require__(204);
-	var configFactory = __webpack_require__(206);
+	var importFactory = __webpack_require__(206);
+	var configFactory = __webpack_require__(208);
 
 	/**
 	 * Math.js core. Creates a new, empty math.js instance
@@ -30628,12 +30844,12 @@ module.exports =
 	};
 
 /***/ }),
-/* 196 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isBigNumber = __webpack_require__(197);
+	var isBigNumber = __webpack_require__(199);
 
 	/**
 	 * Clone an object
@@ -30892,7 +31108,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 197 */
+/* 199 */
 /***/ (function(module, exports) {
 
 	/**
@@ -30905,13 +31121,13 @@ module.exports =
 	};
 
 /***/ }),
-/* 198 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var typedFunction = __webpack_require__(199);
-	var digits = __webpack_require__(200).digits;
-	var isBigNumber = __webpack_require__(197);
-	var isMatrix = __webpack_require__(201);
+	var typedFunction = __webpack_require__(201);
+	var digits = __webpack_require__(202).digits;
+	var isBigNumber = __webpack_require__(199);
+	var isMatrix = __webpack_require__(203);
 
 	// returns a new instance of typed-function
 	var createTyped = function () {
@@ -31223,7 +31439,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 199 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -32577,7 +32793,7 @@ module.exports =
 	});
 
 /***/ }),
-/* 200 */
+/* 202 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -33068,7 +33284,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 201 */
+/* 203 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -33085,10 +33301,10 @@ module.exports =
 	};
 
 /***/ }),
-/* 202 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var Emitter = __webpack_require__(203);
+	var Emitter = __webpack_require__(205);
 
 	/**
 	 * Extend given object with emitter functions `on`, `off`, `once`, `emit`
@@ -33109,7 +33325,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 203 */
+/* 205 */
 /***/ (function(module, exports) {
 
 	function E() {
@@ -33177,15 +33393,15 @@ module.exports =
 		module.exports = E;
 
 /***/ }),
-/* 204 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var lazy = __webpack_require__(196).lazy;
-	var isFactory = __webpack_require__(196).isFactory;
-	var traverse = __webpack_require__(196).traverse;
-	var ArgumentsError = __webpack_require__(205);
+	var lazy = __webpack_require__(198).lazy;
+	var isFactory = __webpack_require__(198).isFactory;
+	var traverse = __webpack_require__(198).traverse;
+	var ArgumentsError = __webpack_require__(207);
 
 	function factory(type, config, load, typed, math) {
 	  /**
@@ -33469,7 +33685,7 @@ module.exports =
 	exports.lazy = true;
 
 /***/ }),
-/* 205 */
+/* 207 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -33507,12 +33723,12 @@ module.exports =
 	module.exports = ArgumentsError;
 
 /***/ }),
-/* 206 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var object = __webpack_require__(196);
+	var object = __webpack_require__(198);
 
 	function factory(type, config, load, typed, math) {
 	  var MATRIX = ['Matrix', 'Array']; // valid values for option matrix
@@ -33632,16 +33848,16 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 207 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var deepMap = __webpack_require__(208);
+	var deepMap = __webpack_require__(210);
 
 	function factory(type, config, load, typed) {
-	  var gamma = load(__webpack_require__(209));
-	  var latex = __webpack_require__(217);
+	  var gamma = load(__webpack_require__(211));
+	  var latex = __webpack_require__(219);
 
 	  /**
 	   * Compute the factorial of a value
@@ -33698,7 +33914,7 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 208 */
+/* 210 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -33728,17 +33944,17 @@ module.exports =
 	};
 
 /***/ }),
-/* 209 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var deepMap = __webpack_require__(208);
-	var isInteger = __webpack_require__(200).isInteger;
+	var deepMap = __webpack_require__(210);
+	var isInteger = __webpack_require__(202).isInteger;
 
 	function factory(type, config, load, typed) {
-	  var multiply = load(__webpack_require__(210));
-	  var pow = load(__webpack_require__(225));
+	  var multiply = load(__webpack_require__(212));
+	  var pow = load(__webpack_require__(227));
 
 	  /**
 	   * Compute the gamma function of a value using Lanczos approximation for
@@ -33914,24 +34130,24 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 210 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var extend = __webpack_require__(196).extend;
-	var array = __webpack_require__(211);
+	var extend = __webpack_require__(198).extend;
+	var array = __webpack_require__(213);
 
 	function factory(type, config, load, typed) {
-	  var latex = __webpack_require__(217);
+	  var latex = __webpack_require__(219);
 
-	  var matrix = load(__webpack_require__(218));
-	  var addScalar = load(__webpack_require__(219));
-	  var multiplyScalar = load(__webpack_require__(220));
-	  var equalScalar = load(__webpack_require__(221));
+	  var matrix = load(__webpack_require__(220));
+	  var addScalar = load(__webpack_require__(221));
+	  var multiplyScalar = load(__webpack_require__(222));
+	  var equalScalar = load(__webpack_require__(223));
 
-	  var algorithm11 = load(__webpack_require__(223));
-	  var algorithm14 = load(__webpack_require__(224));
+	  var algorithm11 = load(__webpack_require__(225));
+	  var algorithm14 = load(__webpack_require__(226));
 
 	  var DenseMatrix = type.DenseMatrix;
 	  var SparseMatrix = type.SparseMatrix;
@@ -34880,18 +35096,18 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 211 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var number = __webpack_require__(200);
-	var string = __webpack_require__(212);
-	var object = __webpack_require__(196);
-	var types = __webpack_require__(214);
+	var number = __webpack_require__(202);
+	var string = __webpack_require__(214);
+	var object = __webpack_require__(198);
+	var types = __webpack_require__(216);
 
-	var DimensionError = __webpack_require__(215);
-	var IndexError = __webpack_require__(216);
+	var DimensionError = __webpack_require__(217);
+	var IndexError = __webpack_require__(218);
 
 	/**
 	 * Calculate the size of a multi dimensional array.
@@ -35401,14 +35617,14 @@ module.exports =
 		exports.isArray = Array.isArray;
 
 /***/ }),
-/* 212 */
+/* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var formatNumber = __webpack_require__(200).format;
-	var formatBigNumber = __webpack_require__(213).format;
-	var isBigNumber = __webpack_require__(197);
+	var formatNumber = __webpack_require__(202).format;
+	var formatBigNumber = __webpack_require__(215).format;
+	var isBigNumber = __webpack_require__(199);
 
 	/**
 	 * Test whether value is a string
@@ -35602,7 +35818,7 @@ module.exports =
 		}
 
 /***/ }),
-/* 213 */
+/* 215 */
 /***/ (function(module, exports) {
 
 	/**
@@ -35786,7 +36002,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 214 */
+/* 216 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -35836,7 +36052,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 215 */
+/* 217 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -35873,7 +36089,7 @@ module.exports =
 	module.exports = DimensionError;
 
 /***/ }),
-/* 216 */
+/* 218 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -35922,7 +36138,7 @@ module.exports =
 	module.exports = IndexError;
 
 /***/ }),
-/* 217 */
+/* 219 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -36029,7 +36245,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 218 */
+/* 220 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -36122,7 +36338,7 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 219 */
+/* 221 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -36178,7 +36394,7 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -36240,13 +36456,13 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var nearlyEqual = __webpack_require__(200).nearlyEqual;
-	var bigNearlyEqual = __webpack_require__(222);
+	var nearlyEqual = __webpack_require__(202).nearlyEqual;
+	var bigNearlyEqual = __webpack_require__(224);
 
 	function factory(type, config, load, typed) {
 
@@ -36298,7 +36514,7 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 222 */
+/* 224 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -36347,14 +36563,14 @@ module.exports =
 	};
 
 /***/ }),
-/* 223 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
 	function factory(type, config, load, typed) {
 
-	  var equalScalar = load(__webpack_require__(221));
+	  var equalScalar = load(__webpack_require__(223));
 
 	  var SparseMatrix = type.SparseMatrix;
 
@@ -36460,12 +36676,12 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 224 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var clone = __webpack_require__(196).clone;
+	var clone = __webpack_require__(198).clone;
 
 	function factory(type, config, load, typed) {
 
@@ -36546,21 +36762,21 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 225 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var isInteger = __webpack_require__(200).isInteger;
-	var size = __webpack_require__(211).size;
+	var isInteger = __webpack_require__(202).isInteger;
+	var size = __webpack_require__(213).size;
 
 	function factory(type, config, load, typed) {
-	  var latex = __webpack_require__(217);
-	  var eye = load(__webpack_require__(226));
-	  var multiply = load(__webpack_require__(210));
-	  var matrix = load(__webpack_require__(218));
-	  var fraction = load(__webpack_require__(227));
-	  var number = load(__webpack_require__(228));
+	  var latex = __webpack_require__(219);
+	  var eye = load(__webpack_require__(228));
+	  var multiply = load(__webpack_require__(212));
+	  var matrix = load(__webpack_require__(220));
+	  var fraction = load(__webpack_require__(229));
+	  var number = load(__webpack_require__(230));
 
 	  /**
 	   * Calculates the power of x to y, `x ^ y`.
@@ -36741,17 +36957,17 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 226 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var array = __webpack_require__(211);
-	var isInteger = __webpack_require__(200).isInteger;
+	var array = __webpack_require__(213);
+	var isInteger = __webpack_require__(202).isInteger;
 
 	function factory(type, config, load, typed) {
 
-	  var matrix = load(__webpack_require__(218));
+	  var matrix = load(__webpack_require__(220));
 
 	  /**
 	   * Create a 2-dimensional identity matrix with size m x n or n x n.
@@ -36892,12 +37108,12 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 227 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var deepMap = __webpack_require__(208);
+	var deepMap = __webpack_require__(210);
 
 	function factory(type, config, load, typed) {
 	  /**
@@ -36966,12 +37182,12 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 228 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var deepMap = __webpack_require__(208);
+	var deepMap = __webpack_require__(210);
 
 	function factory(type, config, load, typed) {
 	  /**
@@ -37050,13 +37266,13 @@ module.exports =
 	exports.factory = factory;
 
 /***/ }),
-/* 229 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var draw_matrix_components = __webpack_require__(230);
-	var draw_row_components = __webpack_require__(231);
-	var draw_col_components = __webpack_require__(233);
-	var draw_spillover_components = __webpack_require__(235);
+	var draw_matrix_components = __webpack_require__(232);
+	var draw_row_components = __webpack_require__(233);
+	var draw_col_components = __webpack_require__(235);
+	var draw_spillover_components = __webpack_require__(237);
 
 	module.exports = function draw_commands(regl, params, slow_draw = false) {
 
@@ -37079,7 +37295,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 230 */
+/* 232 */
 /***/ (function(module, exports) {
 
 	// var filter_visible_mat = require('./filter_visible_mat');
@@ -37110,11 +37326,11 @@ module.exports =
 		};
 
 /***/ }),
-/* 231 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var make_row_text_triangle_args = __webpack_require__(232);
-	var calc_viz_area = __webpack_require__(192);
+	var make_row_text_triangle_args = __webpack_require__(234);
+	var calc_viz_area = __webpack_require__(194);
 	var calc_row_text_triangles = __webpack_require__(4);
 
 	module.exports = function draw_row_components(regl, params, slow_draw = false) {
@@ -37156,7 +37372,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 232 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var m3 = __webpack_require__(189);
@@ -37253,11 +37469,11 @@ module.exports =
 		};
 
 /***/ }),
-/* 233 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	var make_col_text_triangle_args = __webpack_require__(234);
-	var calc_viz_area = __webpack_require__(192);
+	var make_col_text_triangle_args = __webpack_require__(236);
+	var calc_viz_area = __webpack_require__(194);
 	var calc_col_text_triangles = __webpack_require__(98);
 
 	module.exports = function draw_col_components(regl, params, slow_draw = false) {
@@ -37302,7 +37518,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 234 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var m3 = __webpack_require__(189);
@@ -37442,7 +37658,7 @@ module.exports =
 		};
 
 /***/ }),
-/* 235 */
+/* 237 */
 /***/ (function(module, exports) {
 
 	module.exports = function draw_spillover_components(regl, params) {
@@ -37460,7 +37676,7 @@ module.exports =
 	};
 
 /***/ }),
-/* 236 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;//     Underscore.js 1.8.3
@@ -39028,7 +39244,7 @@ module.exports =
 	}).call(this);
 
 /***/ }),
-/* 237 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	(function (global, factory) {
@@ -47296,223 +47512,6 @@ module.exports =
 	  return wrapREGL;
 	});
 	//# sourceMappingURL=regl.js.map
-
-/***/ }),
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	/* eslint-disable */
-	var color_table = __webpack_require__(240);
-
-	module.exports = function color_to_rgbs(hex, alpha = 1.0) {
-
-	  /*
-	  Later adjust the
-	  */
-
-	  // hex = hex.replace('#','');
-
-	  var max_val = 256;
-
-	  // console.log(hex)
-	  var inst_rgba;
-
-	  if (hex in color_table) {
-
-	    var inst_rgb = color_table[hex];
-	    inst_rgb.push(alpha);
-
-	    inst_rgba = [inst_rgb[0], inst_rgb[1], inst_rgb[2], alpha];
-	  } else {
-
-	    var c;
-
-	    // console.log('check hex: ' , /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex))
-
-	    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
-
-	      c = hex.substring(1).split('');
-	      if (c.length == 3) {
-	        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
-	      }
-	      c = '0x' + c.join('');
-
-	      var inst_r = c >> 16 & 255;
-	      var inst_g = c >> 8 & 255;
-	      var inst_b = c & 255;
-
-	      // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
-	      inst_rgba = [inst_r / max_val, inst_g / max_val, inst_b / max_val, alpha];
-
-	      // console.log(inst_rgba)
-	    } else {
-
-	      // bad hex, return black
-	      inst_rgba = [0, 0, 0, alpha];
-
-	      // console.log('bad hex')
-	    }
-	  }
-
-	  return inst_rgba;
-		};
-
-/***/ }),
-/* 239 */,
-/* 240 */
-/***/ (function(module, exports) {
-
-	module.exports = {
-	  'aliceblue': [240, 248, 255],
-	  'antiquewhite': [250, 235, 215],
-	  'aqua': [0, 255, 255],
-	  'aquamarine': [127, 255, 212],
-	  'azure': [240, 255, 255],
-	  'beige': [245, 245, 220],
-	  'bisque': [255, 228, 196],
-	  'black': [0, 0, 0],
-	  'blanchedalmond': [255, 235, 205],
-	  'blue': [0, 0, 255],
-	  'blueviolet': [138, 43, 226],
-	  'brown': [165, 42, 42],
-	  'burlywood': [222, 184, 135],
-	  'cadetblue': [95, 158, 160],
-	  'chartreuse': [127, 255, 0],
-	  'chocolate': [210, 105, 30],
-	  'coral': [255, 127, 80],
-	  'cornflowerblue': [100, 149, 237],
-	  'cornsilk': [255, 248, 220],
-	  'crimson': [220, 20, 60],
-	  'cyan': [0, 255, 255],
-	  'darkblue': [0, 0, 139],
-	  'darkcyan': [0, 139, 139],
-	  'darkgoldenrod': [184, 134, 11],
-	  'darkgray': [169, 169, 169],
-	  'darkgreen': [0, 100, 0],
-	  'darkgrey': [169, 169, 169],
-	  'darkkhaki': [189, 183, 107],
-	  'darkmagenta': [139, 0, 139],
-	  'darkolivegreen': [85, 107, 47],
-	  'darkorange': [255, 140, 0],
-	  'darkorchid': [153, 50, 204],
-	  'darkred': [139, 0, 0],
-	  'darksalmon': [233, 150, 122],
-	  'darkseagreen': [143, 188, 143],
-	  'darkslateblue': [72, 61, 139],
-	  'darkslategray': [47, 79, 79],
-	  'darkslategrey': [47, 79, 79],
-	  'darkturquoise': [0, 206, 209],
-	  'darkviolet': [148, 0, 211],
-	  'deeppink': [255, 20, 147],
-	  'deepskyblue': [0, 191, 255],
-	  'dimgray': [105, 105, 105],
-	  'dimgrey': [105, 105, 105],
-	  'dodgerblue': [30, 144, 255],
-	  'firebrick': [178, 34, 34],
-	  'floralwhite': [255, 250, 240],
-	  'forestgreen': [34, 139, 34],
-	  'fuchsia': [255, 0, 255],
-	  'gainsboro': [220, 220, 220],
-	  'ghostwhite': [248, 248, 255],
-	  'gold': [255, 215, 0],
-	  'goldenrod': [218, 165, 32],
-	  'gray': [128, 128, 128],
-	  'green': [0, 128, 0],
-	  'greenyellow': [173, 255, 47],
-	  'grey': [128, 128, 128],
-	  'honeydew': [240, 255, 240],
-	  'hotpink': [255, 105, 180],
-	  'indianred': [205, 92, 92],
-	  'indigo': [75, 0, 130],
-	  'ivory': [255, 255, 240],
-	  'khaki': [240, 230, 140],
-	  'lavender': [230, 230, 250],
-	  'lavenderblush': [255, 240, 245],
-	  'lawngreen': [124, 252, 0],
-	  'lemonchiffon': [255, 250, 205],
-	  'lightblue': [173, 216, 230],
-	  'lightcoral': [240, 128, 128],
-	  'lightcyan': [224, 255, 255],
-	  'lightgoldenrodyellow': [250, 250, 210],
-	  'lightgray': [211, 211, 211],
-	  'lightgreen': [144, 238, 144],
-	  'lightgrey': [211, 211, 211],
-	  'lightpink': [255, 182, 193],
-	  'lightsalmon': [255, 160, 122],
-	  'lightseagreen': [32, 178, 170],
-	  'lightskyblue': [135, 206, 250],
-	  'lightslategray': [119, 136, 153],
-	  'lightslategrey': [119, 136, 153],
-	  'lightsteelblue': [176, 196, 222],
-	  'lightyellow': [255, 255, 224],
-	  'lime': [0, 255, 0],
-	  'limegreen': [50, 205, 50],
-	  'linen': [250, 240, 230],
-	  'magenta': [255, 0, 255],
-	  'maroon': [128, 0, 0],
-	  'mediumaquamarine': [102, 205, 170],
-	  'mediumblue': [0, 0, 205],
-	  'mediumorchid': [186, 85, 211],
-	  'mediumpurple': [147, 112, 219],
-	  'mediumseagreen': [60, 179, 113],
-	  'mediumslateblue': [123, 104, 238],
-	  'mediumspringgreen': [0, 250, 154],
-	  'mediumturquoise': [72, 209, 204],
-	  'mediumvioletred': [199, 21, 133],
-	  'midnightblue': [25, 25, 112],
-	  'mintcream': [245, 255, 250],
-	  'mistyrose': [255, 228, 225],
-	  'moccasin': [255, 228, 181],
-	  'navajowhite': [255, 222, 173],
-	  'navy': [0, 0, 128],
-	  'oldlace': [253, 245, 230],
-	  'olive': [128, 128, 0],
-	  'olivedrab': [107, 142, 35],
-	  'orange': [255, 165, 0],
-	  'orangered': [255, 69, 0],
-	  'orchid': [218, 112, 214],
-	  'palegoldenrod': [238, 232, 170],
-	  'palegreen': [152, 251, 152],
-	  'paleturquoise': [175, 238, 238],
-	  'palevioletred': [219, 112, 147],
-	  'papayawhip': [255, 239, 213],
-	  'peachpuff': [255, 218, 185],
-	  'peru': [205, 133, 63],
-	  'pink': [255, 192, 203],
-	  'plum': [221, 160, 221],
-	  'powderblue': [176, 224, 230],
-	  'purple': [128, 0, 128],
-	  'red': [255, 0, 0],
-	  'rosybrown': [188, 143, 143],
-	  'royalblue': [65, 105, 225],
-	  'saddlebrown': [139, 69, 19],
-	  'salmon': [250, 128, 114],
-	  'sandybrown': [244, 164, 96],
-	  'seagreen': [46, 139, 87],
-	  'seashell': [255, 245, 238],
-	  'sienna': [160, 82, 45],
-	  'silver': [192, 192, 192],
-	  'skyblue': [135, 206, 235],
-	  'slateblue': [106, 90, 205],
-	  'slategray': [112, 128, 144],
-	  'slategrey': [112, 128, 144],
-	  'snow': [255, 250, 250],
-	  'springgreen': [0, 255, 127],
-	  'steelblue': [70, 130, 180],
-	  'tan': [210, 180, 140],
-	  'teal': [0, 128, 128],
-	  'thistle': [216, 191, 216],
-	  'tomato': [255, 99, 71],
-	  'transparent': [0, 0, 0, 0],
-	  'turquoise': [64, 224, 208],
-	  'violet': [238, 130, 238],
-	  'wheat': [245, 222, 179],
-	  'white': [255, 255, 255],
-	  'whitesmoke': [245, 245, 245],
-	  'yellow': [255, 255, 0],
-	  'yellowgreen': [154, 205, 50],
-	  'rebeccapurple': [102, 51, 153, 1]
-		};
 
 /***/ })
 /******/ ]);

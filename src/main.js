@@ -1,6 +1,6 @@
 /*
 
-  Version 0.1.4
+  Version 0.2.0
 
  */
 
@@ -15,7 +15,7 @@ var run_viz = require('./run_viz');
 function Clustergrammer2(args){
 
   console.log('################################');
-  console.log('version 0.1.6');
+  console.log('version 0.2.0');
   console.log('################################');
 
   var network = args.network;
