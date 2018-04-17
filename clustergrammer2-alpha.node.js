@@ -47,7 +47,7 @@ module.exports =
 
 	/*
 
-	  Version 0.2.0
+	  Version 0.2.1
 
 	 */
 
@@ -30052,13 +30052,21 @@ module.exports =
 	  var color_arr = [];
 	  for (i = 0; i < num_labels; i++) {
 
-	    // // get random colors from color dictionary
-	    // var inst_color = color_names[i];
-
 	    var inst_cat = params.network[inst_rc + '_nodes'][i]['cat-0'];
 	    // console.log(inst_cat)
 
-	    var inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+	    /*
+	      Added fallback color
+	    */
+	    var inst_color;
+	    if ('cat_colors' in params.network) {
+
+	      inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+	    } else {
+
+	      // get random colors from color dictionary
+	      inst_color = color_names[i];
+	    }
 
 	    color_arr[i] = color_to_rgba(inst_color, 1);
 	  }
