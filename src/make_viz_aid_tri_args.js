@@ -7,13 +7,13 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
   Hacking Categories Plan
   ------------------------
-  Make a buffer of vec4's that will be rgba info for the different category
-  colors. Then pass this as an attribute (or varying) to the fragment shader.
+  Make a buffer of vec4's that will pass rgba data for the different category
+  colors. Then pass this as an attribute (or varying?) to the fragment shader.
 
   */
 
   // var inst_rgba = color_to_rgba('#ff0000', 0.5);
-  var inst_rgba = color_to_rgba('blue', 0.5);
+  var inst_rgba = color_to_rgba('purple', 0.95);
 
   console.log( inst_rgba );
 
@@ -60,7 +60,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
     vert: `
       precision highp float;
-      attribute vec2 position;
+      attribute vec2 ini_position;
       attribute float y_offset_att;
 
       uniform mat3 mat_rotate;
@@ -73,7 +73,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
       void main () {
 
-        new_position = vec3(position, 0);
+        new_position = vec3(ini_position, 0);
 
         vec_translate = vec3(x_offset_uni, y_offset_att, 0);
 
@@ -104,12 +104,15 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
     `,
 
+    // passing a fixed value for the triangle position
     attributes: {
-      position: [
+      ini_position: [
         [row_width,  row_height/2],
         [row_width/2,  0.0],
         [row_width, -row_height/2],
       ],
+
+      // pass y_offset_att buffer
       y_offset_att: {
         buffer: y_offset_buffer,
         divisor: 1

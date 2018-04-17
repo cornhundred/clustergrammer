@@ -1,4 +1,4 @@
-var color_table = require('./color_table.json')
+var color_table = require('./color_table.js')
 
 module.exports = function color_to_rgbs(hex, alpha=1.0){
 
