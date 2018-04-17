@@ -30013,7 +30013,8 @@ module.exports =
 	  var x_offset = -0.5 - row_width;
 
 	  var y_offset_array = [];
-	  for (var i = 0; i < num_labels; i++) {
+	  var i;
+	  for (i = 0; i < num_labels; i++) {
 	    y_offset_array[i] = 0.5 - row_height / 2 - i * row_height;
 	  }
 
@@ -30030,8 +30031,8 @@ module.exports =
 	  /////////////////////////////////
 
 	  var color_arr = [];
-	  for (var i = 0; i < num_labels; i++) {
-	    inst_color = color_names[i];
+	  for (i = 0; i < num_labels; i++) {
+	    var inst_color = color_names[i];
 	    color_arr[i] = color_to_rgba(inst_color, 1);
 	  }
 
@@ -30042,6 +30043,8 @@ module.exports =
 	  });
 
 	  color_buffer(color_arr);
+
+	  params.color_arr = color_arr;
 
 	  /////////////////////////////////
 	  // Rotation and Scaling
