@@ -3,9 +3,9 @@ module.exports = function calc_row_downsampled_mat(params, run_downsampling=fals
   // console.log('calc_row_downsampled_mat');
 
   var mat_data = params.mat_data;
-  var row_pos = params.row_positions;
-  var ds_mat = [];
-  var inst_pos;
+  // var row_pos = params.row_positions;
+  // var ds_mat = [];
+  // var inst_pos;
 
   if (run_downsampling){
     /*
@@ -35,7 +35,7 @@ module.exports = function calc_row_downsampled_mat(params, run_downsampling=fals
   */
 
   // make 10 positions
-  var new_pos = _.range(-0.5, 0.5, 0.1);
+  // var new_pos = _.range(-0.5, 0.5, 0.1);
   // console.log(new_pos.length);
 
   // mod_value = 0.1;

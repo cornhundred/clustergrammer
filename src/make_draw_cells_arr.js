@@ -23,9 +23,9 @@ module.exports = function make_draw_cells_arr(regl, params){
   zooming to speed up interaction.
   */
 
-  _.each(arrs.opacity_arr, function(d){
+  // _.each(arrs.opacity_arr, function(d){
     // console.log(d)
-  })
+  // })
 
   return arrs;
 

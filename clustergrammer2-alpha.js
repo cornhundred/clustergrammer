@@ -16281,7 +16281,7 @@ var Clustergrammer2 =
 	    Working on improving behavior for offset canvas
 	    */
 
-	    var scrollTop = window.pageYOffset !== undefined ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+	    // var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
 	    // console.log(event)
 	    // console.log(event.target.offsetLeft, event.target.offsetTop)
@@ -29837,9 +29837,9 @@ var Clustergrammer2 =
 	  zooming to speed up interaction.
 	  */
 
-	  _.each(arrs.opacity_arr, function (d) {
-	    // console.log(d)
-	  });
+	  // _.each(arrs.opacity_arr, function(d){
+	  // console.log(d)
+	  // })
 
 	  return arrs;
 		};
@@ -29886,7 +29886,7 @@ var Clustergrammer2 =
 	  node_canvas_pos.x_arr = x_arr;
 	  node_canvas_pos.y_arr = y_arr;
 
-	  var canvas_pos = params.canvas_pos;
+	  // var canvas_pos = params.canvas_pos;
 
 	  // pass along row and col node information
 	  var row_nodes = network.row_nodes;
@@ -29992,7 +29992,7 @@ var Clustergrammer2 =
 	  // var inst_rgba = color_to_rgba('#ff0000', 0.5);
 	  var inst_rgba = color_to_rgba('purple', 0.95);
 
-	  console.log(inst_rgba);
+	  // console.log( inst_rgba );
 
 	  var num_rows = params['num_' + inst_rc];
 
@@ -30361,9 +30361,9 @@ var Clustergrammer2 =
 	  // console.log('calc_row_downsampled_mat');
 
 	  var mat_data = params.mat_data;
-	  var row_pos = params.row_positions;
-	  var ds_mat = [];
-	  var inst_pos;
+	  // var row_pos = params.row_positions;
+	  // var ds_mat = [];
+	  // var inst_pos;
 
 	  if (run_downsampling) {
 	    /*
@@ -30393,7 +30393,7 @@ var Clustergrammer2 =
 	  */
 
 	  // make 10 positions
-	  var new_pos = _.range(-0.5, 0.5, 0.1);
+	  // var new_pos = _.range(-0.5, 0.5, 0.1);
 	  // console.log(new_pos.length);
 
 	  // mod_value = 0.1;
@@ -47225,6 +47225,7 @@ var Clustergrammer2 =
 /* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
+	/* eslint-disable */
 	var color_table = __webpack_require__(240);
 
 	module.exports = function color_to_rgbs(hex, alpha = 1.0) {
@@ -47233,11 +47234,14 @@ var Clustergrammer2 =
 	  Later adjust the
 	  */
 
+	  var inst_rgba;
+
 	  if (hex in color_table) {
 
 	    var inst_rgb = color_table[hex];
 	    inst_rgb.push(alpha);
-	    return [inst_rgb[0], inst_rgb[1], inst_rgb[2], alpha];
+
+	    inst_rgba = [inst_rgb[0], inst_rgb[1], inst_rgb[2], alpha];
 	  } else {
 
 	    var c;
@@ -47253,12 +47257,14 @@ var Clustergrammer2 =
 	      var inst_b = c & 255;
 
 	      // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
-	      return [inst_r, inst_g, inst_b, alpha];
+	      inst_rgba = [inst_r, inst_g, inst_b, alpha];
 	    }
 
 	    // bad hex, return black
-	    return [0, 0, 0, alpha];
+	    inst_rgba = [0, 0, 0, alpha];
 	  }
+
+	  return inst_rgba;
 		};
 
 /***/ }),

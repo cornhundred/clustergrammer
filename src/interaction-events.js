@@ -56,7 +56,7 @@ function interactionEvents (opts) {
     */
 
 
-    var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
+    // var scrollTop = (window.pageYOffset !== undefined) ? window.pageYOffset : (document.documentElement || document.body.parentNode || document.body).scrollTop;
 
     // console.log(event)
     // console.log(event.target.offsetLeft, event.target.offsetTop)

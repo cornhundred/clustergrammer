@@ -40,7 +40,7 @@ module.exports = function make_position_arr(params){
   node_canvas_pos.x_arr = x_arr;
   node_canvas_pos.y_arr = y_arr;
 
-  var canvas_pos = params.canvas_pos;
+  // var canvas_pos = params.canvas_pos;
 
   // pass along row and col node information
   var row_nodes = network.row_nodes;

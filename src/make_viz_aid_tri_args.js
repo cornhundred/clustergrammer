@@ -15,7 +15,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
   // var inst_rgba = color_to_rgba('#ff0000', 0.5);
   var inst_rgba = color_to_rgba('purple', 0.95);
 
-  console.log( inst_rgba );
+  // console.log( inst_rgba );
 
   var num_rows = params['num_'+inst_rc];
 
