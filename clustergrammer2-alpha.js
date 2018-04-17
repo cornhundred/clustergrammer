@@ -47,7 +47,7 @@ var Clustergrammer2 =
 
 	/*
 
-	  Version 0.2.2
+	  Version 0.2.3
 
 	 */
 
@@ -62,7 +62,7 @@ var Clustergrammer2 =
 	function Clustergrammer2(args) {
 
 	  console.log('################################');
-	  console.log('version 0.2.2');
+	  console.log('version 0.2.3');
 	  console.log('################################');
 
 	  var network = args.network;
@@ -30066,16 +30066,16 @@ var Clustergrammer2 =
 	          inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
 	        } catch (err) {
 	          // get random colors from color dictionary
-	          inst_color = color_names[i];
+	          inst_color = 'white';
 	        }
 	      } else {
 	        // get random colors from color dictionary
-	        inst_color = color_names[i];
+	        inst_color = 'white';
 	      }
 	    } else {
 
 	      // get random colors from color dictionary
-	      inst_color = color_names[i];
+	      inst_color = 'white';
 	    }
 
 	    color_arr[i] = color_to_rgba(inst_color, 1);

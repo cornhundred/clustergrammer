@@ -83,17 +83,17 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
         }
         catch(err){
           // get random colors from color dictionary
-          inst_color = color_names[i];
+          inst_color = 'white';
         }
       } else {
         // get random colors from color dictionary
-        inst_color = color_names[i];
+        inst_color = 'white';
       }
 
     } else {
 
       // get random colors from color dictionary
-      inst_color = color_names[i];
+      inst_color = 'white';
     }
 
     color_arr[i] = color_to_rgba(inst_color, 1);
