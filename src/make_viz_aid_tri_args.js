@@ -57,7 +57,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
       uniform mat3 mat_rotate;
       uniform mat3 scale_y;
       uniform mat4 zoom;
-      uniform float x_offset;
+      uniform float x_offset_uni;
 
       varying vec3 new_position;
       varying vec3 vec_translate;
@@ -66,7 +66,8 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
         new_position = vec3(position, 0);
 
-        vec_translate = vec3(x_offset, y_offset_att, 0);
+        vec_translate = vec3(x_offset_uni, y_offset_att, 0);
+
 
         // rotate translated triangles
         new_position = mat_rotate * ( new_position + vec_translate ) ;
@@ -88,7 +89,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
       // color triangle red
       void main () {
-        // gl_FragColor = vec4(0.6, 0.6, 0.6, 1);
+        // gl_FragColor = vec4(0.6, 0.6, 0.6, opacity_vary);
         gl_FragColor = triangle_color;
       }
 
@@ -110,7 +111,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
       zoom: zoom_function,
       mat_rotate: mat_rotate,
       scale_y: scale_y,
-      x_offset: x_offset,
+      x_offset_uni: x_offset,
       triangle_color: inst_rgba
     },
 

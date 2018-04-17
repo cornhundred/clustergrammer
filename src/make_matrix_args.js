@@ -71,11 +71,7 @@ module.exports = function make_matrix_args(regl, params){
   var frag_string = `
     precision highp float;
     varying float var_opacity;
-    uniform vec3 inst_color;
-    varying vec3 tmp_color;
     void main() {
-
-      // tmp_color = vec3(0, 0, 1);
 
       // manually tweaking opacity range, will improve to match old version
 
@@ -113,7 +109,6 @@ module.exports = function make_matrix_args(regl, params){
     count: 3,
     uniforms: {
       zoom: zoom_function,
-      inst_color: [0,0,1],
     },
     instances: num_instances,
     depth: {
