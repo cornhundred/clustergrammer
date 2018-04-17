@@ -15963,7 +15963,11 @@ var Clustergrammer2 =
 	      var inst_name = inst_node.name;
 
 	      if (inst_name.indexOf(': ') >= 0) {
-	        inst_name = inst_node.name.split(': ')[1];
+	        if ('cat-0' in inst_node) {
+	          inst_name = inst_node.name.split(': ')[1] + '; ' + inst_node['cat-0'].split(': ')[1];
+	        } else {
+	          inst_name = inst_node.name.split(': ')[1];
+	        }
 	      }
 
 	      var tmp_text_vect = vectorizeText(inst_name, vect_text_attrs);
@@ -30021,18 +30025,16 @@ var Clustergrammer2 =
 	  var i;
 	  for (i = 0; i < num_labels; i++) {
 
-	    // var inst_order = num_labels - 1 - params.network
-
 	    // emperically found rules
+	    var order_id;
 	    if (inst_rc == 'row') {
-	      var tmp = num_labels - params.network[inst_rc + '_nodes'][i][inst_order] - 1;
+	      order_id = num_labels - params.network[inst_rc + '_nodes'][i][inst_order] - 1;
 	    } else {
-	      var tmp = params.network[inst_rc + '_nodes'][i][inst_order];
+	      order_id = params.network[inst_rc + '_nodes'][i][inst_order];
 	    }
-	    console.log('tmp', tmp);
 
 	    /* need to position based on clustering order */
-	    y_offset_array[i] = 0.5 - row_height / 2 - tmp * row_height;
+	    y_offset_array[i] = 0.5 - row_height / 2 - order_id * row_height;
 	  }
 
 	  const y_offset_buffer = regl.buffer({
