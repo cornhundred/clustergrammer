@@ -21,7 +21,13 @@ function Clustergrammer2(args){
   var network = args.network;
   var container = args.container;
 
-  run_viz(container, network);
+  var params = run_viz(container, network);
+
+  var cgm = {};
+
+  cgm.params = params;
+
+  return cgm;
 
 }
 

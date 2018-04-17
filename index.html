@@ -60,13 +60,15 @@
     // var filename = 'data/ccle_2000x1037.json';
 
     console.log('passing network to Clustergrammer2')
+
     d3.json(filename, function(network){
 
       args = {};
       args.network = network;
       args.container=inst_container;
-      Clustergrammer2(args);
-      // Clustergrammer2(args);
+      cgm = Clustergrammer2(args);
+      // cgm2 = Clustergrammer2(args);
+      console.log('something!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     });
 
   </script>

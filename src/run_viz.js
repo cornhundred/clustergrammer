@@ -9,7 +9,8 @@ module.exports = function run_viz(container, network){
 
   var regl = require('regl')({
     extensions: ['angle_instanced_arrays'],
-    container: container
+    container: container,
+    // pixelRatio: window.devicePixelRatio/10
   });
 
   console.log('run_viz loading regl')
@@ -79,5 +80,7 @@ module.exports = function run_viz(container, network){
     }
 
   });
+
+  return params;
 
 };

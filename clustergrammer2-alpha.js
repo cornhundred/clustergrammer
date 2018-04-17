@@ -68,7 +68,13 @@ var Clustergrammer2 =
 	  var network = args.network;
 	  var container = args.container;
 
-	  run_viz(container, network);
+	  var params = run_viz(container, network);
+
+	  var cgm = {};
+
+	  cgm.params = params;
+
+	  return cgm;
 	}
 
 	// necessary for exporting function
@@ -89,6 +95,7 @@ var Clustergrammer2 =
 	  var regl = __webpack_require__(237)({
 	    extensions: ['angle_instanced_arrays'],
 	    container: container
+	    // pixelRatio: window.devicePixelRatio/10
 	  });
 
 	  console.log('run_viz loading regl');
@@ -154,6 +161,8 @@ var Clustergrammer2 =
 
 	    }
 	  });
+
+	  return params;
 		};
 
 /***/ }),
