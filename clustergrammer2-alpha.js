@@ -29978,6 +29978,7 @@ var Clustergrammer2 =
 
 	var m3 = __webpack_require__(189);
 	var color_to_rgba = __webpack_require__(238);
+	var color_table = __webpack_require__(240);
 
 	module.exports = function make_viz_aid_tri_args(regl, params, inst_rc) {
 
@@ -29991,30 +29992,30 @@ var Clustergrammer2 =
 	  // var inst_rgba = color_to_rgba('#ff0000', 0.5);
 	  var inst_rgba = color_to_rgba('purple', 0.95);
 
-	  // console.log( inst_rgba );
+	  var color_names = _.keys(color_table);
 
-	  var num_rows = params['num_' + inst_rc];
+	  var num_labels = params['num_' + inst_rc];
 
 	  var row_width = 0.025;
-	  var row_height = 1 / num_rows;
+	  var row_height = 1 / num_labels;
 
 	  var zoom_function = function (context) {
 	    return context.view;
 	  };
 
 	  /////////////////////////////////
-	  // make buffer for row offsets
+	  // Label Offset Buffer
 	  /////////////////////////////////
 
 	  var x_offset = -0.5 - row_width;
 
 	  var y_offset_array = [];
-	  for (var i = 0; i < num_rows; i++) {
+	  for (var i = 0; i < num_labels; i++) {
 	    y_offset_array[i] = 0.5 - row_height / 2 - i * row_height;
 	  }
 
 	  const y_offset_buffer = regl.buffer({
-	    length: num_rows,
+	    length: num_labels,
 	    type: 'float',
 	    usage: 'dynamic'
 	  });
@@ -30029,6 +30030,18 @@ var Clustergrammer2 =
 	  } else if (inst_rc === 'col') {
 	    rotation_radians = Math.PI / 2;
 	  }
+
+	  /////////////////////////////////
+	  // Label Color Buffer
+	  /////////////////////////////////
+
+	  var color_arr = [];
+	  for (var i = 0; i < num_labels; i++) {
+	    inst_color = color_names[i];
+	    color_arr[i] = color_to_rgba(inst_color, 1);
+	  }
+
+	  console.log(color_arr);
 
 	  var mat_rotate = m3.rotation(rotation_radians);
 
@@ -30100,7 +30113,7 @@ var Clustergrammer2 =
 	    },
 
 	    count: 3,
-	    instances: num_rows,
+	    instances: num_labels,
 	    depth: {
 	      enable: true,
 	      mask: true,
