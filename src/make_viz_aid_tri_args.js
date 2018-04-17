@@ -1,6 +1,11 @@
 var m3 = require('./mat3_transform');
+var hex_to_rgba = require('./hex_to_rgba');
 
 module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
+
+  var inst_rgba = hex_to_rgba('#ff0000', 0.5);
+
+  console.log( inst_rgba );
 
   var num_rows = params['num_'+inst_rc];
 
@@ -77,9 +82,13 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
 
     frag: `
 
+      precision mediump float;
+      uniform vec4 triangle_color;
+
       // color triangle red
       void main () {
-        gl_FragColor = vec4(0.6, 0.6, 0.6, 1);
+        // gl_FragColor = vec4(0.6, 0.6, 0.6, 1);
+        gl_FragColor = triangle_color;
       }
 
     `,
@@ -100,7 +109,8 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
       zoom: zoom_function,
       mat_rotate: mat_rotate,
       scale_y: scale_y,
-      x_offset: x_offset
+      x_offset: x_offset,
+      triangle_color: inst_rgba
     },
 
     count: 3,

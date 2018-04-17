@@ -37,6 +37,7 @@ module.exports = function calc_row_text_triangles(params){
     var inst_y = y_arr[ row_order_id ] + 0.5/num_row;
 
     if (inst_y > viz_area.y_min && inst_y < viz_area.y_max){
+
       var inst_name = inst_node.name;
 
       if (inst_name.indexOf(': ') >= 0){

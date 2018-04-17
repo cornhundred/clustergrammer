@@ -384,6 +384,7 @@ module.exports =
 	    var inst_y = y_arr[row_order_id] + 0.5 / num_row;
 
 	    if (inst_y > viz_area.y_min && inst_y < viz_area.y_max) {
+
 	      var inst_name = inst_node.name;
 
 	      if (inst_name.indexOf(': ') >= 0) {
@@ -29982,8 +29983,13 @@ module.exports =
 /***/ (function(module, exports, __webpack_require__) {
 
 	var m3 = __webpack_require__(189);
+	var hex_to_rgba = __webpack_require__(238);
 
 	module.exports = function make_viz_aid_tri_args(regl, params, inst_rc) {
+
+	  var inst_rgba = hex_to_rgba('#ff0000', 0.5);
+
+	  console.log(inst_rgba);
 
 	  var num_rows = params['num_' + inst_rc];
 
@@ -30060,9 +30066,13 @@ module.exports =
 
 	    frag: `
 
+	      precision mediump float;
+	      uniform vec4 triangle_color;
+
 	      // color triangle red
 	      void main () {
-	        gl_FragColor = vec4(0.6, 0.6, 0.6, 1);
+	        // gl_FragColor = vec4(0.6, 0.6, 0.6, 1);
+	        gl_FragColor = triangle_color;
 	      }
 
 	    `,
@@ -30079,7 +30089,8 @@ module.exports =
 	      zoom: zoom_function,
 	      mat_rotate: mat_rotate,
 	      scale_y: scale_y,
-	      x_offset: x_offset
+	      x_offset: x_offset,
+	      triangle_color: inst_rgba
 	    },
 
 	    count: 3,
@@ -47202,6 +47213,33 @@ module.exports =
 	  return wrapREGL;
 	});
 	//# sourceMappingURL=regl.js.map
+
+/***/ }),
+/* 238 */
+/***/ (function(module, exports) {
+
+	module.exports = function hex_to_rgbs(hex, alpha = 1.0) {
+
+	    var c;
+	    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+	        c = hex.substring(1).split('');
+	        if (c.length == 3) {
+	            c = [c[0], c[0], c[1], c[1], c[2], c[2]];
+	        }
+	        c = '0x' + c.join('');
+
+	        var inst_r = c >> 16 & 255;
+	        var inst_g = c >> 8 & 255;
+	        var inst_b = c & 255;
+
+	        // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
+	        return [inst_r, inst_g, inst_b, alpha];
+	    }
+
+	    // bad hex, return black
+	    return [0, 0, 0, alpha];
+	    // throw new Error('Bad Hex');
+		};
 
 /***/ })
 /******/ ]);
