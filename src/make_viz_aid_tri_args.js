@@ -77,7 +77,18 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
     var inst_color;
     if ('cat_colors' in params.network){
 
-      inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+      if ('cat-0' in params.network.cat_colors[inst_rc]){
+        try {
+          inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+        }
+        catch(err){
+          // get random colors from color dictionary
+          inst_color = color_names[i];
+        }
+      } else {
+        // get random colors from color dictionary
+        inst_color = color_names[i];
+      }
 
     } else {
 

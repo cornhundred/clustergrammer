@@ -47,7 +47,7 @@ module.exports =
 
 	/*
 
-	  Version 0.2.1
+	  Version 0.2.2
 
 	 */
 
@@ -62,7 +62,7 @@ module.exports =
 	function Clustergrammer2(args) {
 
 	  console.log('################################');
-	  console.log('version 0.2.0');
+	  console.log('version 0.2.2');
 	  console.log('################################');
 
 	  var network = args.network;
@@ -30061,7 +30061,17 @@ module.exports =
 	    var inst_color;
 	    if ('cat_colors' in params.network) {
 
-	      inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+	      if ('cat-0' in params.network.cat_colors[inst_rc]) {
+	        try {
+	          inst_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+	        } catch (err) {
+	          // get random colors from color dictionary
+	          inst_color = color_names[i];
+	        }
+	      } else {
+	        // get random colors from color dictionary
+	        inst_color = color_names[i];
+	      }
 	    } else {
 
 	      // get random colors from color dictionary
