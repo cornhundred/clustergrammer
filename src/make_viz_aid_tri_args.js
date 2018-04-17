@@ -61,7 +61,10 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
     var inst_cat = params.network[inst_rc + '_nodes'][i]['cat-0'];
     console.log(inst_cat)
 
-    color_arr[i] = color_to_rgba(inst_color, 1);
+    var tmp_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+    console.log(tmp_color)
+
+    color_arr[i] = color_to_rgba(tmp_color, 1);
   }
 
   const color_buffer = regl.buffer({

@@ -30042,7 +30042,10 @@ module.exports =
 	    var inst_cat = params.network[inst_rc + '_nodes'][i]['cat-0'];
 	    console.log(inst_cat);
 
-	    color_arr[i] = color_to_rgba(inst_color, 1);
+	    var tmp_color = params.network.cat_colors[inst_rc]['cat-0'][inst_cat];
+	    console.log(tmp_color);
+
+	    color_arr[i] = color_to_rgba(tmp_color, 1);
 	  }
 
 	  const color_buffer = regl.buffer({
@@ -47292,6 +47295,11 @@ module.exports =
 	  Later adjust the
 	  */
 
+	  // hex = hex.replace('#','');
+
+	  var max_val = 256;
+
+	  console.log(hex);
 	  var inst_rgba;
 
 	  if (hex in color_table) {
@@ -47303,7 +47311,11 @@ module.exports =
 	  } else {
 
 	    var c;
+
+	    console.log('check hex: ', /^#([A-Fa-f0-9]{3}){1,2}$/.test(hex));
+
 	    if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
+
 	      c = hex.substring(1).split('');
 	      if (c.length == 3) {
 	        c = [c[0], c[0], c[1], c[1], c[2], c[2]];
@@ -47315,11 +47327,16 @@ module.exports =
 	      var inst_b = c & 255;
 
 	      // return '('+[(c>>16)&255, (c>>8)&255, c&255].join(',')+',1)';
-	      inst_rgba = [inst_r, inst_g, inst_b, alpha];
-	    }
+	      inst_rgba = [inst_r / max_val, inst_g / max_val, inst_b / max_val, alpha];
 
-	    // bad hex, return black
-	    inst_rgba = [0, 0, 0, alpha];
+	      console.log(inst_rgba);
+	    } else {
+
+	      // bad hex, return black
+	      inst_rgba = [0, 0, 0, alpha];
+
+	      console.log('bad hex');
+	    }
 	  }
 
 	  return inst_rgba;
