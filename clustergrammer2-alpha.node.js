@@ -210,7 +210,10 @@ module.exports =
 	  params.still_interacting = false;
 	  params.mat_data = network.mat;
 
-	  params.mat_size = 0.75;
+	  /*
+	  Working
+	  */
+	  params.mat_size = 0.5;
 
 	  params.num_row = params.mat_data.length;
 	  params.num_col = params.mat_data[0].length;
@@ -234,7 +237,8 @@ module.exports =
 	  var spillover_args = {};
 
 	  // inst_depth is passed to spillover rects
-	  var inst_color = [1, 0, 0, 1];
+	  // var inst_color = [1, 0, 0, 1];
+	  var inst_color = [1, 1, 1, 1];
 	  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5, inst_color);
 	  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4, inst_color);
 	  spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0, inst_color);
@@ -29884,16 +29888,16 @@ module.exports =
 	  /////////////////////////////////////////
 	  // set up offset array for buffer
 	  var offset = {};
-	  offset.x = 0.5;
-	  offset.y = 0.5;
+	  offset.x = params.mat_size;
+	  offset.y = params.mat_size;
 
 	  // generate x position array
 	  var x_arr = Array(num_col).fill().map(function (_, i) {
-	    return i / num_col - offset.x;
+	    return i / num_col * (params.mat_size / 0.5) - offset.x;
 	  });
 
 	  var y_arr = Array(num_row).fill().map(function (_, i) {
-	    return -i / num_row + offset.y - 1 / num_row;
+	    return -i / num_row * (params.mat_size / 0.5) + offset.y - 1 / num_row;
 	  });
 
 	  var node_canvas_pos = {};
