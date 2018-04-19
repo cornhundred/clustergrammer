@@ -40,6 +40,8 @@ module.exports = function initialize_params(regl, network){
   params.still_interacting = false;
   params.mat_data = network.mat;
 
+  params.mat_size = 0.75;
+
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
 
@@ -62,9 +64,10 @@ module.exports = function initialize_params(regl, network){
   var spillover_args = {};
 
   // inst_depth is passed to spillover rects
-  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5);
-  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4);
-  spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0);
+  var inst_color = [1, 0, 0, 1];
+  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5, inst_color);
+  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4, inst_color);
+  spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0, inst_color);
 
   params.spillover_args = spillover_args;
 

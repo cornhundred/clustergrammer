@@ -210,6 +210,8 @@ module.exports =
 	  params.still_interacting = false;
 	  params.mat_data = network.mat;
 
+	  params.mat_size = 0.75;
+
 	  params.num_row = params.mat_data.length;
 	  params.num_col = params.mat_data[0].length;
 
@@ -232,9 +234,10 @@ module.exports =
 	  var spillover_args = {};
 
 	  // inst_depth is passed to spillover rects
-	  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5);
-	  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4);
-	  spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0);
+	  var inst_color = [1, 0, 0, 1];
+	  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5, inst_color);
+	  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4, inst_color);
+	  spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0, inst_color);
 
 	  params.spillover_args = spillover_args;
 
@@ -19682,35 +19685,37 @@ module.exports =
 
 	  var viz_dim = params.viz_dim;
 
+	  var mat_size = params.mat_size;
+
 	  var height_to_width = viz_dim.canvas.height / viz_dim.canvas.width;
-	  var scaled_height = 0.5 / height_to_width;
+	  var scaled_height = mat_size / height_to_width;
 
 	  var spillover_triangles = {};
 	  spillover_triangles.mat = [
 	  // left spillover rect
-	  { 'pos': [[-1, 1], [-0.5, -1], [-1.0, -1]] }, { 'pos': [[-1, 1], [-0.5, 1], [-0.5, -1]] },
+	  { 'pos': [[-1, 1], [-mat_size, -1], [-1.0, -1]] }, { 'pos': [[-1, 1], [-mat_size, 1], [-mat_size, -1]] },
 
 	  // right spillover rect
-	  { 'pos': [[1, 1], [0.5, -1], [1.0, -1]] }, { 'pos': [[1, 1], [0.5, 1], [0.5, -1]] },
+	  { 'pos': [[1, 1], [mat_size, -1], [1.0, -1]] }, { 'pos': [[1, 1], [mat_size, 1], [mat_size, -1]] },
 
 	  // top spillover rect
-	  { 'pos': [[-0.5, 1], [-0.5, scaled_height], [0.5, 1]] }, { 'pos': [[0.5, 1], [0.5, scaled_height], [-0.5, scaled_height]] },
+	  { 'pos': [[-mat_size, 1], [-mat_size, scaled_height], [mat_size, 1]] }, { 'pos': [[mat_size, 1], [mat_size, scaled_height], [-mat_size, scaled_height]] },
 
 	  // bottom spillover rect
-	  { 'pos': [[-0.5, -1], [-0.5, -scaled_height], [0.5, -1]] }, { 'pos': [[0.5, -1], [0.5, -scaled_height], [-0.5, -scaled_height]] }];
+	  { 'pos': [[-mat_size, -1], [-mat_size, -scaled_height], [mat_size, -1]] }, { 'pos': [[mat_size, -1], [mat_size, -scaled_height], [-mat_size, -scaled_height]] }];
 
 	  spillover_triangles.corners = [
 	  // top-left spillover rect
-	  { 'pos': [[-1, 1], [-0.5, scaled_height], [-1.0, scaled_height]] }, { 'pos': [[-1, 1], [-0.5, 1], [-0.5, scaled_height]] },
+	  { 'pos': [[-1, 1], [-mat_size, scaled_height], [-1.0, scaled_height]] }, { 'pos': [[-1, 1], [-mat_size, 1], [-mat_size, scaled_height]] },
 
 	  // bottom-left spillover rect
-	  { 'pos': [[-1, -1], [-0.5, -scaled_height], [-1.0, -scaled_height]] }, { 'pos': [[-1, -1], [-0.5, -1], [-0.5, -scaled_height]] },
+	  { 'pos': [[-1, -1], [-mat_size, -scaled_height], [-1.0, -scaled_height]] }, { 'pos': [[-1, -1], [-mat_size, -1], [-mat_size, -scaled_height]] },
 
 	  // top-right spillover rect
-	  { 'pos': [[1, 1], [0.5, scaled_height], [1.0, scaled_height]] }, { 'pos': [[1, 1], [0.5, 1], [0.5, scaled_height]] },
+	  { 'pos': [[1, 1], [mat_size, scaled_height], [1.0, scaled_height]] }, { 'pos': [[1, 1], [mat_size, 1], [mat_size, scaled_height]] },
 
 	  // bottom-right spillover rect
-	  { 'pos': [[1, -1], [0.5, -scaled_height], [1.0, -scaled_height]] }, { 'pos': [[1, -1], [0.5, -1], [0.5, -scaled_height]] }];
+	  { 'pos': [[1, -1], [mat_size, -scaled_height], [1.0, -scaled_height]] }, { 'pos': [[1, -1], [mat_size, -1], [mat_size, -scaled_height]] }];
 
 	  return spillover_triangles;
 		};
