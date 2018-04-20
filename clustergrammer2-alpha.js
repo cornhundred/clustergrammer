@@ -213,7 +213,7 @@ var Clustergrammer2 =
 	  /*
 	  Working on resizing the matrix
 	  */
-	  params.mat_size = 0.7;
+	  params.mat_size = 0.9;
 
 	  params.num_row = params.mat_data.length;
 	  params.num_col = params.mat_data[0].length;
@@ -237,7 +237,7 @@ var Clustergrammer2 =
 	  var spillover_args = {};
 
 	  // inst_depth is passed to spillover rects
-	  var inst_color = [1, 0, 0, 1];
+	  var inst_color = [1, 0, 0, 0.2];
 	  // var inst_color = [1, 1, 1, 1];
 	  spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5, inst_color);
 	  spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4, inst_color);
@@ -29900,7 +29900,9 @@ var Clustergrammer2 =
 	  });
 
 	  var y_arr = Array(num_row).fill().map(function (_, i) {
-	    return -i / num_row * (params.mat_size / 0.5) + offset.y - 1 / num_row;
+
+	    // updated to take into consideration params.mat_size
+	    return -i / num_row * (params.mat_size / 0.5) + offset.y - 1 / num_row / (0.5 / params.mat_size);
 	  });
 
 	  var node_canvas_pos = {};

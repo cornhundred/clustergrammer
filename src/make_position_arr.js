@@ -33,7 +33,9 @@ module.exports = function make_position_arr(params){
 
   var y_arr = Array(num_row).fill()
     .map(function(_, i){
-      return -i/num_row * (params.mat_size/0.5) + offset.y - 1/num_row;
+
+      // updated to take into consideration params.mat_size
+      return -i/num_row * (params.mat_size/0.5) + offset.y -  1/num_row /(0.5/params.mat_size);
     });
 
   var node_canvas_pos = {};
