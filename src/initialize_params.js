@@ -41,9 +41,9 @@ module.exports = function initialize_params(regl, network){
   params.mat_data = network.mat;
 
   /*
-  Working
+  Working on resizing the matrix
   */
-  params.mat_size = 0.5;
+  params.mat_size = 0.7;
 
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
@@ -67,8 +67,8 @@ module.exports = function initialize_params(regl, network){
   var spillover_args = {};
 
   // inst_depth is passed to spillover rects
-  // var inst_color = [1, 0, 0, 1];
-  var inst_color = [1, 1, 1, 1];
+  var inst_color = [1, 0, 0, 1];
+  // var inst_color = [1, 1, 1, 1];
   spillover_args.mat_sides = make_spillover_args(regl, zoom_function, 0.5, inst_color);
   spillover_args.mat_corners = make_spillover_args(regl, zoom_function, 0.4, inst_color);
   spillover_args.label_corners = make_spillover_args(regl, zoom_function, 0.0, inst_color);

@@ -25,18 +25,21 @@ module.exports = function make_matrix_args(regl, params){
   var num_row = params.mat_data.length;
   var num_col = params.mat_data[0].length;
 
+  var cell_width = (params.mat_size/0.5)/num_col;
+  var cell_height = (params.mat_size/0.5)/num_row;
+
   // bottom half
   var bottom_half_verts = [
-    [1/num_col, 0.0],
+    [cell_width, 0.0],
     [0.0,       0.0],
-    [0.0,       1/num_row]
+    [0.0,       cell_height]
   ];
 
   // top half
   var top_half_verts = [
-    [1/num_col, 0.0 ],
-    [1/num_col, 1/num_row],
-    [0.0,       1/num_row]
+    [cell_width, 0.0 ],
+    [cell_width, cell_height],
+    [0.0,       cell_height]
     ];
 
   var vert_string = `
