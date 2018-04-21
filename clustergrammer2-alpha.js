@@ -213,7 +213,7 @@ var Clustergrammer2 =
 	  /*
 	  Working on resizing the matrix
 	  */
-	  params.mat_size = 0.5;
+	  params.mat_size = 0.7;
 
 	  params.num_row = params.mat_data.length;
 	  params.num_col = params.mat_data[0].length;
@@ -231,8 +231,8 @@ var Clustergrammer2 =
 	  params.viz_aid_tri_args.col = make_viz_aid_tri_args(regl, params, 'col');
 
 	  params.dendro_args = {};
-	  params.dendro_args.row = make_dendro_args(regl, params.num_row, 'row');
-	  params.dendro_args.col = make_dendro_args(regl, params.num_col, 'col');
+	  params.dendro_args.row = make_dendro_args(regl, params, 'row');
+	  params.dendro_args.col = make_dendro_args(regl, params, 'col');
 
 	  var spillover_args = {};
 
@@ -30021,7 +30021,7 @@ var Clustergrammer2 =
 	  var num_labels = params['num_' + inst_rc];
 
 	  var row_width = 0.025;
-	  var row_height = 1 / num_labels;
+	  var row_height = params.mat_size / 0.5 * 1 / num_labels;
 
 	  var zoom_function = function (context) {
 	    return context.view;
@@ -30031,7 +30031,7 @@ var Clustergrammer2 =
 	  // Label Offset Buffer
 	  /////////////////////////////////
 
-	  var x_offset = -0.5 - row_width;
+	  var x_offset = -0.5 * (params.mat_size / 0.5) - row_width;
 
 	  var inst_order = 'clust';
 
@@ -30048,7 +30048,7 @@ var Clustergrammer2 =
 	    }
 
 	    /* need to position based on clustering order */
-	    y_offset_array[i] = 0.5 - row_height / 2 - order_id * row_height;
+	    y_offset_array[i] = params.mat_size / 0.5 * 0.5 - row_height / 2 - order_id * row_height;
 	  }
 
 	  const y_offset_buffer = regl.buffer({
@@ -30465,7 +30465,9 @@ var Clustergrammer2 =
 
 	var m3 = __webpack_require__(189);
 
-	module.exports = function draw_mat_labels(regl, num_rows, inst_rc) {
+	module.exports = function draw_mat_labels(regl, params, inst_rc) {
+
+	  var num_rows = params['num_' + inst_rc];
 
 	  var row_width = 0.025;
 	  var row_height = 1 / num_rows;

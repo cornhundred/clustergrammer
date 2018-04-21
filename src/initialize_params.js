@@ -43,7 +43,7 @@ module.exports = function initialize_params(regl, network){
   /*
   Working on resizing the matrix
   */
-  params.mat_size = 0.5;
+  params.mat_size = 0.7;
 
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
@@ -61,8 +61,8 @@ module.exports = function initialize_params(regl, network){
   params.viz_aid_tri_args.col = make_viz_aid_tri_args(regl, params, 'col');
 
   params.dendro_args = {};
-  params.dendro_args.row = make_dendro_args(regl, params.num_row, 'row');
-  params.dendro_args.col = make_dendro_args(regl, params.num_col, 'col');
+  params.dendro_args.row = make_dendro_args(regl, params, 'row');
+  params.dendro_args.col = make_dendro_args(regl, params, 'col');
 
   var spillover_args = {};
 

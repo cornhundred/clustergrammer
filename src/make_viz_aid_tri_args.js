@@ -21,7 +21,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
   var num_labels = params['num_'+inst_rc];
 
   var row_width = 0.025;
-  var row_height = 1/num_labels;
+  var row_height = (params.mat_size/0.5) * 1/num_labels;
 
   var zoom_function = function(context){
     return context.view;
@@ -31,7 +31,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
   // Label Offset Buffer
   /////////////////////////////////
 
-  var x_offset = -0.5 - row_width;
+  var x_offset = -(0.5)*(params.mat_size/0.5) - row_width;
 
   var inst_order = 'clust';
 
@@ -48,7 +48,7 @@ module.exports = function make_viz_aid_tri_args(regl, params, inst_rc){
     }
 
     /* need to position based on clustering order */
-    y_offset_array[i] = 0.5 - row_height/2 - order_id * row_height;
+    y_offset_array[i] = (params.mat_size/0.5) * 0.5 - row_height/2 - order_id * row_height;
   }
 
   const y_offset_buffer = regl.buffer({
