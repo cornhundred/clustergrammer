@@ -37615,6 +37615,7 @@ var Clustergrammer2 =
 	      varying vec3 rotated_text;
 	      varying vec3 shift_to_right;
 	      varying vec3 position_cols;
+	      uniform float scale_offset;
 
 	      // last value is a sort-of zoom
 	      void main () {
@@ -37638,7 +37639,7 @@ var Clustergrammer2 =
 	        */
 	        shift_to_right = vec3( col_width * total_zoom , 0, 0);
 
-	        position_cols = vec3( offset[1] * scale_x, offset_y, 0);
+	        position_cols = vec3( offset[1] * scale_x * scale_offset, offset_y * scale_offset, 0);
 
 	        // reverse y position to get words to be upright
 	        gl_Position = zoom *
@@ -37681,7 +37682,8 @@ var Clustergrammer2 =
 	      mat_reduce_text_size: mat_reduce_text_size,
 	      total_zoom: total_zoom,
 	      // need to pin down number
-	      col_width: 4.5 / params.num_col
+	      col_width: 4.5 / params.num_col,
+	      scale_offset: params.mat_size / 0.5
 	    },
 	    depth: {
 	      enable: true,
