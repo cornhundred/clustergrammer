@@ -43,7 +43,7 @@ module.exports = function initialize_params(regl, network){
   /*
   Working on resizing the matrix
   */
-  params.mat_size = 0.9;
+  params.mat_size = 0.5;
 
   params.num_row = params.mat_data.length;
   params.num_col = params.mat_data[0].length;
@@ -75,7 +75,7 @@ module.exports = function initialize_params(regl, network){
 
   params.spillover_args = spillover_args;
 
-  params.viz_dim = calc_viz_dim(regl);
+  params.viz_dim = calc_viz_dim(regl, params);
 
   params.zoom_data = ini_zoom_data();
 

@@ -213,7 +213,7 @@ var Clustergrammer2 =
 	  /*
 	  Working on resizing the matrix
 	  */
-	  params.mat_size = 0.9;
+	  params.mat_size = 0.5;
 
 	  params.num_row = params.mat_data.length;
 	  params.num_col = params.mat_data[0].length;
@@ -245,7 +245,7 @@ var Clustergrammer2 =
 
 	  params.spillover_args = spillover_args;
 
-	  params.viz_dim = calc_viz_dim(regl);
+	  params.viz_dim = calc_viz_dim(regl, params);
 
 	  params.zoom_data = ini_zoom_data();
 
@@ -16009,7 +16009,7 @@ var Clustergrammer2 =
 
 	var extend = __webpack_require__(100);
 
-	module.exports = function calc_viz_dim(regl) {
+	module.exports = function calc_viz_dim(regl, params) {
 
 	  // Set up viz_dim
 	  ///////////////////////
@@ -16029,8 +16029,8 @@ var Clustergrammer2 =
 	  });
 
 	  // square matrix size set by width of canvas
-	  viz_dim.mat.width = viz_dim.canvas.width / 2;
-	  viz_dim.mat.height = viz_dim.canvas.width / 2;
+	  viz_dim.mat.width = params.mat_size / 0.5 * viz_dim.canvas.width / 2;
+	  viz_dim.mat.height = params.mat_size / 0.5 * viz_dim.canvas.width / 2;
 
 	  // min and max position of matrix
 	  viz_dim.mat.x = {};

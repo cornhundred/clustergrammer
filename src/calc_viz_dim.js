@@ -1,6 +1,6 @@
 var extend = require('xtend/mutable');
 
-module.exports = function calc_viz_dim(regl){
+module.exports = function calc_viz_dim(regl, params){
 
   // Set up viz_dim
   ///////////////////////
@@ -21,8 +21,8 @@ module.exports = function calc_viz_dim(regl){
   });
 
   // square matrix size set by width of canvas
-  viz_dim.mat.width = viz_dim.canvas.width/2;
-  viz_dim.mat.height = viz_dim.canvas.width/2;
+  viz_dim.mat.width  = (params.mat_size/0.5) * viz_dim.canvas.width/2;
+  viz_dim.mat.height = (params.mat_size/0.5) * viz_dim.canvas.width/2;
 
   // min and max position of matrix
   viz_dim.mat.x = {};
