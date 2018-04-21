@@ -32,11 +32,13 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
   // scale_y is applying a zoom to x and y
   // so the normal offset of -0.5 to get to the left side of the matrix now
   // needs to be scaled by scale_y
-  var x_offset = -0.5 * scale_y;
+  var x_offset = -0.5 * (params.mat_size/0.5) * scale_y;
 
   // console.log('scale_y', scale_y)
 
   var mat_rotate = m3.rotation(Math.PI/2);
+
+  // console.log(regl.prop('offset'))
 
   var args = {
     vert: `
@@ -48,6 +50,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
       uniform float scale_y;
       uniform float scale_x;
       uniform mat3 mat_rotate;
+      uniform float scale_offset;
 
       // vec3 tmp = vec3(1,1,1);
 
@@ -58,7 +61,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
         gl_Position = zoom *
                       vec4(
                             (position.x * scale_x) + x_offset,
-                           -position.y + (offset[1]) * scale_y,
+                           -position.y + offset[1] * scale_y * scale_offset,
                            // depth
                            0.50,
                            // zoom
@@ -77,6 +80,7 @@ module.exports = function make_row_text_triangle_args(regl, params, zoom_functio
       zoom: zoom_function,
       offset: regl.prop('offset'),
       x_offset: x_offset,
+      scale_offset: params.mat_size/0.5,
       scale_y: scale_y,
       scale_x: scale_x,
       mat_rotate: mat_rotate
