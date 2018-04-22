@@ -23,15 +23,15 @@ module.exports = [
         // 'd3': 'd3'
       },
       module: {
-          loaders: [
-              {
-                test: /\.js$/,
-                loader: 'babel',
-                query: {
-                  // presets: ['es2015']
-                }
-              }
-          ]
+          // loaders: [
+          //     {
+          //       test: /\.js$/,
+          //       loader: 'babel',
+          //       query: {
+          //         // presets: ['es2015']
+          //       }
+          //     }
+          // ]
       },
     plugins: [
       new BrowserSyncPlugin({
@@ -64,16 +64,16 @@ module.exports = [
         // 'd3': 'd3'
       },
       module: {
-          loaders: [
-              {
-                test: /\.js$/,
-                loader: 'babel',
-                query: {
-                  // disabled presets es2015
-                  // presets: ['es2015']
-                }
-              }
-          ]
+          // loaders: [
+          //     {
+          //       test: /\.js$/,
+          //       loader: 'babel',
+          //       query: {
+          //         // disabled presets es2015
+          //         // presets: ['es2015']
+          //       }
+          //     }
+          // ]
       }
   },
   // {
